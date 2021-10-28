@@ -9,7 +9,7 @@ import { ISurveyEditor, ISurveyContent, ISurveyResult } from '../@types/editor';
 import { Row, SurveyContainer } from '../components/Section';
 import { BlockPresenter } from '../components/Blocks';
 import { Input } from '../components/Inputs';
-import { Button } from '../components/Buttons/styled';
+import { Button } from '../components/Buttons';
 import { IconButton } from '../components/Buttons';
 
 const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
@@ -35,6 +35,7 @@ const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
           {
             type: BlockTypes.BLANK,
             order,
+            required: false,
           },
         ],
       }),
@@ -47,6 +48,14 @@ const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
         [index]: {
           $set: data,
         },
+      }),
+    );
+  };
+
+  const onCopyBlock = (index: number, data: Blocks) => {
+    setSurveyContent(
+      update(surveyContent, {
+        $splice: [[index, 0, data]],
       }),
     );
   };
@@ -80,8 +89,6 @@ const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
       <IconButton icon={<TiPlus />} text={'항목 추가'} onClick={addBlock} />
       <Row>
         <Input placeholder={'설문 제목'} onChange={({ target }) => setSurveyTitle(target.value)} />
-      </Row>
-      <Row>
         <Input
           placeholder={'설문 설명'}
           onChange={({ target }) => setSurveyDescription(target.value)}
@@ -105,6 +112,7 @@ const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
                           {...provided.dragHandleProps}
                           block={block}
                           onUpdateBlock={data => onUpdateBlock(i, data)}
+                          onCopyBlock={data => onCopyBlock(i, data)}
                           onRemoveBlock={() => onRemoveBlock(i)}
                         />
                       </div>

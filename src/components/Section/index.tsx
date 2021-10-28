@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../constants/colors';
 
 export const SurveyContainer = styled.div`
   /* 빌드시에는 내용 지울 것 */
@@ -13,10 +14,14 @@ export const Row = styled.div`
   margin-top: 20px;
 `;
 
-export const BlockContainer = styled.div`
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #efefef;
-  border-radius: 5px;
-  background-color: #fff;
+export const VerticalDivider = styled.div`
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  width: 1px;
+  height: 36px;
+  margin: 0 12px;
+  line-height: 100%;
+  vertical-align: middle;
+  background-color: ${Colors.lightGray};
 `;

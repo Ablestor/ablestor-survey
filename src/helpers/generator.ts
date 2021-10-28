@@ -1,28 +1,11 @@
-import { BlockAlign, Blocks, BlockTypes, TypedBlock } from '../@types/block';
+import { Blocks, BlockTypes, SelectableOption, TypedBlock } from '../@types/block';
 
 export const createBlock = <T extends BlockTypes>(type: T, order: number): Blocks => {
-  const blockShape = { type, order };
+  const blockShape = { type, order, required: false };
 
   switch (type) {
     case BlockTypes.BLANK:
       return blockShape as TypedBlock<BlockTypes.BLANK>;
-
-    case BlockTypes.TEXT:
-      return Object.assign(blockShape, {
-        title: '',
-      }) as TypedBlock<BlockTypes.TEXT>;
-
-    case BlockTypes.IMAGE:
-      return Object.assign(blockShape, {
-        image: '',
-        align: BlockAlign.CENTER,
-      }) as TypedBlock<BlockTypes.IMAGE>;
-
-    case BlockTypes.VIDEO:
-      return Object.assign(blockShape, {
-        url: '',
-        align: BlockAlign.CENTER,
-      }) as TypedBlock<BlockTypes.VIDEO>;
 
     case BlockTypes.SHORT_TEXT:
       return Object.assign(blockShape, {
@@ -36,19 +19,19 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
 
     case BlockTypes.SINGLE_SELECT:
       return Object.assign(blockShape, {
-        question: [] as string[],
+        question: [] as SelectableOption[],
         answer: null,
       }) as TypedBlock<BlockTypes.SINGLE_SELECT>;
 
     case BlockTypes.MULTI_SELECT:
       return Object.assign(blockShape, {
-        question: [] as string[],
+        question: [] as SelectableOption[],
         answer: [] as number[],
       }) as TypedBlock<BlockTypes.MULTI_SELECT>;
 
     case BlockTypes.DROPDOWN:
       return Object.assign(blockShape, {
-        question: [] as string[],
+        question: [] as SelectableOption[],
         answer: null,
       }) as TypedBlock<BlockTypes.DROPDOWN>;
 

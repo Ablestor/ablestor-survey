@@ -4,12 +4,6 @@ export const getNameFromBlockType = (type: BlockTypes) => {
   switch (type) {
     case 'blank':
       return '없음';
-    case 'text':
-      return '텍스트';
-    case 'image':
-      return '이미지';
-    case 'video':
-      return '영상';
     case 'short_text':
       return '단답형 질문';
     case 'long_text':

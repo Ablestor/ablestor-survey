@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import Colors from '../../constants/colors';
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   width: 100%;
   height: 36px;
   padding: 0 5px;
@@ -13,13 +14,14 @@ export const Button = styled.button`
   cursor: pointer;
   &:hover {
     color: #fff;
-    background-color: #87132f;
+    background-color: ${Colors.main};
   }
 `;
 
-export const StyledIconButton = styled(Button)`
+export const StyledIconButton = styled(StyledButton)`
   width: auto;
   line-height: 36px;
+  margin: 0 2px;
   padding: 0 10px;
   font-size: 18px;
   justify-content: middle;

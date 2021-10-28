@@ -1,8 +1,5 @@
 export enum BlockTypes {
   BLANK = 'blank',
-  TEXT = 'text',
-  IMAGE = 'image',
-  VIDEO = 'video',
   SHORT_TEXT = 'short_text',
   LONG_TEXT = 'long_text',
   SINGLE_SELECT = 'single_select',
@@ -25,14 +22,11 @@ export interface IBlock {
   order: number;
   title?: string;
   description?: string;
-  required?: boolean;
+  required: boolean;
 }
 
 export type Blocks =
   | ISurveyBlankBlock
-  | ISurveyTextBlock
-  | ISurveyImageBlock
-  | ISurveyVideoBlock
   | ISurveyShortTextBlock
   | ISurveyLongTextBlock
   | ISurveySingleSelectBlock
@@ -45,26 +39,13 @@ export type Blocks =
 
 export type TypedBlock<T extends BlockTypes> = Extract<Blocks, { type: T }>;
 
+export interface SelectableOption {
+  key: string;
+  value: string;
+}
+
 export interface ISurveyBlankBlock extends IBlock {
   type: BlockTypes.BLANK;
-}
-
-export interface ISurveyTextBlock extends IBlock {
-  type: BlockTypes.TEXT;
-  title: string;
-}
-
-export interface ISurveyImageBlock extends IBlock {
-  type: BlockTypes.IMAGE;
-  imageTitle?: string;
-  image: string;
-  align: BlockAlign;
-}
-
-export interface ISurveyVideoBlock extends IBlock {
-  type: BlockTypes.VIDEO;
-  url: string;
-  align: BlockAlign;
 }
 
 export interface ISurveyShortTextBlock extends IBlock {
@@ -79,26 +60,26 @@ export interface ISurveyLongTextBlock extends IBlock {
 
 export interface ISurveySingleSelectBlock extends IBlock {
   type: BlockTypes.SINGLE_SELECT;
-  question: string[];
+  question: SelectableOption[];
   answer: number | null;
 }
 
 export interface ISurveyMultiSelectBlock extends IBlock {
   type: BlockTypes.MULTI_SELECT;
-  question: string[];
+  question: SelectableOption[];
   answer: number[];
 }
 
 export interface ISurveyDropdownBlock extends IBlock {
   type: BlockTypes.DROPDOWN;
-  question: string[];
+  question: SelectableOption[];
   answer: number | null;
 }
 
 export interface ISurveyFileUploadBlock extends IBlock {
   type: BlockTypes.FILE_UPLOAD;
   multiple: boolean;
-  answer: Blob[] | string[];
+  answer: Blob[];
 }
 
 export interface ISurveyRangeBlock extends IBlock {
