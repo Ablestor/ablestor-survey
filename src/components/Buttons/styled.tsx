@@ -5,7 +5,6 @@ export const StyledButton = styled.button`
   width: 100%;
   height: 36px;
   padding: 0 5px;
-  box-sizing: border-box;
   border: none;
   border-radius: 5px;
   font-size: 0.9em;
@@ -13,6 +12,10 @@ export const StyledButton = styled.button`
   transition: all 0.3s;
   cursor: pointer;
   &:hover {
+    color: #fff;
+    background-color: ${Colors.main};
+  }
+  &.active {
     color: #fff;
     background-color: ${Colors.main};
   }

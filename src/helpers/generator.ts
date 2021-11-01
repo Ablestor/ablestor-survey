@@ -44,7 +44,9 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
     case BlockTypes.RANGE:
       return Object.assign(blockShape, {
         min: 1,
+        minTitle: '',
         max: 5,
+        maxTitle: '',
         answer: null,
       }) as TypedBlock<BlockTypes.RANGE>;
 
@@ -57,6 +59,7 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
     case BlockTypes.TIME:
       return Object.assign(blockShape, {
         value: '',
+        useSeconds: false,
         answer: '',
       }) as TypedBlock<BlockTypes.TIME>;
 

@@ -10,6 +10,7 @@ export const Description = styled.p`
 `;
 
 export const Text = styled.p`
-  font-size: 1em;
+  margin: 2px 0 4px;
+  font-size: 0.9em;
   color: #333;
 `;

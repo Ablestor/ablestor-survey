@@ -41,7 +41,8 @@ export type TypedBlock<T extends BlockTypes> = Extract<Blocks, { type: T }>;
 
 export interface SelectableOption {
   key: string;
-  value: string;
+  label?: string;
+  value: string | number;
 }
 
 export interface ISurveyBlankBlock extends IBlock {
@@ -85,7 +86,9 @@ export interface ISurveyFileUploadBlock extends IBlock {
 export interface ISurveyRangeBlock extends IBlock {
   type: BlockTypes.RANGE;
   min: number;
+  minTitle: string;
   max: number;
+  maxTitle: string;
   answer: number | null;
 }
 
@@ -96,5 +99,6 @@ export interface ISurveyDateBlock extends IBlock {
 
 export interface ISurveyTimeBlock extends IBlock {
   type: BlockTypes.TIME;
+  useSeconds: boolean;
   answer: string;
 }

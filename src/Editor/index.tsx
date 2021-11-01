@@ -6,13 +6,13 @@ import update from 'immutability-helper';
 import { Blocks, BlockTypes } from '../@types/block';
 import { ISurveyEditor, ISurveyContent, ISurveyResult } from '../@types/editor';
 
+import { BlockPresenter } from './Blocks';
 import { Row, SurveyContainer } from '../components/Section';
-import { BlockPresenter } from '../components/Blocks';
 import { Input } from '../components/Inputs';
 import { Button } from '../components/Buttons';
 import { IconButton } from '../components/Buttons';
 
-const Editor = ({ onFileUpload, onSubmit }: ISurveyEditor) => {
+const Editor = ({ onSubmit }: ISurveyEditor) => {
   const [surveyTitle, setSurveyTitle] = useState('');
   const [surveyDescription, setSurveyDescription] = useState('');
   const [surveyContent, setSurveyContent] = useState<ISurveyContent>([]);

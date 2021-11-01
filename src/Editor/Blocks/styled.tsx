@@ -3,7 +3,7 @@ import Colors from '../../constants/colors';
 
 const createAnimation = keyframes`
   from {
-    background-color: ${Colors.main}
+    background-color: ${Colors.lightGray}
   }
   to {
     background-color: #fff;
@@ -11,7 +11,6 @@ const createAnimation = keyframes`
 `;
 
 export const BlockContainer = styled.div`
-  box-sizing: border-box;
   padding: 20px;
   margin-bottom: 20px;
   border: 1px solid ${Colors.lightGray};

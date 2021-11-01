@@ -1,27 +1,23 @@
-import styled from 'styled-components';
-import Colors from '../../constants/colors';
+import { BaseSectionProps, FlexConatinerProps, FlexElementProps } from './type';
+import {
+  StyledRoundSection,
+  StyledSurveyContainer,
+  StyledRow,
+  StyledVerticalDivider,
+  StyledFlexContainer,
+  StyledFlexElement,
+} from './styled';
 
-export const SurveyContainer = styled.div`
-  /* 빌드시에는 내용 지울 것 */
-  width: 600px;
+export const RoundSection = (props: BaseSectionProps) => <StyledRoundSection {...props} />;
 
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
-`;
+export const SurveyContainer = (props: BaseSectionProps) => <StyledSurveyContainer {...props} />;
 
-export const Row = styled.div`
-  margin-top: 20px;
-`;
+export const Row = (props: BaseSectionProps) => <StyledRow {...props} />;
 
-export const VerticalDivider = styled.div`
-  display: inline-block;
-  position: relative;
-  top: -2px;
-  width: 1px;
-  height: 36px;
-  margin: 0 12px;
-  line-height: 100%;
-  vertical-align: middle;
-  background-color: ${Colors.lightGray};
-`;
+export const VerticalDivider = (props: BaseSectionProps) => <StyledVerticalDivider {...props} />;
+
+export const FlexContainer = (props: FlexConatinerProps) => <StyledFlexContainer {...props} />;
+
+export const FlexElement = (props: FlexElementProps) => (
+  <StyledFlexElement className={'flex-element'} {...props} />
+);

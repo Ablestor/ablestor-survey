@@ -1,7 +1,6 @@
 import { Blocks } from './block';
 
 export interface ISurveyEditor {
-  onFileUpload?: (file: File) => void;
   onSubmit?: (result: ISurveyResult) => void;
 }
 
