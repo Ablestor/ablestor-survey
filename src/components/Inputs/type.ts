@@ -2,8 +2,8 @@ import { SelectableOption } from '../../@types/block';
 
 export interface SelectorProps<T = SelectableOption[]> {
   items: T;
-  onChange?: (select: SelectableOption) => void;
-  value: SelectableOption['value'];
+  selectedIndex?: number; // index of selected item
+  onChange?: (index: number) => void;
 }
 
 export interface OptionProps {
@@ -12,7 +12,19 @@ export interface OptionProps {
 
 export interface OptionEditorProps<T = SelectableOption[]> {
   items: T;
-  onChange?: (select: T) => void;
+  onChange?: (update: T) => void;
+}
+
+type SelectMode = 'multiple' | 'single';
+
+export interface OptionSelectorProps<
+  M extends SelectMode,
+  I = SelectableOption,
+  S = M extends 'multiple' ? string[] : string | null,
+> {
+  items: I[];
+  value: S;
+  onChange?: (select: S) => void;
 }
 
 export interface SwitchProps {
@@ -25,6 +37,5 @@ export interface SwitchProps {
 export interface RangeSelectorProps {
   min: number;
   max: number;
-  onMinChange?: (value: number) => void;
-  onMaxChange?: (value: number) => void;
+  onChange?: (value: number) => void;
 }

@@ -1,52 +1,68 @@
-import { useState, useEffect, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  AreaHTMLAttributes,
+  TextareaHTMLAttributes,
+} from 'react';
 import update from 'immutability-helper';
-import uniqid from 'uniqid';
+import { v4 as uniqid } from 'uuid';
 import { TiArrowSortedDown, TiTimes } from 'react-icons/ti';
 
 import { IconButton } from '../Buttons';
 import { RoundSection, FlexContainer, FlexElement } from '../Section';
 import { Text } from '../Texts';
 
-import { SelectorProps, OptionEditorProps, RangeSelectorProps, SwitchProps } from './type';
-import { StyledSelect, StyledInput, StyledSwitch } from './styled';
-import { StyledRangeContainer } from '../Section/styled';
-import { SelectableOption } from '../../@types/block';
+import {
+  SelectorProps,
+  OptionEditorProps,
+  OptionSelectorProps,
+  RangeSelectorProps,
+  SwitchProps,
+} from './type';
+import {
+  StyledInput,
+  StyledTextarea,
+  StyledSelect,
+  StyledSwitch,
+  StyledCheckBox,
+  StyledRangeContainer,
+} from './styled';
 import { useClickAway } from '../../hooks';
 
 export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => <StyledInput {...props} />;
 
-export const Select = ({ items, value, onChange }: SelectorProps) => {
+export const Textarea = (props: InputHTMLAttributes<HTMLTextAreaElement>) => (
+  <StyledTextarea {...props} />
+);
+
+export const Select = ({ items, selectedIndex, onChange }: SelectorProps) => {
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
-  const [currentValue, setCurrentValue] = useState(value);
+  const [index, setIndex] = useState<number>(selectedIndex || 0);
 
   useClickAway(selectRef, () => setListVisible(false));
-
-  useEffect(() => {
-    const currentValueLabel = items.find(item => item.value === value);
-
-    if (currentValueLabel?.label) {
-      setCurrentValue(currentValueLabel.label || '');
-    }
-  }, [items, value]);
 
   return (
     <StyledSelect ref={selectRef} onClick={() => setListVisible(true)}>
       <div className={'select-current-value'}>
-        <Text>{currentValue}</Text>
+        <Text>{items[index]?.label ?? '목록에서 선택해주세요.'}</Text>
         <div className={'select-icon'}>
           <TiArrowSortedDown />
         </div>
       </div>
       {listVisible && (
         <div className={'select-options-container'}>
-          {items.map(item => (
+          {items.map((item, index) => (
             <div
-              className={`select-options${value === item.value ? ' selected' : ''}`}
+              className={`select-options${selectedIndex === item.value ? ' selected' : ''}`}
               key={item.key}
               onClick={e => {
                 e.stopPropagation();
-                onChange && onChange(item);
+                setIndex(index);
+                onChange && onChange(index);
                 setListVisible(false);
               }}>
               {item.label}
@@ -59,7 +75,8 @@ export const Select = ({ items, value, onChange }: SelectorProps) => {
 };
 
 export const OptionEditor = ({ items, onChange }: OptionEditorProps) => {
-  const appendItem = (value: string) => onChange && onChange([...items, { key: uniqid(), value }]);
+  const appendItem = (value: string) =>
+    onChange && onChange([...items, { key: uniqid(), label: value, value }]);
   const removeItem = (index: number) =>
     onChange && onChange(update(items, { $splice: [[index, 1]] }));
 
@@ -106,6 +123,68 @@ export const OptionEditor = ({ items, onChange }: OptionEditorProps) => {
   );
 };
 
+export const OptionMultipleSelector = ({
+  items,
+  value,
+  onChange,
+}: OptionSelectorProps<'multiple'>) => {
+  const [checked, setChecked] = useState<string[]>(value);
+
+  return (
+    <div>
+      {items.map((item, index) => {
+        const hasChecked = checked.includes(item.key as string);
+        return (
+          <FlexContainer
+            key={index}
+            onClick={() => {
+              if (hasChecked) {
+                setChecked(checked.filter(v => v !== (item.key as string)));
+              } else {
+                setChecked([...checked, item.key as string]);
+              }
+              onChange && onChange(checked);
+            }}>
+            <FlexElement width={40}>
+              <StyledCheckBox className={hasChecked ? 'active' : ''} />
+            </FlexElement>
+            <FlexElement width={'flex'}>
+              <Text>{item.value}</Text>
+            </FlexElement>
+          </FlexContainer>
+        );
+      })}
+    </div>
+  );
+};
+
+export const OptionSingleSelector = ({ items, value, onChange }: OptionSelectorProps<'single'>) => {
+  const [checked, setChecked] = useState<string | null>(value);
+
+  return (
+    <div>
+      {items.map((item, index) => {
+        const hasChecked = checked === item.key;
+        return (
+          <FlexContainer
+            key={index}
+            onClick={() => {
+              setChecked(item.key);
+              onChange && onChange(checked);
+            }}>
+            <FlexElement width={40}>
+              <StyledCheckBox className={hasChecked ? 'active' : ''} />
+            </FlexElement>
+            <FlexElement width={'flex'}>
+              <Text>{item.value}</Text>
+            </FlexElement>
+          </FlexContainer>
+        );
+      })}
+    </div>
+  );
+};
+
 export const Switch = ({ width = 40, disabled, value: defaultValue, onChange }: SwitchProps) => {
   const [value, setValue] = useState(defaultValue);
 
@@ -124,43 +203,6 @@ export const Switch = ({ width = 40, disabled, value: defaultValue, onChange }: 
   );
 };
 
-const startAt = 2;
-const minRange: SelectableOption[] = [...Array(startAt).keys()].map(i => ({
-  key: uniqid(),
-  label: String(i),
-  value: i,
-}));
-const maxRange: SelectableOption[] = [...Array(9).keys()].map(i => ({
-  key: uniqid(),
-  label: String(startAt + i),
-  value: startAt + i,
-}));
-
-export const RangeSelector = ({ min, max, onMinChange, onMaxChange }: RangeSelectorProps) => {
-  return (
-    <StyledRangeContainer>
-      <FlexContainer>
-        <FlexElement width={50}>
-          <Text>최소 값</Text>
-        </FlexElement>
-        <FlexElement width={'flex'}>
-          <Select
-            items={minRange}
-            value={min}
-            onChange={item => onMinChange && onMinChange(item.value as number)}
-          />
-        </FlexElement>
-        <FlexElement width={50}>
-          <Text>최대 값</Text>
-        </FlexElement>
-        <FlexElement width={'flex'}>
-          <Select
-            items={maxRange}
-            value={max}
-            onChange={item => onMaxChange && onMaxChange(item.value as number)}
-          />
-        </FlexElement>
-      </FlexContainer>
-    </StyledRangeContainer>
-  );
+export const RangeSelector = ({ min, max, onChange }: RangeSelectorProps) => {
+  return <StyledRangeContainer></StyledRangeContainer>;
 };

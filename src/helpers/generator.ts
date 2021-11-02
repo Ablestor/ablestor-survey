@@ -26,7 +26,7 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
     case BlockTypes.MULTI_SELECT:
       return Object.assign(blockShape, {
         question: [] as SelectableOption[],
-        answer: [] as number[],
+        answer: [] as string[],
       }) as TypedBlock<BlockTypes.MULTI_SELECT>;
 
     case BlockTypes.DROPDOWN:

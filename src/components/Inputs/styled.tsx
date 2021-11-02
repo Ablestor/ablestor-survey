@@ -18,6 +18,24 @@ export const StyledInput = styled.input`
   }
 `;
 
+export const StyledTextarea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid ${Colors.gray};
+  border-radius: 5px;
+  font-size: 0.9em;
+  outline: none;
+  font-family: inherit;
+  transition: border 0.3s;
+  resize: vertical;
+  &:focus,
+  &:active {
+    border-color: ${Colors.main};
+  }
+`;
+
 export const StyledSelect = styled.div`
   position: relative;
   display: inline-block;
@@ -76,14 +94,37 @@ export const StyledSelect = styled.div`
   }
 `;
 
-const switchPadding = 0;
+export const StyledCheckBox = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 5px 0;
+  border-radius: 50%;
+  border: 1px solid ${Colors.gray};
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: ${Colors.lightGray};
+  }
+  &.active::after {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    top: 4px;
+    left: 4px;
+    border-radius: 50%;
+    background-color: ${Colors.main};
+  }
+`;
 
 export const StyledSwitch = styled.div<SwitchProps>`
   position: relative;
   display: inline-block;
   width: ${props => props.width}px;
   height: 20px;
-  padding: ${switchPadding}px;
   background-color: ${props => (props.value ? Colors.main : Colors.lightGray)};
   border-radius: 15px;
   cursor: pointer;
@@ -94,8 +135,15 @@ export const StyledSwitch = styled.div<SwitchProps>`
     height: 20px;
     border-radius: 50%;
     background-color: #fff;
-    left: ${props => (props.value ? (props.width || 40) - 20 + switchPadding : switchPadding)}px;
+    left: ${props => (props.value ? (props.width || 40) - 20 : 0)}px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
+  }
+`;
+
+export const StyledRangeContainer = styled.div`
+  width: 100%;
+  height: 36px;
+  input[type='range'] {
   }
 `;

@@ -45,10 +45,3 @@ export const StyledFlexContainer = styled.div<FlexConatinerProps>`
 export const StyledFlexElement = styled.div<FlexElementProps>`
   ${props => (props.width === 'flex' ? `flex: 1` : `width: ${props.width}px`)};
 `;
-
-export const StyledRangeContainer = styled.div`
-  width: 100%;
-  height: 36px;
-  input[type='range'] {
-  }
-`;

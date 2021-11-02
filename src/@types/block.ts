@@ -62,19 +62,19 @@ export interface ISurveyLongTextBlock extends IBlock {
 export interface ISurveySingleSelectBlock extends IBlock {
   type: BlockTypes.SINGLE_SELECT;
   question: SelectableOption[];
-  answer: number | null;
+  answer: string | null;
 }
 
 export interface ISurveyMultiSelectBlock extends IBlock {
   type: BlockTypes.MULTI_SELECT;
   question: SelectableOption[];
-  answer: number[];
+  answer: string[];
 }
 
 export interface ISurveyDropdownBlock extends IBlock {
   type: BlockTypes.DROPDOWN;
   question: SelectableOption[];
-  answer: number | null;
+  answer: string | null;
 }
 
 export interface ISurveyFileUploadBlock extends IBlock {
