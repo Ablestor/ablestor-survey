@@ -153,11 +153,14 @@ export const OptionMultipleSelector = ({
             key={index}
             onClick={() => {
               if (hasChecked) {
-                setChecked(checked.filter(v => v !== (item.key as string)));
+                const update = checked.filter(v => v !== (item.key as string));
+                setChecked(update);
+                onChange && onChange(update);
               } else {
-                setChecked([...checked, item.key as string]);
+                const update = [...checked, item.key as string];
+                setChecked(update);
+                onChange && onChange(update);
               }
-              onChange && onChange(checked);
             }}>
             <FlexElement width={40}>
               <StyledCheckBox
