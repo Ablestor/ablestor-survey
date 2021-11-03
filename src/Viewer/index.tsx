@@ -18,20 +18,17 @@ const Viewer = ({ survey, onSubmit }: ISurveyViewer) => {
     setSurveyContent(survey);
   }, [survey]);
 
-  const onUpdateBlock = useCallback(
-    (index: number, data: Blocks) => {
-      setSurveyContent(
-        update(surveyContent, {
-          content: {
-            [index]: {
-              $set: data,
-            },
+  const onUpdateBlock = (index: number, data: Blocks) => {
+    setSurveyContent(
+      update(surveyContent, {
+        content: {
+          [index]: {
+            $set: data,
           },
-        }),
-      );
-    },
-    [surveyContent],
-  );
+        },
+      }),
+    );
+  };
 
   const { title, description, content } = surveyContent;
 
