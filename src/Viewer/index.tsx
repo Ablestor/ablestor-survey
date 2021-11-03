@@ -9,6 +9,8 @@ import { BlockPresenter } from './Blocks';
 import { Blocks } from '../@types/block';
 import { Button } from '../components/Buttons';
 
+import 'filepond/dist/filepond.min.css';
+
 const Viewer = ({ survey, onUpdate }: ISurveyViewer) => {
   const [surveyContent, setSurveyContent] = useState<ISurveyResult>(survey);
 

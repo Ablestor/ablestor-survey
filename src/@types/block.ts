@@ -2,6 +2,8 @@ export enum BlockTypes {
   BLANK = 'blank',
   SHORT_TEXT = 'short_text',
   LONG_TEXT = 'long_text',
+  SWITCH = 'switch',
+  CHECK_BOX = 'check_box',
   SINGLE_SELECT = 'single_select',
   MULTI_SELECT = 'multi_select',
   DROPDOWN = 'dropdown',
@@ -29,6 +31,8 @@ export type Blocks =
   | ISurveyBlankBlock
   | ISurveyShortTextBlock
   | ISurveyLongTextBlock
+  | ISurveySwitchBlock
+  | ISurveyCheckBoxBlock
   | ISurveySingleSelectBlock
   | ISurveyMultiSelectBlock
   | ISurveyDropdownBlock
@@ -59,6 +63,18 @@ export interface ISurveyLongTextBlock extends IBlock {
   answer: string;
 }
 
+export interface ISurveySwitchBlock extends IBlock {
+  type: BlockTypes.SWITCH;
+  switchTitle: string;
+  answer: boolean;
+}
+
+export interface ISurveyCheckBoxBlock extends IBlock {
+  type: BlockTypes.CHECK_BOX;
+  checkboxTitle: string;
+  answer: boolean;
+}
+
 export interface ISurveySingleSelectBlock extends IBlock {
   type: BlockTypes.SINGLE_SELECT;
   question: SelectableOption[];
@@ -80,7 +96,7 @@ export interface ISurveyDropdownBlock extends IBlock {
 export interface ISurveyFileUploadBlock extends IBlock {
   type: BlockTypes.FILE_UPLOAD;
   multiple: boolean;
-  answer: Blob[];
+  answer: string[];
 }
 
 export interface ISurveyRangeBlock extends IBlock {
@@ -99,6 +115,5 @@ export interface ISurveyDateBlock extends IBlock {
 
 export interface ISurveyTimeBlock extends IBlock {
   type: BlockTypes.TIME;
-  useSeconds: boolean;
   answer: string;
 }

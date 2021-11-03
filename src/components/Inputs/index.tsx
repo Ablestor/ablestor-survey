@@ -1,16 +1,13 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  InputHTMLAttributes,
-  KeyboardEvent,
-  AreaHTMLAttributes,
-  TextareaHTMLAttributes,
-} from 'react';
+import { useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
 import update from 'immutability-helper';
+import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
 import { TiArrowSortedDown, TiTimes } from 'react-icons/ti';
+import { FilePond } from 'react-filepond';
+import { Range } from 'react-range';
 
+import Colors from '../../constants/colors';
+import { useClickAway } from '../../hooks';
 import { IconButton } from '../Buttons';
 import { RoundSection, FlexContainer, FlexElement } from '../Section';
 import { Text } from '../Texts';
@@ -21,6 +18,8 @@ import {
   OptionSelectorProps,
   RangeSelectorProps,
   SwitchProps,
+  FileUploaderProps,
+  CheckBoxProps,
 } from './type';
 import {
   StyledInput,
@@ -28,9 +27,9 @@ import {
   StyledSelect,
   StyledSwitch,
   StyledCheckBox,
-  StyledRangeContainer,
+  StyledSelectorValueLabel,
+  StyledSelectorThumb,
 } from './styled';
-import { useClickAway } from '../../hooks';
 
 export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => <StyledInput {...props} />;
 
@@ -57,7 +56,10 @@ export const Select = ({ items, selectedIndex, onChange }: SelectorProps) => {
         <div className={'select-options-container'}>
           {items.map((item, index) => (
             <div
-              className={`select-options${selectedIndex === item.value ? ' selected' : ''}`}
+              className={classnames({
+                'select-options': true,
+                selected: selectedIndex === item.value,
+              })}
               key={item.key}
               onClick={e => {
                 e.stopPropagation();
@@ -123,6 +125,18 @@ export const OptionEditor = ({ items, onChange }: OptionEditorProps) => {
   );
 };
 
+export const CheckBox = ({ shape, value, onChange }: CheckBoxProps) => (
+  <StyledCheckBox
+    className={classnames({
+      active: value,
+      [shape]: true,
+    })}
+    value={value}
+    shape={shape}
+    onClick={() => onChange && onChange(!value)}
+  />
+);
+
 export const OptionMultipleSelector = ({
   items,
   value,
@@ -146,7 +160,13 @@ export const OptionMultipleSelector = ({
               onChange && onChange(checked);
             }}>
             <FlexElement width={40}>
-              <StyledCheckBox className={hasChecked ? 'active' : ''} />
+              <StyledCheckBox
+                className={classnames({
+                  active: hasChecked,
+                })}
+                shape={'square'}
+                value={hasChecked}
+              />
             </FlexElement>
             <FlexElement width={'flex'}>
               <Text>{item.value}</Text>
@@ -173,7 +193,13 @@ export const OptionSingleSelector = ({ items, value, onChange }: OptionSelectorP
               onChange && onChange(checked);
             }}>
             <FlexElement width={40}>
-              <StyledCheckBox className={hasChecked ? 'active' : ''} />
+              <StyledCheckBox
+                className={classnames({
+                  active: hasChecked,
+                })}
+                shape={'circle'}
+                value={hasChecked}
+              />
             </FlexElement>
             <FlexElement width={'flex'}>
               <Text>{item.value}</Text>
@@ -203,6 +229,70 @@ export const Switch = ({ width = 40, disabled, value: defaultValue, onChange }: 
   );
 };
 
-export const RangeSelector = ({ min, max, onChange }: RangeSelectorProps) => {
-  return <StyledRangeContainer></StyledRangeContainer>;
+export const RangeSelector = ({ min, max, value, onChange }: RangeSelectorProps) => {
+  const labelRef = useRef<HTMLDivElement>(null);
+  const [labelVisible, setLabelVisible] = useState(false);
+  const [currentValue, setCurrentValue] = useState(value);
+
+  useClickAway(labelRef, () => {
+    setLabelVisible(false);
+  });
+
+  return (
+    <Range
+      step={1}
+      min={min}
+      max={max}
+      renderTrack={({ props, children }) => (
+        <div
+          key={min}
+          {...props}
+          style={{
+            width: '100%',
+            height: '6px',
+            borderRadius: '3px',
+            backgroundColor: Colors.lightGray,
+          }}>
+          {children}
+        </div>
+      )}
+      renderThumb={({ props }) => (
+        <StyledSelectorThumb
+          {...props}
+          key={max}
+          onMouseEnter={() => {
+            if (!labelVisible) {
+              setLabelVisible(true);
+            }
+          }}>
+          {labelVisible && (
+            <StyledSelectorValueLabel ref={labelRef}>
+              <Text>{currentValue}</Text>
+            </StyledSelectorValueLabel>
+          )}
+        </StyledSelectorThumb>
+      )}
+      values={[currentValue]}
+      onChange={values => setCurrentValue(values[0])}
+      onFinalChange={values => onChange && onChange(values[0])}
+    />
+  );
 };
+
+export const FileUploader = ({
+  files,
+  multiple,
+  onAddFile,
+  onRemoveFile,
+  onError,
+}: FileUploaderProps) => (
+  <FilePond
+    files={files}
+    allowMultiple={multiple}
+    maxFiles={3}
+    labelIdle={'클릭 또는 드래그를 통해 파일을 업로드 할 수 있습니다.'}
+    onaddfile={(_, file) => onAddFile && onAddFile(file)}
+    onremovefile={(_, file) => onRemoveFile && onRemoveFile(file)}
+    onerror={(error, file) => onError && onError(error, file)}
+  />
+);

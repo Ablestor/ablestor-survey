@@ -5,7 +5,7 @@ export const Title = styled.h2`
 `;
 
 export const Description = styled.p`
-  font-size: 0.8em;
+  font-size: 0.85em;
   color: gray;
 `;
 

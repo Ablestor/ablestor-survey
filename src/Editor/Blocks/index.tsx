@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { TiTrash, TiTabsOutline, TiTick, TiTickOutline } from 'react-icons/ti';
+import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
 
 import { BlockTypes, SelectableOption } from '../../@types/block';
 
 import { IBlockPresenter } from './type';
 import { BlockButtonSection, BlockContainer } from './styled';
-import { Input, Select, OptionEditor, Switch, RangeSelector } from '../../components/Inputs';
+import { Input, Select, OptionEditor, Switch } from '../../components/Inputs';
 import { IconButton } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
@@ -40,7 +41,10 @@ export const BlockPresenter = ({
   const [description, setDescription] = useState(block.description);
 
   return (
-    <BlockContainer>
+    <BlockContainer
+      className={classnames({
+        required: block.required,
+      })}>
       <FlexContainer>
         <FlexElement width={'flex'}>
           <Text style={{ fontWeight: 'bold' }}>
@@ -94,6 +98,22 @@ export const BlockPresenter = ({
           />
         </Row>
       )}
+      {block.type === BlockTypes.SWITCH && (
+        <Row>
+          <Input
+            placeholder={'스위치 타이틀'}
+            onChange={({ target }) => onUpdateBlock({ ...block, switchTitle: target.value })}
+          />
+        </Row>
+      )}
+      {block.type === BlockTypes.CHECK_BOX && (
+        <Row>
+          <Input
+            placeholder={'체크박스 타이틀'}
+            onChange={({ target }) => onUpdateBlock({ ...block, checkboxTitle: target.value })}
+          />
+        </Row>
+      )}
       {block.type === BlockTypes.FILE_UPLOAD && (
         <Row>
           <FlexContainer>
@@ -113,25 +133,25 @@ export const BlockPresenter = ({
         <>
           <Row>
             <FlexContainer>
-              <FlexElement width={50}>
+              <FlexElement width={60}>
                 <Text>최소 값</Text>
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Select
                   items={minRange}
-                  selectedIndex={0}
+                  selectedIndex={block.min}
                   onChange={index =>
                     onUpdateBlock({ ...block, min: minRange[index].value as number })
                   }
                 />
               </FlexElement>
-              <FlexElement width={50}>
+              <FlexElement width={60}>
                 <Text>최대 값</Text>
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Select
                   items={maxRange}
-                  selectedIndex={0}
+                  selectedIndex={block.max}
                   onChange={index =>
                     onUpdateBlock({ ...block, max: maxRange[index].value as number })
                   }
@@ -164,23 +184,6 @@ export const BlockPresenter = ({
             </FlexContainer>
           </Row>
         </>
-      )}
-      {block.type === BlockTypes.TIME && (
-        <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>초 입력 받기</Text>
-            </FlexElement>
-            <FlexElement width={40}>
-              <Switch
-                value={block.useSeconds}
-                onChange={useSeconds => {
-                  onUpdateBlock({ ...block, useSeconds });
-                }}
-              />
-            </FlexElement>
-          </FlexContainer>
-        </Row>
       )}
       <BlockButtonSection>
         <IconButton

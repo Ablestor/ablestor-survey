@@ -1,9 +1,12 @@
 import { DatePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import dayjs from 'dayjs';
+import classnames from 'classnames';
 
+import Colors from '../../constants/colors';
+import { DATETIME } from '../../constants/format';
 import { BlockTypes } from '../../@types/block';
-
 import { IBlockPresenter } from './type';
+
 import { BlockContainer } from './styled';
 import {
   Input,
@@ -13,16 +16,32 @@ import {
   RangeSelector,
   OptionMultipleSelector,
   OptionSingleSelector,
+  FileUploader,
+  CheckBox,
 } from '../../components/Inputs';
 import { Description, Text, Title } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row } from '../../components/Section';
-import { DATETIME } from '../../constants/format';
 
-export const BlockPresenter = ({ block, onUpdateBlock }: IBlockPresenter) => {
+export const BlockPresenter = ({
+  block,
+  onFileUpload,
+  onFileRemove,
+  onUpdateBlock,
+}: IBlockPresenter) => {
   return (
-    <BlockContainer>
+    <BlockContainer
+      className={classnames({
+        required: block.required,
+      })}>
       <Row>
-        <Title>{block.title}</Title>
+        <FlexContainer>
+          {block.required && (
+            <FlexElement width={7}>
+              <Title style={{ color: Colors.main }}>*</Title>
+            </FlexElement>
+          )}
+          <FlexElement width={'flex'}>{block.title}</FlexElement>
+        </FlexContainer>
       </Row>
       <Row>
         <Description>{block.description}</Description>
@@ -41,6 +60,34 @@ export const BlockPresenter = ({ block, onUpdateBlock }: IBlockPresenter) => {
             placeholder={'이 곳에 입력해주세요.'}
             onChange={({ target }) => onUpdateBlock({ ...block, answer: target.value })}
           />
+        </Row>
+      )}
+      {block.type === BlockTypes.SWITCH && (
+        <Row>
+          <FlexContainer>
+            <FlexElement width={'flex'}>
+              <Text>{block.switchTitle}</Text>
+            </FlexElement>
+            <FlexElement width={40}>
+              <Switch onChange={answer => onUpdateBlock({ ...block, answer })} />
+            </FlexElement>
+          </FlexContainer>
+        </Row>
+      )}
+      {block.type === BlockTypes.CHECK_BOX && (
+        <Row>
+          <FlexContainer>
+            <FlexElement width={'flex'}>
+              <Text>{block.checkboxTitle}</Text>
+            </FlexElement>
+            <FlexElement width={40}>
+              <CheckBox
+                shape={'square'}
+                value={block.answer}
+                onChange={answer => onUpdateBlock({ ...block, answer })}
+              />
+            </FlexElement>
+          </FlexContainer>
         </Row>
       )}
       {block.type === BlockTypes.SINGLE_SELECT && (
@@ -76,51 +123,36 @@ export const BlockPresenter = ({ block, onUpdateBlock }: IBlockPresenter) => {
       )}
       {block.type === BlockTypes.FILE_UPLOAD && (
         <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>여러 파일 업로드 허용</Text>
-            </FlexElement>
-            <FlexElement width={40}>
-              <Switch
-                value={block.multiple}
-                onChange={multiple => {
-                  onUpdateBlock({ ...block, multiple });
-                }}
-              />
-            </FlexElement>
-          </FlexContainer>
+          <FileUploader
+            files={block.answer}
+            multiple={block.multiple}
+            onAddFile={file => onFileUpload && onFileUpload(file)}
+            onRemoveFile={file => onFileRemove && onFileRemove(file)}
+            onError={error => console.error(error)}
+          />
         </Row>
       )}
       {block.type === BlockTypes.RANGE && (
         <>
           <Row>
-            <RangeSelector
-              min={block.min}
-              max={block.max}
-              onChange={answer => onUpdateBlock({ ...block, answer })}
-            />
-          </Row>
-          <Row>
             <FlexContainer>
-              <FlexElement width={120}>
-                <Text>최소 값 타이틀</Text>
+              <FlexElement width={140}>
+                <Text>{block.minTitle}</Text>
               </FlexElement>
               <FlexElement width={'flex'}>
-                <Input
-                  placeholder={'ex) 부족함'}
-                  onChange={({ target }) => onUpdateBlock({ ...block, minTitle: target.value })}
+                <RangeSelector
+                  min={block.min}
+                  max={block.max}
+                  value={block.answer || 1}
+                  onChange={answer => onUpdateBlock({ ...block, answer })}
                 />
               </FlexElement>
-            </FlexContainer>
-            <FlexContainer>
-              <FlexElement width={120}>
-                <Text>최댓 값 타이틀</Text>
-              </FlexElement>
-              <FlexElement width={'flex'}>
-                <Input
-                  placeholder={'ex) 만족함'}
-                  onChange={({ target }) => onUpdateBlock({ ...block, maxTitle: target.value })}
-                />
+              <FlexElement
+                width={140}
+                style={{
+                  textAlign: 'right',
+                }}>
+                <Text>{block.maxTitle}</Text>
               </FlexElement>
             </FlexContainer>
           </Row>

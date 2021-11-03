@@ -1,3 +1,4 @@
+import { FilePondErrorDescription, FilePondFile } from 'filepond';
 import { SelectableOption } from '../../@types/block';
 
 export interface SelectorProps<T = SelectableOption[]> {
@@ -13,6 +14,12 @@ export interface OptionProps {
 export interface OptionEditorProps<T = SelectableOption[]> {
   items: T;
   onChange?: (update: T) => void;
+}
+
+export interface CheckBoxProps {
+  shape: 'square' | 'circle';
+  value: boolean;
+  onChange?: (value: boolean) => void;
 }
 
 type SelectMode = 'multiple' | 'single';
@@ -37,5 +44,14 @@ export interface SwitchProps {
 export interface RangeSelectorProps {
   min: number;
   max: number;
+  value: number;
   onChange?: (value: number) => void;
+}
+
+export interface FileUploaderProps {
+  files: string[];
+  multiple: boolean;
+  onAddFile?: (file: FilePondFile) => void;
+  onRemoveFile?: (file: FilePondFile) => void;
+  onError?: (error: FilePondErrorDescription, file: FilePondFile | undefined) => void;
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Colors from '../../constants/colors';
-import { SwitchProps } from './type';
+import { CheckBoxProps, SwitchProps } from './type';
 
 export const StyledInput = styled.input`
   width: 100%;
@@ -94,13 +94,13 @@ export const StyledSelect = styled.div`
   }
 `;
 
-export const StyledCheckBox = styled.div`
+export const StyledCheckBox = styled.div<CheckBoxProps>`
   position: relative;
   display: inline-block;
   width: 24px;
   height: 24px;
   margin: 5px 0;
-  border-radius: 50%;
+  border-radius: ${props => (props.shape === 'circle' ? '50%' : '5px')};
   border: 1px solid ${Colors.gray};
   transition: all 0.3s;
   cursor: pointer;
@@ -115,7 +115,7 @@ export const StyledCheckBox = styled.div`
     height: 14px;
     top: 4px;
     left: 4px;
-    border-radius: 50%;
+    border-radius: ${props => (props.shape === 'circle' ? '50%' : '3px')};
     background-color: ${Colors.main};
   }
 `;
@@ -141,9 +141,39 @@ export const StyledSwitch = styled.div<SwitchProps>`
   }
 `;
 
-export const StyledRangeContainer = styled.div`
-  width: 100%;
-  height: 36px;
-  input[type='range'] {
+export const StyledSelectorThumb = styled.div`
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: ${Colors.main};
+  cursor: grab;
+`;
+
+export const StyledSelectorValueLabel = styled.div`
+  position: absolute;
+  width: 30px;
+  top: 30px;
+  left: -5px;
+  text-align: center;
+  font-weight: 0.8rem;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.6);
+  > p {
+    margin-bottom: 2px;
+    color: #fff;
+  }
+  &:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    top: -5px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.6);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    background-color: transparent;
   }
 `;
