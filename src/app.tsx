@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ISurveyResult } from './@types/editor';
-import './styles/common.css';
 
 import Editor from './Editor';
 import Viewer from './Viewer';
+
+import './styles/common.css';
 
 const App = () => {
   const [surveyContent, setSurveyContent] = useState<ISurveyResult>();
@@ -14,7 +15,14 @@ const App = () => {
         <Editor onSubmit={setSurveyContent} />
       </div>
       <div style={{ flex: 1 }}>
-        {surveyContent && <Viewer survey={surveyContent} onUpdate={setSurveyContent} />}
+        {surveyContent && (
+          <Viewer
+            survey={surveyContent}
+            onSubmit={result => {
+              console.log(result);
+            }}
+          />
+        )}
       </div>
     </div>
   );
