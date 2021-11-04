@@ -1,6 +1,7 @@
 import { BaseSectionProps, FlexConatinerProps, FlexElementProps } from './type';
 import {
   StyledRoundSection,
+  StyledDashedSection,
   StyledSurveyContainer,
   StyledRow,
   StyledVerticalDivider,
@@ -9,6 +10,8 @@ import {
 } from './styled';
 
 export const RoundSection = (props: BaseSectionProps) => <StyledRoundSection {...props} />;
+
+export const RoundDashedSection = (props: BaseSectionProps) => <StyledDashedSection {...props} />;
 
 export const SurveyContainer = (props: BaseSectionProps) => <StyledSurveyContainer {...props} />;
 

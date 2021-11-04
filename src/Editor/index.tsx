@@ -6,11 +6,11 @@ import update from 'immutability-helper';
 import { Blocks, BlockTypes } from '../@types/block';
 import { ISurveyEditor, ISurveyContent, ISurveyResult } from '../@types/editor';
 
-import { BlockPresenter } from './Blocks';
-import { Row, SurveyContainer } from '../components/Section';
+import { RoundDashedSection, Row, SurveyContainer } from '../components/Section';
 import { Input } from '../components/Inputs';
 import { Button } from '../components/Buttons';
-import { IconButton } from '../components/Buttons';
+import { Text } from '../components/Texts';
+import { BlockPresenter } from './Blocks';
 
 const Editor = ({ onSubmit }: ISurveyEditor) => {
   const [surveyTitle, setSurveyTitle] = useState('');
@@ -86,7 +86,6 @@ const Editor = ({ onSubmit }: ISurveyEditor) => {
 
   return (
     <SurveyContainer>
-      <IconButton icon={<TiPlus />} text={'항목 추가'} onClick={addBlock} />
       <Row>
         <Input placeholder={'설문 제목'} onChange={({ target }) => setSurveyTitle(target.value)} />
         <Input
@@ -124,6 +123,17 @@ const Editor = ({ onSubmit }: ISurveyEditor) => {
             )}
           </Droppable>
         </DragDropContext>
+      </Row>
+      <Row>
+        <RoundDashedSection
+          style={{
+            textAlign: 'center',
+            cursor: 'pointer',
+          }}
+          onClick={addBlock}>
+          <TiPlus />
+          <Text>새로운 항목 추가</Text>
+        </RoundDashedSection>
       </Row>
       <Row>
         <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>전송</Button>

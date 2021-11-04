@@ -8,10 +8,16 @@ export const StyledRoundSection = styled.div`
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
 `;
 
-export const StyledSurveyContainer = styled(StyledRoundSection)`
-  /* 빌드시에는 내용 지울 것 */
-  width: 600px;
-  height
+export const StyledDashedSection = styled.div`
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px dashed ${Colors.lightGray};
+`;
+
+export const StyledSurveyContainer = styled.div`
+  display: block;
+  width: 100%;
+  height: auto;
 `;
 
 export const StyledRow = styled.div`
