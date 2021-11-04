@@ -1,6 +1,18 @@
 {
   "name": "@ablestor/ablestor-survey",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "author": {
+    "name": "im daeho",
+    "email": "im-ian@naver.com",
+    "url": "https://blog.naver.com/im-ian"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "private": false,
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
   "dependencies": {
     "@syncfusion/ej2-react-calendars": "^19.3.46",
     "@testing-library/jest-dom": "^5.11.4",
@@ -10,10 +22,8 @@
     "dayjs": "^1.10.7",
     "filepond": "^4.30.3",
     "immutability-helper": "^3.1.1",
-    "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dnd": "^14.0.4",
-    "react-dom": "^17.0.2",
     "react-filepond": "^7.1.1",
     "react-icons": "^4.3.1",
     "react-range": "^1.8.11",
@@ -24,6 +34,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:test": "rm -rf ./dist & tsc --outDir dist -d",
+    "build:tsc": "tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +58,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
     "@types/react": "^17.0.33",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^17.0.10",
