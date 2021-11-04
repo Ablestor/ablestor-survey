@@ -5,4 +5,4 @@ import * as Editor from './Editor';
 import * as Viewer from './Viewer';
 import * as Converter from './helpers/converter';
 import * as Generator from './helpers/generator';
-export { BlockType, EditorType, ViewerType, Editor, Viewer, Converter, Generator };
+export { Editor, Viewer, Converter, Generator };
