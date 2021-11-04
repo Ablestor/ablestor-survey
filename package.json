@@ -1,7 +1,6 @@
 {
-  "name": "ablestor-survey",
+  "name": "@ablestor/ablestor-survey",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@syncfusion/ej2-react-calendars": "^19.3.46",
     "@testing-library/jest-dom": "^5.11.4",
