@@ -1,6 +1,6 @@
 {
   "name": "@ablestor/ablestor-survey",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "im daeho",
     "email": "im-ian@naver.com",
@@ -23,9 +23,9 @@
     "filepond": "^4.30.3",
     "immutability-helper": "^3.1.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dnd": "^14.0.4",
+    "react-dom": "^17.0.2",
     "react-filepond": "^7.1.1",
     "react-icons": "^4.3.1",
     "react-range": "^1.8.11",
