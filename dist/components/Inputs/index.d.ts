@@ -1,0 +1,12 @@
+import { InputHTMLAttributes } from 'react';
+import { SelectorProps, OptionEditorProps, OptionSelectorProps, RangeSelectorProps, SwitchProps, FileUploaderProps, CheckBoxProps } from './type';
+export declare const Input: (props: InputHTMLAttributes<HTMLInputElement>) => JSX.Element;
+export declare const Textarea: (props: InputHTMLAttributes<HTMLTextAreaElement>) => JSX.Element;
+export declare const Select: ({ items, selectedIndex, onChange }: SelectorProps) => JSX.Element;
+export declare const OptionEditor: ({ items, onChange }: OptionEditorProps) => JSX.Element;
+export declare const CheckBox: ({ shape, value, onChange }: CheckBoxProps) => JSX.Element;
+export declare const OptionMultipleSelector: ({ items, value, onChange, }: OptionSelectorProps<'multiple'>) => JSX.Element;
+export declare const OptionSingleSelector: ({ items, value, onChange }: OptionSelectorProps<'single'>) => JSX.Element;
+export declare const Switch: ({ width, disabled, value: defaultValue, onChange }: SwitchProps) => JSX.Element;
+export declare const RangeSelector: ({ min, max, value, onChange }: RangeSelectorProps) => JSX.Element;
+export declare const FileUploader: ({ files, multiple, onAddFile, onRemoveFile, onError, }: FileUploaderProps) => JSX.Element;
