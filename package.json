@@ -1,6 +1,6 @@
 {
   "name": "@ablestor/ablestor-survey",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": {
     "name": "im daeho",
     "email": "im-ian@naver.com",
@@ -61,6 +61,7 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@types/react": "^17.0.33",
@@ -69,6 +70,8 @@
     "@types/styled-components": "^5.1.15",
     "@types/uniqid": "^5.3.1",
     "@types/uuid": "^8.3.1",
+    "babel-loader": "^8.2.3",
+    "babel-preset-es2015": "^6.24.1",
     "typescript": "^4.4.4"
   }
 }
