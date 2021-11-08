@@ -4,6 +4,7 @@
 
 설문 내용을 생성하는 `Editor`와 생성된 내용을 기반으로 동작하여 내용을 채워주는 `Viewer`가 포함되어 있습니다.
 
+![service_capture](https://user-images.githubusercontent.com/38205068/140688808-e767339e-423e-4318-a5bb-951464572e9a.png)
 
 ## Installation
 
