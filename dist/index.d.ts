@@ -1,11 +1,9 @@
-import * as BlockType from './@types/block';
-import * as EditorType from './@types/editor';
-import * as ViewerType from './@types/viewer';
-export type { BlockType };
-export type { EditorType };
-export type { ViewerType };
-import * as Editor from './Editor';
-import * as Viewer from './Viewer';
+import type * as BlockType from './@types/block';
+import type * as EditorType from './@types/editor';
+import type * as ViewerType from './@types/viewer';
+export type { BlockType, EditorType, ViewerType };
+import Editor from './Editor';
+import Viewer from './Viewer';
 import * as Converter from './helpers/converter';
 import * as Generator from './helpers/generator';
 export { Editor, Viewer, Converter, Generator };

@@ -78,3 +78,13 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
       throw new Error('return untyped block.');
   }
 };
+
+export const getRange = (size: number): number[] => {
+  const range = [];
+
+  for (let i = 0; i < size; i++) {
+    range.push(i);
+  }
+
+  return range;
+};

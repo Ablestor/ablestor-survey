@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import update from 'immutability-helper';
 import { Row, SurveyContainer } from '../components/Section';
 import { ISurveyViewer } from '../@types/viewer';
@@ -11,7 +11,7 @@ import { Button } from '../components/Buttons';
 
 import 'filepond/dist/filepond.min.css';
 
-const Viewer = ({ survey, onSubmit }: ISurveyViewer) => {
+const Viewer = <T extends ISurveyViewer>({ survey, onSubmit }: T): ReactElement<T> => {
   const [surveyContent, setSurveyContent] = useState<ISurveyResult>(survey);
 
   useEffect(() => {

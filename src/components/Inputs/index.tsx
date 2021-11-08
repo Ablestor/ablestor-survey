@@ -1,4 +1,4 @@
-import { useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
+import React, { ReactElement, useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
 import update from 'immutability-helper';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -31,13 +31,19 @@ import {
   StyledSelectorThumb,
 } from './styled';
 
-export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => <StyledInput {...props} />;
+export const Input = <T extends InputHTMLAttributes<HTMLInputElement>>(
+  props: T,
+): ReactElement<T> => <StyledInput {...props} />;
 
-export const Textarea = (props: InputHTMLAttributes<HTMLTextAreaElement>) => (
-  <StyledTextarea {...props} />
-);
+export const Textarea = <T extends InputHTMLAttributes<HTMLTextAreaElement>>(
+  props: T,
+): ReactElement<T> => <StyledTextarea {...props} />;
 
-export const Select = ({ items, selectedIndex, onChange }: SelectorProps) => {
+export const Select = <T extends SelectorProps>({
+  items,
+  selectedIndex,
+  onChange,
+}: T): ReactElement<T> => {
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
   const [index, setIndex] = useState<number>(selectedIndex || 0);
@@ -76,7 +82,10 @@ export const Select = ({ items, selectedIndex, onChange }: SelectorProps) => {
   );
 };
 
-export const OptionEditor = ({ items, onChange }: OptionEditorProps) => {
+export const OptionEditor = <T extends OptionEditorProps>({
+  items,
+  onChange,
+}: T): ReactElement<T> => {
   const appendItem = (value: string) =>
     onChange && onChange([...items, { key: uniqid(), label: value, value }]);
   const removeItem = (index: number) =>
@@ -125,7 +134,11 @@ export const OptionEditor = ({ items, onChange }: OptionEditorProps) => {
   );
 };
 
-export const CheckBox = ({ shape, value, onChange }: CheckBoxProps) => (
+export const CheckBox = <T extends CheckBoxProps>({
+  shape,
+  value,
+  onChange,
+}: T): ReactElement<T> => (
   <StyledCheckBox
     className={classnames({
       active: value,
@@ -137,11 +150,11 @@ export const CheckBox = ({ shape, value, onChange }: CheckBoxProps) => (
   />
 );
 
-export const OptionMultipleSelector = ({
+export const OptionMultipleSelector = <T extends OptionSelectorProps<'multiple'>>({
   items,
   value,
   onChange,
-}: OptionSelectorProps<'multiple'>) => {
+}: T): ReactElement<T> => {
   const [checked, setChecked] = useState<string[]>(value);
 
   return (
@@ -181,7 +194,11 @@ export const OptionMultipleSelector = ({
   );
 };
 
-export const OptionSingleSelector = ({ items, value, onChange }: OptionSelectorProps<'single'>) => {
+export const OptionSingleSelector = <T extends OptionSelectorProps<'single'>>({
+  items,
+  value,
+  onChange,
+}: T): ReactElement<T> => {
   const [checked, setChecked] = useState<string | null>(value);
 
   return (
@@ -214,7 +231,12 @@ export const OptionSingleSelector = ({ items, value, onChange }: OptionSelectorP
   );
 };
 
-export const Switch = ({ width = 40, disabled, value: defaultValue, onChange }: SwitchProps) => {
+export const Switch = <T extends SwitchProps>({
+  width = 40,
+  disabled,
+  value: defaultValue,
+  onChange,
+}: T): ReactElement<T> => {
   const [value, setValue] = useState(defaultValue);
 
   return (
@@ -232,7 +254,12 @@ export const Switch = ({ width = 40, disabled, value: defaultValue, onChange }: 
   );
 };
 
-export const RangeSelector = ({ min, max, value, onChange }: RangeSelectorProps) => {
+export const RangeSelector = <T extends RangeSelectorProps>({
+  min,
+  max,
+  value,
+  onChange,
+}: T): ReactElement<T> => {
   const labelRef = useRef<HTMLDivElement>(null);
   const [labelVisible, setLabelVisible] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
@@ -282,13 +309,13 @@ export const RangeSelector = ({ min, max, value, onChange }: RangeSelectorProps)
   );
 };
 
-export const FileUploader = ({
+export const FileUploader = <T extends FileUploaderProps>({
   files,
   multiple,
   onAddFile,
   onRemoveFile,
   onError,
-}: FileUploaderProps) => (
+}: T): ReactElement<T> => (
   <FilePond
     files={files}
     allowMultiple={multiple}

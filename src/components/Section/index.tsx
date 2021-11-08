@@ -1,3 +1,4 @@
+import React, { ReactElement } from 'react';
 import { BaseSectionProps, FlexConatinerProps, FlexElementProps } from './type';
 import {
   StyledRoundSection,
@@ -9,18 +10,30 @@ import {
   StyledFlexElement,
 } from './styled';
 
-export const RoundSection = (props: BaseSectionProps) => <StyledRoundSection {...props} />;
+export const RoundSection = <T extends BaseSectionProps>(props: T): ReactElement<T> => (
+  <StyledRoundSection {...props} />
+);
 
-export const RoundDashedSection = (props: BaseSectionProps) => <StyledDashedSection {...props} />;
+export const RoundDashedSection = <T extends BaseSectionProps>(props: T): ReactElement<T> => (
+  <StyledDashedSection {...props} />
+);
 
-export const SurveyContainer = (props: BaseSectionProps) => <StyledSurveyContainer {...props} />;
+export const SurveyContainer = <T extends BaseSectionProps>(props: T): ReactElement<T> => (
+  <StyledSurveyContainer {...props} />
+);
 
-export const Row = (props: BaseSectionProps) => <StyledRow {...props} />;
+export const Row = <T extends BaseSectionProps>(props: T): ReactElement<T> => (
+  <StyledRow {...props} />
+);
 
-export const VerticalDivider = (props: BaseSectionProps) => <StyledVerticalDivider {...props} />;
+export const VerticalDivider = <T extends BaseSectionProps>(props: T): ReactElement<T> => (
+  <StyledVerticalDivider {...props} />
+);
 
-export const FlexContainer = (props: FlexConatinerProps) => <StyledFlexContainer {...props} />;
+export const FlexContainer = <T extends FlexConatinerProps>(props: T): ReactElement<T> => (
+  <StyledFlexContainer {...props} />
+);
 
-export const FlexElement = (props: FlexElementProps) => (
+export const FlexElement = <T extends FlexElementProps>(props: T): ReactElement<T> => (
   <StyledFlexElement className={'flex-element'} {...props} />
 );

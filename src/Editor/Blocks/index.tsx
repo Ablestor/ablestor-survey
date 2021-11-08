@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { TiTrash, TiTabsOutline, TiTick, TiTickOutline } from 'react-icons/ti';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -12,29 +12,29 @@ import { IconButton } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
 
-import { createBlock } from '../../helpers/generator';
+import { createBlock, getRange } from '../../helpers/generator';
 import { getNameFromBlockType } from '../../helpers/converter';
 import { blockList } from '../../constants/blocks';
 
 const startAt = 2;
-const minRange: SelectableOption[] = [...Array(startAt).keys()].map(i => ({
+const minRange: SelectableOption[] = getRange(startAt).map(i => ({
   key: uniqid(),
   label: String(i),
   value: i,
 }));
 
-const maxRange: SelectableOption[] = [...Array(9).keys()].map(i => ({
+const maxRange: SelectableOption[] = getRange(9).map(i => ({
   key: uniqid(),
   label: String(startAt + i),
   value: startAt + i,
 }));
 
-export const BlockPresenter = ({
+export const BlockPresenter = <T extends IBlockPresenter>({
   block,
   onUpdateBlock,
   onCopyBlock,
   onRemoveBlock,
-}: IBlockPresenter) => {
+}: T): ReactElement<T> => {
   const isTypedBlock = block.type !== BlockTypes.BLANK;
 
   const [title, setTitle] = useState(block.title);

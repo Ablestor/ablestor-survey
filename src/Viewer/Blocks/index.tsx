@@ -1,3 +1,4 @@
+import React, { ReactElement } from 'react';
 import { DatePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import dayjs from 'dayjs';
 import classnames from 'classnames';
@@ -22,12 +23,12 @@ import {
 import { Description, Text, Title } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row } from '../../components/Section';
 
-export const BlockPresenter = ({
+export const BlockPresenter = <T extends IBlockPresenter>({
   block,
   onFileUpload,
   onFileRemove,
   onUpdateBlock,
-}: IBlockPresenter) => {
+}: T): ReactElement<T> => {
   return (
     <BlockContainer
       className={classnames({

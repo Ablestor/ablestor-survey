@@ -1,4 +1,7 @@
-export var BlockTypes;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlockAlign = exports.BlockTypes = void 0;
+var BlockTypes;
 (function (BlockTypes) {
     BlockTypes["BLANK"] = "blank";
     BlockTypes["SHORT_TEXT"] = "short_text";
@@ -12,10 +15,10 @@ export var BlockTypes;
     BlockTypes["RANGE"] = "range";
     BlockTypes["DATE"] = "date";
     BlockTypes["TIME"] = "time";
-})(BlockTypes || (BlockTypes = {}));
-export var BlockAlign;
+})(BlockTypes = exports.BlockTypes || (exports.BlockTypes = {}));
+var BlockAlign;
 (function (BlockAlign) {
     BlockAlign["LEFT"] = "left";
     BlockAlign["RIGHT"] = "right";
     BlockAlign["CENTER"] = "center";
-})(BlockAlign || (BlockAlign = {}));
+})(BlockAlign = exports.BlockAlign || (exports.BlockAlign = {}));

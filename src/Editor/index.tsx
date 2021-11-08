@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
@@ -12,7 +12,7 @@ import { Button } from '../components/Buttons';
 import { Text } from '../components/Texts';
 import { BlockPresenter } from './Blocks';
 
-const Editor = ({ onSubmit }: ISurveyEditor) => {
+const Editor = <T extends ISurveyEditor>({ onSubmit }: T): ReactElement<T> => {
   const [surveyTitle, setSurveyTitle] = useState('');
   const [surveyDescription, setSurveyDescription] = useState('');
   const [surveyContent, setSurveyContent] = useState<ISurveyContent>([]);

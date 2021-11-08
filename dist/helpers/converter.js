@@ -1,4 +1,7 @@
-export const getNameFromBlockType = (type) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getNameFromBlockType = void 0;
+var getNameFromBlockType = function (type) {
     switch (type) {
         case 'blank':
             return '없음';
@@ -28,3 +31,4 @@ export const getNameFromBlockType = (type) => {
             return '알 수 없음';
     }
 };
+exports.getNameFromBlockType = getNameFromBlockType;

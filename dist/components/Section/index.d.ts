@@ -1,9 +1,9 @@
-/// <reference types="react" />
+import React, { ReactElement } from 'react';
 import { BaseSectionProps, FlexConatinerProps, FlexElementProps } from './type';
-export declare const RoundSection: (props: BaseSectionProps) => JSX.Element;
-export declare const RoundDashedSection: (props: BaseSectionProps) => JSX.Element;
-export declare const SurveyContainer: (props: BaseSectionProps) => JSX.Element;
-export declare const Row: (props: BaseSectionProps) => JSX.Element;
-export declare const VerticalDivider: (props: BaseSectionProps) => JSX.Element;
-export declare const FlexContainer: (props: FlexConatinerProps) => JSX.Element;
-export declare const FlexElement: (props: FlexElementProps) => JSX.Element;
+export declare const RoundSection: <T extends BaseSectionProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const RoundDashedSection: <T extends BaseSectionProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const SurveyContainer: <T extends BaseSectionProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const Row: <T extends BaseSectionProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const VerticalDivider: <T extends BaseSectionProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const FlexContainer: <T extends FlexConatinerProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
+export declare const FlexElement: <T extends FlexElementProps>(props: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;

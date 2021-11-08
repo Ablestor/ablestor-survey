@@ -1,5 +1,5 @@
-/// <reference types="react" />
+import React, { ReactElement } from 'react';
 import { ISurveyViewer } from '../@types/viewer';
 import 'filepond/dist/filepond.min.css';
-declare const Viewer: ({ survey, onSubmit }: ISurveyViewer) => JSX.Element;
+declare const Viewer: <T extends ISurveyViewer>({ survey, onSubmit }: T) => React.ReactElement<T, string | React.JSXElementConstructor<any>>;
 export default Viewer;
