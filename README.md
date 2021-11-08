@@ -19,7 +19,6 @@ yarn add @ablestor/ablestor-survey
 ## How to use?
 ```javascript
 import { useState } from 'react';
-
 import { Editor, Viewer, EditorType } from '@ablestor/ablestor-survey';
 
 const View = () => {
