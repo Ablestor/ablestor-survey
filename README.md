@@ -39,7 +39,7 @@ const View = () => {
   );
 };
 
-export default Home;
+export default View;
 ```
 
 ## Feature
