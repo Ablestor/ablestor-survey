@@ -74,7 +74,7 @@ const Viewer = <T extends ISurveyViewer>({
                 return;
               }
 
-              onSubmit(surveyContent);
+              onSubmit && onSubmit(surveyContent);
             }}>
             {submitButtonOptions?.text || '확인'}
           </Button>
