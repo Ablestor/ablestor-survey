@@ -5,6 +5,7 @@ export interface ISurveyEditor {
     text: string;
     visible: boolean;
   };
+  defaultValue?: ISurveyResult;
   onSubmit?: (result: ISurveyResult) => void;
   onChange?: (result: ISurveyResult) => void;
 }

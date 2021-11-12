@@ -14,12 +14,15 @@ import { BlockPresenter } from './Blocks';
 
 const Editor = <T extends ISurveyEditor>({
   submitButtonOptions,
+  defaultValue,
   onChange,
   onSubmit,
 }: T): ReactElement<T> => {
-  const [surveyTitle, setSurveyTitle] = useState('');
-  const [surveyDescription, setSurveyDescription] = useState('');
-  const [surveyContent, setSurveyContent] = useState<ISurveyContent>([]);
+  const [surveyTitle, setSurveyTitle] = useState<string>(defaultValue?.title || '');
+  const [surveyDescription, setSurveyDescription] = useState<string>(
+    defaultValue?.description || '',
+  );
+  const [surveyContent, setSurveyContent] = useState<ISurveyContent>(defaultValue?.content || []);
 
   const extractSurveyResult = useCallback(
     (): ISurveyResult => ({
