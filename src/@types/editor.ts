@@ -1,7 +1,12 @@
 import { Blocks } from './block';
 
 export interface ISurveyEditor {
+  submitButtonOptions?: {
+    text: string;
+    visible: boolean;
+  };
   onSubmit?: (result: ISurveyResult) => void;
+  onChange?: (result: ISurveyResult) => void;
 }
 
 export type ISurveyContent = Blocks[];

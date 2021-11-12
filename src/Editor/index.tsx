@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useState, useEffect } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
@@ -12,7 +12,11 @@ import { Button } from '../components/Buttons';
 import { Text } from '../components/Texts';
 import { BlockPresenter } from './Blocks';
 
-const Editor = <T extends ISurveyEditor>({ onSubmit }: T): ReactElement<T> => {
+const Editor = <T extends ISurveyEditor>({
+  submitButtonOptions,
+  onChange,
+  onSubmit,
+}: T): ReactElement<T> => {
   const [surveyTitle, setSurveyTitle] = useState('');
   const [surveyDescription, setSurveyDescription] = useState('');
   const [surveyContent, setSurveyContent] = useState<ISurveyContent>([]);
@@ -25,6 +29,12 @@ const Editor = <T extends ISurveyEditor>({ onSubmit }: T): ReactElement<T> => {
     }),
     [surveyTitle, surveyDescription, surveyContent],
   );
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(extractSurveyResult());
+    }
+  }, [surveyTitle, surveyDescription, surveyContent]);
 
   const addBlock = useCallback(() => {
     const order = surveyContent.length + 1;
@@ -135,9 +145,13 @@ const Editor = <T extends ISurveyEditor>({ onSubmit }: T): ReactElement<T> => {
           <Text>새로운 항목 추가</Text>
         </RoundDashedSection>
       </Row>
-      <Row>
-        <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>전송</Button>
-      </Row>
+      {submitButtonOptions?.visible && (
+        <Row>
+          <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>
+            {submitButtonOptions?.text || '전송'}
+          </Button>
+        </Row>
+      )}
     </SurveyContainer>
   );
 };
