@@ -100,9 +100,14 @@ const Editor = <T extends ISurveyEditor>({
   return (
     <SurveyContainer>
       <Row>
-        <Input placeholder={'설문 제목'} onChange={({ target }) => setSurveyTitle(target.value)} />
+        <Input
+          placeholder={'설문 제목'}
+          value={surveyTitle}
+          onChange={({ target }) => setSurveyTitle(target.value)}
+        />
         <Input
           placeholder={'설문 설명'}
+          value={surveyDescription}
           onChange={({ target }) => setSurveyDescription(target.value)}
         />
       </Row>
