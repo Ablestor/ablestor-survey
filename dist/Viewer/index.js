@@ -72,7 +72,7 @@ var Viewer = function (_a) {
                         console.log(invalidContents);
                         return;
                     }
-                    onSubmit(surveyContent);
+                    onSubmit && onSubmit(surveyContent);
                 } }, (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '확인')))));
 };
 exports.default = Viewer;

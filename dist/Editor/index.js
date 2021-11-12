@@ -44,10 +44,10 @@ var Buttons_1 = require("../components/Buttons");
 var Texts_1 = require("../components/Texts");
 var Blocks_1 = require("./Blocks");
 var Editor = function (_a) {
-    var submitButtonOptions = _a.submitButtonOptions, onChange = _a.onChange, onSubmit = _a.onSubmit;
-    var _b = (0, react_1.useState)(''), surveyTitle = _b[0], setSurveyTitle = _b[1];
-    var _c = (0, react_1.useState)(''), surveyDescription = _c[0], setSurveyDescription = _c[1];
-    var _d = (0, react_1.useState)([]), surveyContent = _d[0], setSurveyContent = _d[1];
+    var submitButtonOptions = _a.submitButtonOptions, defaultValue = _a.defaultValue, onChange = _a.onChange, onSubmit = _a.onSubmit;
+    var _b = (0, react_1.useState)((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.title) || ''), surveyTitle = _b[0], setSurveyTitle = _b[1];
+    var _c = (0, react_1.useState)((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.description) || ''), surveyDescription = _c[0], setSurveyDescription = _c[1];
+    var _d = (0, react_1.useState)((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.content) || []), surveyContent = _d[0], setSurveyContent = _d[1];
     var extractSurveyResult = (0, react_1.useCallback)(function () { return ({
         title: surveyTitle,
         description: surveyDescription,
@@ -105,11 +105,11 @@ var Editor = function (_a) {
     };
     return (react_1.default.createElement(Section_1.SurveyContainer, null,
         react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Input, { placeholder: '설문 제목', onChange: function (_a) {
+            react_1.default.createElement(Inputs_1.Input, { placeholder: '설문 제목', value: surveyTitle, onChange: function (_a) {
                     var target = _a.target;
                     return setSurveyTitle(target.value);
                 } }),
-            react_1.default.createElement(Inputs_1.Input, { placeholder: '설문 설명', onChange: function (_a) {
+            react_1.default.createElement(Inputs_1.Input, { placeholder: '설문 설명', value: surveyDescription, onChange: function (_a) {
                     var target = _a.target;
                     return setSurveyDescription(target.value);
                 } })),
