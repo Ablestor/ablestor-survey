@@ -49,11 +49,15 @@ export default View;
 
 |property|required|value|
 |------|---|---|
-|onSubmit|Y|(result: EditorType.ISurveyResult) => void|
+|submitButtonOptions|N|{ text: string; visible: boolean; }|
+|defaultValue|N|{}: EditorType.ISurveyResult|
+|onChange|N|(result: EditorType.ISurveyResult) => void|
+|onSubmit|N|(result: EditorType.ISurveyResult) => void|
 
 ### Viewer
 
 |property|required|value|
 |------|---|---|
 |survey|Y|EditorType.ISurveyResult|
-|onSubmit|Y|(result: EditorType.ISurveyResult) => void|
+|submitButtonOptions|N|{ text: string; visible: boolean; }|
+|onSubmit|N|(result: EditorType.ISurveyResult) => void|
