@@ -11,7 +11,11 @@ import { Button } from '../components/Buttons';
 
 import 'filepond/dist/filepond.min.css';
 
-const Viewer = <T extends ISurveyViewer>({ survey, onSubmit }: T): ReactElement<T> => {
+const Viewer = <T extends ISurveyViewer>({
+  survey,
+  submitButtonOptions,
+  onSubmit,
+}: T): ReactElement<T> => {
   const [surveyContent, setSurveyContent] = useState<ISurveyResult>(survey);
 
   useEffect(() => {
@@ -45,35 +49,37 @@ const Viewer = <T extends ISurveyViewer>({ survey, onSubmit }: T): ReactElement<
           <BlockPresenter block={block} onUpdateBlock={data => onUpdateBlock(i, data)} />
         </Row>
       ))}
-      <Row>
-        <Button
-          onClick={() => {
-            const invalidContents = content.filter(block => {
-              if (block.type === BlockTypes.BLANK) {
-                return false;
+      {submitButtonOptions?.visible && (
+        <Row>
+          <Button
+            onClick={() => {
+              const invalidContents = content.filter(block => {
+                if (block.type === BlockTypes.BLANK) {
+                  return false;
+                }
+
+                return (
+                  block.required &&
+                  'answer' in block &&
+                  (block.answer === null ||
+                    block.answer === undefined ||
+                    block.answer === '' ||
+                    (block.answer instanceof Array && block.answer.length === 0))
+                );
+              });
+
+              if (invalidContents.length) {
+                console.log('입력하지 않은 항목이 있습니다.');
+                console.log(invalidContents);
+                return;
               }
 
-              return (
-                block.required &&
-                'answer' in block &&
-                (block.answer === null ||
-                  block.answer === undefined ||
-                  block.answer === '' ||
-                  (block.answer instanceof Array && block.answer.length === 0))
-              );
-            });
-
-            if (invalidContents.length) {
-              console.log('입력하지 않은 항목이 있습니다.');
-              console.log(invalidContents);
-              return;
-            }
-
-            onSubmit(surveyContent);
-          }}>
-          확인
-        </Button>
-      </Row>
+              onSubmit(surveyContent);
+            }}>
+            {submitButtonOptions?.text || '확인'}
+          </Button>
+        </Row>
+      )}
     </SurveyContainer>
   );
 };
