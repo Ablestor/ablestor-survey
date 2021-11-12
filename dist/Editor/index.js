@@ -44,7 +44,7 @@ var Buttons_1 = require("../components/Buttons");
 var Texts_1 = require("../components/Texts");
 var Blocks_1 = require("./Blocks");
 var Editor = function (_a) {
-    var onSubmit = _a.onSubmit;
+    var submitButtonOptions = _a.submitButtonOptions, onChange = _a.onChange, onSubmit = _a.onSubmit;
     var _b = (0, react_1.useState)(''), surveyTitle = _b[0], setSurveyTitle = _b[1];
     var _c = (0, react_1.useState)(''), surveyDescription = _c[0], setSurveyDescription = _c[1];
     var _d = (0, react_1.useState)([]), surveyContent = _d[0], setSurveyContent = _d[1];
@@ -56,6 +56,11 @@ var Editor = function (_a) {
             return type !== block_1.BlockTypes.BLANK;
         }),
     }); }, [surveyTitle, surveyDescription, surveyContent]);
+    (0, react_1.useEffect)(function () {
+        if (onChange) {
+            onChange(extractSurveyResult());
+        }
+    }, [surveyTitle, surveyDescription, surveyContent]);
     var addBlock = (0, react_1.useCallback)(function () {
         var order = surveyContent.length + 1;
         setSurveyContent((0, immutability_helper_1.default)(surveyContent, {
@@ -121,7 +126,7 @@ var Editor = function (_a) {
                 }, onClick: addBlock },
                 react_1.default.createElement(ti_1.TiPlus, null),
                 react_1.default.createElement(Texts_1.Text, null, "\uC0C8\uB85C\uC6B4 \uD56D\uBAA9 \uCD94\uAC00"))),
-        react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Buttons_1.Button, { onClick: function () { return onSubmit && onSubmit(extractSurveyResult()); } }, "\uC804\uC1A1"))));
+        (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (react_1.default.createElement(Section_1.Row, null,
+            react_1.default.createElement(Buttons_1.Button, { onClick: function () { return onSubmit && onSubmit(extractSurveyResult()); } }, (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '전송')))));
 };
 exports.default = Editor;

@@ -31,7 +31,7 @@ var block_1 = require("../@types/block");
 var Buttons_1 = require("../components/Buttons");
 require("filepond/dist/filepond.min.css");
 var Viewer = function (_a) {
-    var survey = _a.survey, onSubmit = _a.onSubmit;
+    var survey = _a.survey, submitButtonOptions = _a.submitButtonOptions, onSubmit = _a.onSubmit;
     var _b = (0, react_1.useState)(survey), surveyContent = _b[0], setSurveyContent = _b[1];
     (0, react_1.useEffect)(function () {
         setSurveyContent(survey);
@@ -54,7 +54,7 @@ var Viewer = function (_a) {
             react_1.default.createElement(Texts_1.Description, null, description)),
         content.map(function (block, i) { return (react_1.default.createElement(Section_1.Row, { key: i },
             react_1.default.createElement(Blocks_1.BlockPresenter, { block: block, onUpdateBlock: function (data) { return onUpdateBlock(i, data); } }))); }),
-        react_1.default.createElement(Section_1.Row, null,
+        (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (react_1.default.createElement(Section_1.Row, null,
             react_1.default.createElement(Buttons_1.Button, { onClick: function () {
                     var invalidContents = content.filter(function (block) {
                         if (block.type === block_1.BlockTypes.BLANK) {
@@ -73,6 +73,6 @@ var Viewer = function (_a) {
                         return;
                     }
                     onSubmit(surveyContent);
-                } }, "\uD655\uC778"))));
+                } }, (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '확인')))));
 };
 exports.default = Viewer;
