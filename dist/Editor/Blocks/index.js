@@ -72,9 +72,9 @@ var BlockPresenter = function (_a) {
                     ? (0, converter_1.getNameFromBlockType)(block.type.toLowerCase())
                     : '설문 유형을 선택해주세요.')),
             react_1.default.createElement(Section_1.FlexElement, { width: 220 },
-                react_1.default.createElement(Inputs_1.Select, { items: blocks_1.blockList, selectedIndex: blocks_1.blockList.findIndex(function (b) { return b.value.toLowerCase() === block.type; }), onChange: function (index) {
-                        var updateType = blocks_1.blockList[index].value;
-                        var newBlock = (0, generator_1.createBlock)(updateType.toLowerCase(), block.order);
+                react_1.default.createElement(Inputs_1.Select, { items: blocks_1.blockList, selectedIndex: blocks_1.blockList.findIndex(function (b) { return b.value.toLowerCase() === block.type; }), onChange: function (_a) {
+                        var value = _a.value;
+                        var newBlock = (0, generator_1.createBlock)(value.toLowerCase(), block.order);
                         onUpdateBlock(__assign(__assign({}, newBlock), { title: title, description: description }));
                     } }))),
         isTypedBlock && (react_1.default.createElement(react_1.default.Fragment, null,
@@ -116,14 +116,16 @@ var BlockPresenter = function (_a) {
                     react_1.default.createElement(Section_1.FlexElement, { width: 60 },
                         react_1.default.createElement(Texts_1.Text, null, "\uCD5C\uC18C \uAC12")),
                     react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                        react_1.default.createElement(Inputs_1.Select, { items: minRange, selectedIndex: block.min, onChange: function (index) {
-                                return onUpdateBlock(__assign(__assign({}, block), { min: minRange[index].value }));
+                        react_1.default.createElement(Inputs_1.Select, { items: minRange, selectedIndex: minRange.findIndex(function (r) { return r.value === block.min; }), onChange: function (_a) {
+                                var value = _a.value;
+                                return onUpdateBlock(__assign(__assign({}, block), { min: value }));
                             } })),
                     react_1.default.createElement(Section_1.FlexElement, { width: 60 },
                         react_1.default.createElement(Texts_1.Text, null, "\uCD5C\uB300 \uAC12")),
                     react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                        react_1.default.createElement(Inputs_1.Select, { items: maxRange, selectedIndex: block.max, onChange: function (index) {
-                                return onUpdateBlock(__assign(__assign({}, block), { max: maxRange[index].value }));
+                        react_1.default.createElement(Inputs_1.Select, { items: maxRange, selectedIndex: maxRange.findIndex(function (r) { return r.value === block.max; }), onChange: function (_a) {
+                                var value = _a.value;
+                                return onUpdateBlock(__assign(__assign({}, block), { max: value }));
                             } })))),
             react_1.default.createElement(Section_1.Row, null,
                 react_1.default.createElement(Section_1.FlexContainer, null,

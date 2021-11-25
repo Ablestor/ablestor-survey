@@ -57,9 +57,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           <Select
             items={blockList}
             selectedIndex={blockList.findIndex(b => b.value.toLowerCase() === block.type)}
-            onChange={index => {
-              const updateType = blockList[index].value;
-              const newBlock = createBlock(updateType.toLowerCase() as BlockTypes, block.order);
+            onChange={({ value }) => {
+              const newBlock = createBlock(
+                (value as string).toLowerCase() as BlockTypes,
+                block.order,
+              );
 
               onUpdateBlock({ ...newBlock, title, description });
             }}
@@ -141,10 +143,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={minRange}
-                  selectedIndex={block.min}
-                  onChange={index =>
-                    onUpdateBlock({ ...block, min: minRange[index].value as number })
-                  }
+                  selectedIndex={minRange.findIndex(r => r.value === block.min)}
+                  onChange={({ value }) => onUpdateBlock({ ...block, min: value as number })}
                 />
               </FlexElement>
               <FlexElement width={60}>
@@ -153,10 +153,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={maxRange}
-                  selectedIndex={block.max}
-                  onChange={index =>
-                    onUpdateBlock({ ...block, max: maxRange[index].value as number })
-                  }
+                  selectedIndex={maxRange.findIndex(r => r.value === block.max)}
+                  onChange={({ value }) => onUpdateBlock({ ...block, max: value as number })}
                 />
               </FlexElement>
             </FlexContainer>
