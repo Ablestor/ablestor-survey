@@ -95,12 +95,12 @@ var BlockPresenter = function (_a) {
             block.type === block_1.BlockTypes.DROPDOWN) && (react_1.default.createElement(Section_1.Row, null,
             react_1.default.createElement(Inputs_1.OptionEditor, { items: block.question, onChange: function (question) { return onUpdateBlock(__assign(__assign({}, block), { question: question })); } }))),
         block.type === block_1.BlockTypes.SWITCH && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Input, { placeholder: '스위치 타이틀', onChange: function (_a) {
+            react_1.default.createElement(Inputs_1.Input, { defaultValue: block.switchTitle, placeholder: '스위치 타이틀', onChange: function (_a) {
                     var target = _a.target;
                     return onUpdateBlock(__assign(__assign({}, block), { switchTitle: target.value }));
                 } }))),
         block.type === block_1.BlockTypes.CHECK_BOX && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Input, { placeholder: '체크박스 타이틀', onChange: function (_a) {
+            react_1.default.createElement(Inputs_1.Input, { defaultValue: block.checkboxTitle, placeholder: '체크박스 타이틀', onChange: function (_a) {
                     var target = _a.target;
                     return onUpdateBlock(__assign(__assign({}, block), { checkboxTitle: target.value }));
                 } }))),
@@ -130,7 +130,7 @@ var BlockPresenter = function (_a) {
                     react_1.default.createElement(Section_1.FlexElement, { width: 120 },
                         react_1.default.createElement(Texts_1.Text, null, "\uCD5C\uC18C \uAC12 \uD0C0\uC774\uD2C0")),
                     react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                        react_1.default.createElement(Inputs_1.Input, { placeholder: 'ex) 부족함', onChange: function (_a) {
+                        react_1.default.createElement(Inputs_1.Input, { defaultValue: block.minTitle, placeholder: 'ex) 부족함', onChange: function (_a) {
                                 var target = _a.target;
                                 return onUpdateBlock(__assign(__assign({}, block), { minTitle: target.value }));
                             } }))),
@@ -138,7 +138,7 @@ var BlockPresenter = function (_a) {
                     react_1.default.createElement(Section_1.FlexElement, { width: 120 },
                         react_1.default.createElement(Texts_1.Text, null, "\uCD5C\uB313 \uAC12 \uD0C0\uC774\uD2C0")),
                     react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                        react_1.default.createElement(Inputs_1.Input, { placeholder: 'ex) 만족함', onChange: function (_a) {
+                        react_1.default.createElement(Inputs_1.Input, { defaultValue: block.maxTitle, placeholder: 'ex) 만족함', onChange: function (_a) {
                                 var target = _a.target;
                                 return onUpdateBlock(__assign(__assign({}, block), { maxTitle: target.value }));
                             } })))))),
