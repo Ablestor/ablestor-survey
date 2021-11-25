@@ -101,6 +101,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.SWITCH && (
         <Row>
           <Input
+            defaultValue={block.switchTitle}
             placeholder={'스위치 타이틀'}
             onChange={({ target }) => onUpdateBlock({ ...block, switchTitle: target.value })}
           />
@@ -109,6 +110,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.CHECK_BOX && (
         <Row>
           <Input
+            defaultValue={block.checkboxTitle}
             placeholder={'체크박스 타이틀'}
             onChange={({ target }) => onUpdateBlock({ ...block, checkboxTitle: target.value })}
           />
@@ -166,6 +168,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
+                  defaultValue={block.minTitle}
                   placeholder={'ex) 부족함'}
                   onChange={({ target }) => onUpdateBlock({ ...block, minTitle: target.value })}
                 />
@@ -177,6 +180,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
+                  defaultValue={block.maxTitle}
                   placeholder={'ex) 만족함'}
                   onChange={({ target }) => onUpdateBlock({ ...block, maxTitle: target.value })}
                 />
