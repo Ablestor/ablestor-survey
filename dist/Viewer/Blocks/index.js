@@ -61,13 +61,13 @@ var BlockPresenter = function (_a) {
                 react_1.default.createElement(Section_1.FlexElement, { width: 40 },
                     react_1.default.createElement(Inputs_1.CheckBox, { shape: 'square', value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))))),
         block.type === block_1.BlockTypes.SINGLE_SELECT && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.OptionSingleSelector, { items: block.question, value: block.answer || null, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))),
+            react_1.default.createElement(Inputs_1.OptionSingleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))),
         block.type === block_1.BlockTypes.MULTI_SELECT && (react_1.default.createElement(Section_1.Row, null,
             react_1.default.createElement(Inputs_1.OptionMultipleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))),
         block.type === block_1.BlockTypes.DROPDOWN && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Select, { items: block.question, selectedIndex: block.question.findIndex(function (q) { return q.key === block.answer; }), onChange: function (index) {
-                    var questionKey = block.question[index].key;
-                    onUpdateBlock(__assign(__assign({}, block), { answer: questionKey }));
+            react_1.default.createElement(Inputs_1.Select, { items: block.question, selectedIndex: block.question.findIndex(function (item) { return item.value === block.answer; }), onChange: function (_a) {
+                    var key = _a.key;
+                    return onUpdateBlock(__assign(__assign({}, block), { answer: key }));
                 } }))),
         block.type === block_1.BlockTypes.FILE_UPLOAD && (react_1.default.createElement(Section_1.Row, null,
             react_1.default.createElement(Inputs_1.FileUploader, { files: block.answer, multiple: block.multiple, onAddFile: function (file) { return onFileUpload && onFileUpload(file); }, onRemoveFile: function (file) { return onFileRemove && onFileRemove(file); }, onError: function (error) { return console.error(error); } }))),

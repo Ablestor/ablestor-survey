@@ -57,9 +57,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           <Select
             items={blockList}
             selectedIndex={blockList.findIndex(b => b.value.toLowerCase() === block.type)}
-            onChange={index => {
-              const updateType = blockList[index].value;
-              const newBlock = createBlock(updateType.toLowerCase() as BlockTypes, block.order);
+            onChange={({ value }) => {
+              const newBlock = createBlock(
+                (value as string).toLowerCase() as BlockTypes,
+                block.order,
+              );
 
               onUpdateBlock({ ...newBlock, title, description });
             }}
@@ -101,6 +103,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.SWITCH && (
         <Row>
           <Input
+            defaultValue={block.switchTitle}
             placeholder={'스위치 타이틀'}
             onChange={({ target }) => onUpdateBlock({ ...block, switchTitle: target.value })}
           />
@@ -109,6 +112,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.CHECK_BOX && (
         <Row>
           <Input
+            defaultValue={block.checkboxTitle}
             placeholder={'체크박스 타이틀'}
             onChange={({ target }) => onUpdateBlock({ ...block, checkboxTitle: target.value })}
           />
@@ -139,10 +143,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={minRange}
-                  selectedIndex={block.min}
-                  onChange={index =>
-                    onUpdateBlock({ ...block, min: minRange[index].value as number })
-                  }
+                  selectedIndex={minRange.findIndex(r => r.value === block.min)}
+                  onChange={({ value }) => onUpdateBlock({ ...block, min: value as number })}
                 />
               </FlexElement>
               <FlexElement width={60}>
@@ -151,10 +153,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={maxRange}
-                  selectedIndex={block.max}
-                  onChange={index =>
-                    onUpdateBlock({ ...block, max: maxRange[index].value as number })
-                  }
+                  selectedIndex={maxRange.findIndex(r => r.value === block.max)}
+                  onChange={({ value }) => onUpdateBlock({ ...block, max: value as number })}
                 />
               </FlexElement>
             </FlexContainer>
@@ -166,6 +166,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
+                  defaultValue={block.minTitle}
                   placeholder={'ex) 부족함'}
                   onChange={({ target }) => onUpdateBlock({ ...block, minTitle: target.value })}
                 />
@@ -177,6 +178,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
+                  defaultValue={block.maxTitle}
                   placeholder={'ex) 만족함'}
                   onChange={({ target }) => onUpdateBlock({ ...block, maxTitle: target.value })}
                 />

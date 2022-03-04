@@ -1,6 +1,7 @@
 {
   "name": "@ablestor/ablestor-survey",
-  "version": "0.1.16",
+  "homepage": "https://Ablestor.github.io/ablestor-survey/",
+  "version": "0.1.18",
   "author": {
     "name": "im daeho",
     "email": "im-ian@naver.com",
@@ -35,8 +36,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:test": "rm -rf ./dist & tsc --outDir dist -d",
-    "build:tsc": "rm -rf ./dist & tsc",
+    "build": "rm -rf ./dist & tsc --outDir dist -d",
+    "build-demo": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

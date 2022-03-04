@@ -95,7 +95,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         <Row>
           <OptionSingleSelector
             items={block.question}
-            value={block.answer || null}
+            value={block.answer}
             onChange={answer => onUpdateBlock({ ...block, answer })}
           />
         </Row>
@@ -113,12 +113,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         <Row>
           <Select
             items={block.question}
-            selectedIndex={block.question.findIndex(q => q.key === block.answer)}
-            onChange={index => {
-              const questionKey = block.question[index].key;
-
-              onUpdateBlock({ ...block, answer: questionKey });
-            }}
+            selectedIndex={block.question.findIndex(item => item.value === block.answer)}
+            onChange={({ key }) => onUpdateBlock({ ...block, answer: key })}
           />
         </Row>
       )}

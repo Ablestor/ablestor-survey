@@ -46,14 +46,16 @@ export const Select = <T extends SelectorProps>({
 }: T): ReactElement<T> => {
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
-  const [index, setIndex] = useState<number>(selectedIndex || 0);
+  const [selectIndex, setSelectIndex] = useState<number>(selectedIndex || 0);
+
+  const selectedItem = items[selectIndex];
 
   useClickAway(selectRef, () => setListVisible(false));
 
   return (
     <StyledSelect ref={selectRef} onClick={() => setListVisible(true)}>
       <div className={'select-current-value'}>
-        <Text>{items[index]?.label ?? '목록에서 선택해주세요.'}</Text>
+        <Text>{selectedItem?.label ?? '목록에서 선택해주세요.'}</Text>
         <div className={'select-icon'}>
           <TiArrowSortedDown />
         </div>
@@ -64,13 +66,13 @@ export const Select = <T extends SelectorProps>({
             <div
               className={classnames({
                 'select-options': true,
-                selected: selectedIndex === item.value,
+                selected: index === selectIndex,
               })}
               key={item.key}
               onClick={e => {
                 e.stopPropagation();
-                setIndex(index);
-                onChange && onChange(index);
+                setSelectIndex(index);
+                onChange && onChange(item, index);
                 setListVisible(false);
               }}>
               {item.label}

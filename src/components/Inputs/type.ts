@@ -3,8 +3,8 @@ import { SelectableOption } from '../../@types/block';
 
 export interface SelectorProps<T = SelectableOption[]> {
   items: T;
-  selectedIndex?: number; // index of selected item
-  onChange?: (index: number) => void;
+  selectedIndex?: number;
+  onChange?: (value: SelectableOption, index: number) => void;
 }
 
 export interface OptionProps {

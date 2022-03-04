@@ -3,7 +3,7 @@ import { SelectableOption } from '../../@types/block';
 export interface SelectorProps<T = SelectableOption[]> {
     items: T;
     selectedIndex?: number;
-    onChange?: (index: number) => void;
+    onChange?: (value: SelectableOption, index: number) => void;
 }
 export interface OptionProps {
     isChecked: boolean;

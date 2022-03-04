@@ -61,24 +61,25 @@ exports.Input = Input;
 var Textarea = function (props) { return react_1.default.createElement(styled_1.StyledTextarea, __assign({}, props)); };
 exports.Textarea = Textarea;
 var Select = function (_a) {
-    var _b, _c;
+    var _b;
     var items = _a.items, selectedIndex = _a.selectedIndex, onChange = _a.onChange;
     var selectRef = (0, react_1.useRef)(null);
-    var _d = (0, react_1.useState)(false), listVisible = _d[0], setListVisible = _d[1];
-    var _e = (0, react_1.useState)(selectedIndex || 0), index = _e[0], setIndex = _e[1];
+    var _c = (0, react_1.useState)(false), listVisible = _c[0], setListVisible = _c[1];
+    var _d = (0, react_1.useState)(selectedIndex || 0), selectIndex = _d[0], setSelectIndex = _d[1];
+    var selectedItem = items[selectIndex];
     (0, hooks_1.useClickAway)(selectRef, function () { return setListVisible(false); });
     return (react_1.default.createElement(styled_1.StyledSelect, { ref: selectRef, onClick: function () { return setListVisible(true); } },
         react_1.default.createElement("div", { className: 'select-current-value' },
-            react_1.default.createElement(Texts_1.Text, null, (_c = (_b = items[index]) === null || _b === void 0 ? void 0 : _b.label) !== null && _c !== void 0 ? _c : '목록에서 선택해주세요.'),
+            react_1.default.createElement(Texts_1.Text, null, (_b = selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.label) !== null && _b !== void 0 ? _b : '목록에서 선택해주세요.'),
             react_1.default.createElement("div", { className: 'select-icon' },
                 react_1.default.createElement(ti_1.TiArrowSortedDown, null))),
         listVisible && (react_1.default.createElement("div", { className: 'select-options-container' }, items.map(function (item, index) { return (react_1.default.createElement("div", { className: (0, classnames_1.default)({
                 'select-options': true,
-                selected: selectedIndex === item.value,
+                selected: index === selectIndex,
             }), key: item.key, onClick: function (e) {
                 e.stopPropagation();
-                setIndex(index);
-                onChange && onChange(index);
+                setSelectIndex(index);
+                onChange && onChange(item, index);
                 setListVisible(false);
             } }, item.label)); })))));
 };
