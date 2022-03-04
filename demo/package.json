@@ -1,5 +1,6 @@
 {
   "name": "demo",
+  "homepage": "https://Ablestor.github.io/ablestor-survey/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
