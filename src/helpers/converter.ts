@@ -1,6 +1,6 @@
 import { BlockTypes } from '../@types/block';
 
-export const getNameFromBlockType = (type: BlockTypes) => {
+export const getNameFromBlockType = (type: BlockTypes): string => {
   switch (type) {
     case 'blank':
       return '없음';
