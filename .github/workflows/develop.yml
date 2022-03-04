@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: move demo
-        run: cd ./demo
+      # - name: move demo
+      #   run: cd ./demo
 
       - name: Cache node_modules
         uses: actions/cache@v1
@@ -26,14 +26,14 @@ jobs:
             ${{ runner.OS }}-build-${{ runner.OS }}-
 
       - name: Install dependencies
-        run: npm install --prod --pure-lockfile
+        run: cd ./demo && npm install --prod --pure-lockfile
 
       # - name: Postinstall
       #   run: npm run postinstall
       # - name: A) Setting homepage in package.json
       #   run: sed -i 's/#homepage/https:\/\/outsung.github.io\/Duo-frontend\//g' package.json
       - name: B) Build
-        run: npm run build
+        run: cd ./demo && npm run build
         # env:
         # NODE_ENV: production
 
@@ -56,4 +56,4 @@ jobs:
         with:
           personal_token: ${{secrets.GH_PAT}}
           publish_branch: deploy
-          publish_dir: ./build
+          publish_dir: ./demo/build
