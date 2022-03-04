@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ISurveyResult } from './@types/editor';
 
 import Editor from './Editor';
 import Viewer from './Viewer';
@@ -7,7 +6,7 @@ import Viewer from './Viewer';
 import './styles/common.css';
 
 const App = () => {
-  const [surveyContent, setSurveyContent] = useState<ISurveyResult>();
+  const [surveyContent, setSurveyContent] = useState();
 
   return (
     <div style={{ display: 'flex' }}>
