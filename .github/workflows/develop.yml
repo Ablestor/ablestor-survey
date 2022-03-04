@@ -14,6 +14,9 @@ jobs:
         with:
           node-version: 12.x
 
+      - name: move demo
+        run: cd ./demo
+
       - name: Cache node_modules
         uses: actions/cache@v1
         with:
@@ -30,7 +33,7 @@ jobs:
       # - name: A) Setting homepage in package.json
       #   run: sed -i 's/#homepage/https:\/\/outsung.github.io\/Duo-frontend\//g' package.json
       - name: B) Build
-        run: npm run build-demo
+        run: npm run build
         # env:
         # NODE_ENV: production
 

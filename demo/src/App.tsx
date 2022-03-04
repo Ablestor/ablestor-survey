@@ -1,12 +1,9 @@
 import { useState } from 'react';
-
-import Editor from './Editor';
-import Viewer from './Viewer';
-
-import './styles/common.css';
+import { Editor, Viewer } from '@ablestor/ablestor-survey';
+import { ISurveyResult } from '@ablestor/ablestor-survey/dist/@types/editor';
 
 const App = () => {
-  const [surveyContent, setSurveyContent] = useState();
+  const [surveyContent, setSurveyContent] = useState<ISurveyResult>();
 
   return (
     <div style={{ display: 'flex' }}>
