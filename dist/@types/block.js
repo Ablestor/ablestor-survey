@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlockAlign = exports.BlockTypes = void 0;
-var BlockTypes;
+export var BlockTypes;
 (function (BlockTypes) {
     BlockTypes["BLANK"] = "blank";
     BlockTypes["SHORT_TEXT"] = "short_text";
@@ -15,10 +12,10 @@ var BlockTypes;
     BlockTypes["RANGE"] = "range";
     BlockTypes["DATE"] = "date";
     BlockTypes["TIME"] = "time";
-})(BlockTypes = exports.BlockTypes || (exports.BlockTypes = {}));
-var BlockAlign;
+})(BlockTypes || (BlockTypes = {}));
+export var BlockAlign;
 (function (BlockAlign) {
     BlockAlign["LEFT"] = "left";
     BlockAlign["RIGHT"] = "right";
     BlockAlign["CENTER"] = "center";
-})(BlockAlign = exports.BlockAlign || (exports.BlockAlign = {}));
+})(BlockAlign || (BlockAlign = {}));

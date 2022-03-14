@@ -12,12 +12,20 @@ const App = () => {
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 1, justifyContent: 'center' }}>
-        <Editor onSubmit={setSurveyContent} />
+        <Editor
+          submitButtonOptions={{ text: '테스트 버튼', visible: true }}
+          onSubmit={result => {
+            console.log(result);
+            setSurveyContent(result);
+          }}
+          onChange={setSurveyContent}
+        />
       </div>
       <div style={{ flex: 1 }}>
         {surveyContent && (
           <Viewer
             survey={surveyContent}
+            submitButtonOptions={{ text: '테스트 버튼', visible: true }}
             onSubmit={result => {
               console.log(result);
             }}

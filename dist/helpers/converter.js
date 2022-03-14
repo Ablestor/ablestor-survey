@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNameFromBlockType = void 0;
-var getNameFromBlockType = function (type) {
+export var getNameFromBlockType = function (type) {
     switch (type) {
         case 'blank':
             return '없음';
@@ -31,4 +28,3 @@ var getNameFromBlockType = function (type) {
             return '알 수 없음';
     }
 };
-exports.getNameFromBlockType = getNameFromBlockType;

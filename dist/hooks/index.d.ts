@@ -1,2 +1,2 @@
 import { RefObject } from 'react';
-export declare const useClickAway: (target: RefObject<any>, callback: () => void) => void;
+export declare const useClickAway: (target: RefObject<HTMLDivElement>, callback: () => void) => void;

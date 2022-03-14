@@ -1,4 +1,3 @@
-"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -10,97 +9,39 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlockPresenter = void 0;
-var react_1 = __importDefault(require("react"));
-var ej2_react_calendars_1 = require("@syncfusion/ej2-react-calendars");
-var dayjs_1 = __importDefault(require("dayjs"));
-var classnames_1 = __importDefault(require("classnames"));
-var colors_1 = __importDefault(require("../../constants/colors"));
-var format_1 = require("../../constants/format");
-var block_1 = require("../../@types/block");
-var styled_1 = require("./styled");
-var Inputs_1 = require("../../components/Inputs");
-var Texts_1 = require("../../components/Texts");
-var Section_1 = require("../../components/Section");
-var BlockPresenter = function (_a) {
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { DatePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
+import dayjs from 'dayjs';
+import classnames from 'classnames';
+import Colors from '../../constants/colors';
+import { DATETIME } from '../../constants/format';
+import { BlockTypes } from '../../@types/block';
+import { BlockContainer } from './styled';
+import { Input, Textarea, Select, Switch, RangeSelector, OptionMultipleSelector, OptionSingleSelector, FileUploader, CheckBox, } from '../../components/Inputs';
+import { Description, Text, Title } from '../../components/Texts';
+import { FlexContainer, FlexElement, Row } from '../../components/Section';
+export var BlockPresenter = function (_a) {
     var block = _a.block, onFileUpload = _a.onFileUpload, onFileRemove = _a.onFileRemove, onUpdateBlock = _a.onUpdateBlock;
-    return (react_1.default.createElement(styled_1.BlockContainer, { className: (0, classnames_1.default)({
+    return (_jsxs(BlockContainer, __assign({ className: classnames({
             required: block.required,
-        }) },
-        react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Section_1.FlexContainer, null,
-                block.required && (react_1.default.createElement(Section_1.FlexElement, { width: 7 },
-                    react_1.default.createElement(Texts_1.Title, { style: { color: colors_1.default.main } }, "*"))),
-                react_1.default.createElement(Section_1.FlexElement, { width: 'flex' }, block.title))),
-        react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Texts_1.Description, null, block.description)),
-        block.type === block_1.BlockTypes.SHORT_TEXT && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Input, { placeholder: '이 곳에 입력해주세요.', onChange: function (_a) {
-                    var target = _a.target;
-                    return onUpdateBlock(__assign(__assign({}, block), { answer: target.value }));
-                } }))),
-        block.type === block_1.BlockTypes.LONG_TEXT && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Textarea, { placeholder: '이 곳에 입력해주세요.', onChange: function (_a) {
-                    var target = _a.target;
-                    return onUpdateBlock(__assign(__assign({}, block), { answer: target.value }));
-                } }))),
-        block.type === block_1.BlockTypes.SWITCH && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Section_1.FlexContainer, null,
-                react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                    react_1.default.createElement(Texts_1.Text, null, block.switchTitle)),
-                react_1.default.createElement(Section_1.FlexElement, { width: 40 },
-                    react_1.default.createElement(Inputs_1.Switch, { onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))))),
-        block.type === block_1.BlockTypes.CHECK_BOX && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Section_1.FlexContainer, null,
-                react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                    react_1.default.createElement(Texts_1.Text, null, block.checkboxTitle)),
-                react_1.default.createElement(Section_1.FlexElement, { width: 40 },
-                    react_1.default.createElement(Inputs_1.CheckBox, { shape: 'square', value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))))),
-        block.type === block_1.BlockTypes.SINGLE_SELECT && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.OptionSingleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))),
-        block.type === block_1.BlockTypes.MULTI_SELECT && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.OptionMultipleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }))),
-        block.type === block_1.BlockTypes.DROPDOWN && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.Select, { items: block.question, selectedIndex: block.question.findIndex(function (item) { return item.value === block.answer; }), onChange: function (_a) {
-                    var key = _a.key;
-                    return onUpdateBlock(__assign(__assign({}, block), { answer: key }));
-                } }))),
-        block.type === block_1.BlockTypes.FILE_UPLOAD && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Inputs_1.FileUploader, { files: block.answer, multiple: block.multiple, onAddFile: function (file) { return onFileUpload && onFileUpload(file); }, onRemoveFile: function (file) { return onFileRemove && onFileRemove(file); }, onError: function (error) { return console.error(error); } }))),
-        block.type === block_1.BlockTypes.RANGE && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(Section_1.Row, null,
-                react_1.default.createElement(Section_1.FlexContainer, null,
-                    react_1.default.createElement(Section_1.FlexElement, { width: 140 },
-                        react_1.default.createElement(Texts_1.Text, null, block.minTitle)),
-                    react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                        react_1.default.createElement(Inputs_1.RangeSelector, { min: block.min, max: block.max, value: block.answer || 1, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } })),
-                    react_1.default.createElement(Section_1.FlexElement, { width: 140, style: {
-                            textAlign: 'right',
-                        } },
-                        react_1.default.createElement(Texts_1.Text, null, block.maxTitle)))))),
-        block.type === block_1.BlockTypes.DATE && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Section_1.FlexContainer, null,
-                react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                    react_1.default.createElement(Texts_1.Text, null, "\uB0A0\uC9DC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.")),
-                react_1.default.createElement(Section_1.FlexElement, { width: 200 },
-                    react_1.default.createElement(ej2_react_calendars_1.DatePickerComponent, { format: format_1.DATETIME.DateDisplay, value: new Date(block.answer), onChange: function (_a) {
-                            var value = _a.value;
-                            var date = (0, dayjs_1.default)(value).format(format_1.DATETIME.DateValue);
-                            onUpdateBlock(__assign(__assign({}, block), { answer: date }));
-                        } }))))),
-        block.type === block_1.BlockTypes.TIME && (react_1.default.createElement(Section_1.Row, null,
-            react_1.default.createElement(Section_1.FlexContainer, null,
-                react_1.default.createElement(Section_1.FlexElement, { width: 'flex' },
-                    react_1.default.createElement(Texts_1.Text, null, "\uC2DC\uAC04\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.")),
-                react_1.default.createElement(Section_1.FlexElement, { width: 200 },
-                    react_1.default.createElement(ej2_react_calendars_1.TimePickerComponent, { format: format_1.DATETIME.TimeDisplay, value: new Date(block.answer), onChange: function (_a) {
-                            var value = _a.value;
-                            var date = (0, dayjs_1.default)(value).format(format_1.DATETIME.TimeValue);
-                            onUpdateBlock(__assign(__assign({}, block), { answer: date }));
-                        } })))))));
+        }) }, { children: [_jsx(Row, { children: _jsxs(FlexContainer, { children: [block.required && (_jsx(FlexElement, __assign({ width: 7 }, { children: _jsx(Title, __assign({ style: { color: Colors.main } }, { children: "*" }), void 0) }), void 0)), _jsx(FlexElement, __assign({ width: 'flex' }, { children: block.title }), void 0)] }, void 0) }, void 0), _jsx(Row, { children: _jsx(Description, { children: block.description }, void 0) }, void 0), block.type === BlockTypes.SHORT_TEXT && (_jsx(Row, { children: _jsx(Input, { placeholder: '이 곳에 입력해주세요.', onChange: function (_a) {
+                        var target = _a.target;
+                        return onUpdateBlock(__assign(__assign({}, block), { answer: target.value }));
+                    } }, void 0) }, void 0)), block.type === BlockTypes.LONG_TEXT && (_jsx(Row, { children: _jsx(Textarea, { placeholder: '이 곳에 입력해주세요.', onChange: function (_a) {
+                        var target = _a.target;
+                        return onUpdateBlock(__assign(__assign({}, block), { answer: target.value }));
+                    } }, void 0) }, void 0)), block.type === BlockTypes.SWITCH && (_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: block.switchTitle }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(Switch, { onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }, void 0) }), void 0)] }, void 0) }, void 0)), block.type === BlockTypes.CHECK_BOX && (_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: block.checkboxTitle }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(CheckBox, { shape: 'square', value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }, void 0) }), void 0)] }, void 0) }, void 0)), block.type === BlockTypes.SINGLE_SELECT && (_jsx(Row, { children: _jsx(OptionSingleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }, void 0) }, void 0)), block.type === BlockTypes.MULTI_SELECT && (_jsx(Row, { children: _jsx(OptionMultipleSelector, { items: block.question, value: block.answer, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }, void 0) }, void 0)), block.type === BlockTypes.DROPDOWN && (_jsx(Row, { children: _jsx(Select, { items: block.question, selectedIndex: block.question.findIndex(function (item) { return item.value === block.answer; }), onChange: function (_a) {
+                        var key = _a.key;
+                        return onUpdateBlock(__assign(__assign({}, block), { answer: key }));
+                    } }, void 0) }, void 0)), block.type === BlockTypes.FILE_UPLOAD && (_jsx(Row, { children: _jsx(FileUploader, { files: block.answer, multiple: block.multiple, onAddFile: function (file) { return onFileUpload && onFileUpload(file); }, onRemoveFile: function (file) { return onFileRemove && onFileRemove(file); }, onError: function (error) { return console.error(error); } }, void 0) }, void 0)), block.type === BlockTypes.RANGE && (_jsx(_Fragment, { children: _jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 140 }, { children: _jsx(Text, { children: block.minTitle }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(RangeSelector, { min: block.min, max: block.max, value: block.answer || 1, onChange: function (answer) { return onUpdateBlock(__assign(__assign({}, block), { answer: answer })); } }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 140, style: {
+                                    textAlign: 'right',
+                                } }, { children: _jsx(Text, { children: block.maxTitle }, void 0) }), void 0)] }, void 0) }, void 0) }, void 0)), block.type === BlockTypes.DATE && (_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: "\uB0A0\uC9DC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694." }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 200 }, { children: _jsx(DatePickerComponent, { format: DATETIME.DateDisplay, value: new Date(block.answer), onChange: function (_a) {
+                                    var value = _a.value;
+                                    var date = dayjs(value).format(DATETIME.DateValue);
+                                    onUpdateBlock(__assign(__assign({}, block), { answer: date }));
+                                } }, void 0) }), void 0)] }, void 0) }, void 0)), block.type === BlockTypes.TIME && (_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: "\uC2DC\uAC04\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694." }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 200 }, { children: _jsx(TimePickerComponent, { format: DATETIME.TimeDisplay, value: new Date(block.answer), onChange: function (_a) {
+                                    var value = _a.value;
+                                    var date = dayjs(value).format(DATETIME.TimeValue);
+                                    onUpdateBlock(__assign(__assign({}, block), { answer: date }));
+                                } }, void 0) }), void 0)] }, void 0) }, void 0))] }), void 0));
 };
-exports.BlockPresenter = BlockPresenter;

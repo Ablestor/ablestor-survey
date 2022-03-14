@@ -2,6 +2,7 @@ import React, { ReactElement, useCallback, useState, useEffect } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
+import { v4 as uniqid } from 'uuid';
 
 import { Blocks, BlockTypes } from '../@types/block';
 import { ISurveyEditor, ISurveyContent, ISurveyResult } from '../@types/editor';
@@ -46,6 +47,7 @@ const Editor = <T extends ISurveyEditor>({
       update(surveyContent, {
         $push: [
           {
+            id: uniqid(),
             type: BlockTypes.BLANK,
             order,
             required: false,

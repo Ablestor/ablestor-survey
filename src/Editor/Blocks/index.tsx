@@ -59,6 +59,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             selectedIndex={blockList.findIndex(b => b.value.toLowerCase() === block.type)}
             onChange={({ value }) => {
               const newBlock = createBlock(
+                uniqid(),
                 (value as string).toLowerCase() as BlockTypes,
                 block.order,
               );

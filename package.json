@@ -35,7 +35,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf ./dist & tsc --outDir dist -d",
+    "build": "react-scripts build",
+    "build:test": "rm -rf ./dist & tsc --outDir dist -d",
+    "build:tsc": "rm -rf ./dist & tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

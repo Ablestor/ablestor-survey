@@ -20,6 +20,7 @@ export enum BlockAlign {
 }
 
 export interface IBlock {
+  id: string;
   type: BlockTypes;
   order: number;
   title?: string;

@@ -1,7 +1,7 @@
 import { Blocks, BlockTypes, SelectableOption, TypedBlock } from '../@types/block';
 
-export const createBlock = <T extends BlockTypes>(type: T, order: number): Blocks => {
-  const blockShape = { type, order, required: false };
+export const createBlock = <T extends BlockTypes>(id: string, type: T, order: number): Blocks => {
+  const blockShape = { id, type, order, required: false };
 
   switch (type) {
     case BlockTypes.BLANK:

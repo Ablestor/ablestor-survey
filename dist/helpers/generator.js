@@ -1,51 +1,48 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRange = exports.createBlock = void 0;
-var block_1 = require("../@types/block");
-var createBlock = function (type, order) {
-    var blockShape = { type: type, order: order, required: false };
+import { BlockTypes } from '../@types/block';
+export var createBlock = function (id, type, order) {
+    var blockShape = { id: id, type: type, order: order, required: false };
     switch (type) {
-        case block_1.BlockTypes.BLANK:
+        case BlockTypes.BLANK:
             return blockShape;
-        case block_1.BlockTypes.SHORT_TEXT:
+        case BlockTypes.SHORT_TEXT:
             return Object.assign(blockShape, {
                 answer: '',
             });
-        case block_1.BlockTypes.LONG_TEXT:
+        case BlockTypes.LONG_TEXT:
             return Object.assign(blockShape, {
                 answer: '',
             });
-        case block_1.BlockTypes.SWITCH:
+        case BlockTypes.SWITCH:
             return Object.assign(blockShape, {
                 switchTitle: '',
                 answer: false,
             });
-        case block_1.BlockTypes.CHECK_BOX:
+        case BlockTypes.CHECK_BOX:
             return Object.assign(blockShape, {
                 checkboxTitle: '',
                 answer: false,
             });
-        case block_1.BlockTypes.SINGLE_SELECT:
+        case BlockTypes.SINGLE_SELECT:
             return Object.assign(blockShape, {
                 question: [],
                 answer: null,
             });
-        case block_1.BlockTypes.MULTI_SELECT:
+        case BlockTypes.MULTI_SELECT:
             return Object.assign(blockShape, {
                 question: [],
                 answer: [],
             });
-        case block_1.BlockTypes.DROPDOWN:
+        case BlockTypes.DROPDOWN:
             return Object.assign(blockShape, {
                 question: [],
                 answer: null,
             });
-        case block_1.BlockTypes.FILE_UPLOAD:
+        case BlockTypes.FILE_UPLOAD:
             return Object.assign(blockShape, {
                 multiple: true,
                 answer: [],
             });
-        case block_1.BlockTypes.RANGE:
+        case BlockTypes.RANGE:
             return Object.assign(blockShape, {
                 min: 1,
                 minTitle: '',
@@ -53,12 +50,12 @@ var createBlock = function (type, order) {
                 maxTitle: '',
                 answer: null,
             });
-        case block_1.BlockTypes.DATE:
+        case BlockTypes.DATE:
             return Object.assign(blockShape, {
                 value: '',
                 answer: '',
             });
-        case block_1.BlockTypes.TIME:
+        case BlockTypes.TIME:
             return Object.assign(blockShape, {
                 value: '',
                 answer: '',
@@ -67,12 +64,10 @@ var createBlock = function (type, order) {
             throw new Error('return untyped block.');
     }
 };
-exports.createBlock = createBlock;
-var getRange = function (size) {
+export var getRange = function (size) {
     var range = [];
     for (var i = 0; i < size; i++) {
         range.push(i);
     }
     return range;
 };
-exports.getRange = getRange;
