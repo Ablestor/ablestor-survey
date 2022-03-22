@@ -280,6 +280,7 @@ export const RangeSelector = <T extends RangeSelectorProps>({
           key={min}
           {...props}
           style={{
+            position: 'relative',
             width: '100%',
             height: '6px',
             borderRadius: '3px',
