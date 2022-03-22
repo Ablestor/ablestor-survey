@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
+import { ReactElement, useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
 import update from 'immutability-helper';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -212,7 +212,7 @@ export const OptionSingleSelector = <T extends OptionSelectorProps<'single'>>({
             key={index}
             onClick={() => {
               setChecked(item.key);
-              onChange && onChange(checked);
+              onChange && onChange(item.key);
             }}>
             <FlexElement width={40}>
               <StyledCheckBox

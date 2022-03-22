@@ -116,7 +116,7 @@ export var OptionSingleSelector = function (_a) {
             var hasChecked = checked === item.key;
             return (_jsxs(FlexContainer, __assign({ onClick: function () {
                     setChecked(item.key);
-                    onChange && onChange(checked);
+                    onChange && onChange(item.key);
                 } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({
                                 active: hasChecked,
                             }), shape: 'circle', value: hasChecked }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: item.value }, void 0) }), void 0)] }), index));
