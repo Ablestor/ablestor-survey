@@ -9,10 +9,14 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 import { createElement as _createElement } from "react";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
@@ -52,7 +56,7 @@ export var Select = function (_a) {
 export var OptionEditor = function (_a) {
     var items = _a.items, onChange = _a.onChange;
     var appendItem = function (value) {
-        return onChange && onChange(__spreadArray(__spreadArray([], items), [{ key: uniqid(), label: value, value: value }]));
+        return onChange && onChange(__spreadArray(__spreadArray([], items, true), [{ key: uniqid(), label: value, value: value }], false));
     };
     var removeItem = function (index) {
         return onChange && onChange(update(items, { $splice: [[index, 1]] }));
@@ -96,7 +100,7 @@ export var OptionMultipleSelector = function (_a) {
                         onChange && onChange(update_1);
                     }
                     else {
-                        var update_2 = __spreadArray(__spreadArray([], checked), [item.key]);
+                        var update_2 = __spreadArray(__spreadArray([], checked, true), [item.key], false);
                         setChecked(update_2);
                         onChange && onChange(update_2);
                     }
@@ -139,6 +143,7 @@ export var RangeSelector = function (_a) {
     return (_jsx(Range, { step: 1, min: min, max: max, renderTrack: function (_a) {
             var props = _a.props, children = _a.children;
             return (_jsx("div", __assign({}, props, { style: {
+                    position: 'relative',
                     width: '100%',
                     height: '6px',
                     borderRadius: '3px',
