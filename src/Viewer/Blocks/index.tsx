@@ -50,6 +50,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.SHORT_TEXT && (
         <Row>
           <Input
+            defaultValue={block.answer}
             placeholder={'이 곳에 입력해주세요.'}
             onChange={({ target }) => onUpdateBlock({ ...block, answer: target.value })}
           />
@@ -58,6 +59,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.LONG_TEXT && (
         <Row>
           <Textarea
+            defaultValue={block.answer}
             placeholder={'이 곳에 입력해주세요.'}
             onChange={({ target }) => onUpdateBlock({ ...block, answer: target.value })}
           />
@@ -70,7 +72,10 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <Text>{block.switchTitle}</Text>
             </FlexElement>
             <FlexElement width={40}>
-              <Switch onChange={answer => onUpdateBlock({ ...block, answer })} />
+              <Switch
+                value={block.answer}
+                onChange={answer => onUpdateBlock({ ...block, answer })}
+              />
             </FlexElement>
           </FlexContainer>
         </Row>
