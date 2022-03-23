@@ -8,7 +8,7 @@ export var BlockTypes;
     BlockTypes["SINGLE_SELECT"] = "single_select";
     BlockTypes["MULTI_SELECT"] = "multi_select";
     BlockTypes["DROPDOWN"] = "dropdown";
-    BlockTypes["FILE_UPLOAD"] = "file_upload";
+    // FILE_UPLOAD = 'file_upload',
     BlockTypes["RANGE"] = "range";
     BlockTypes["DATE"] = "date";
     BlockTypes["TIME"] = "time";

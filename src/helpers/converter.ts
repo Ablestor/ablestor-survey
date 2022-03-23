@@ -18,8 +18,8 @@ export const getNameFromBlockType = (type: BlockTypes) => {
       return '다중 선택형 질문';
     case 'dropdown':
       return '드롭 다운형 질문';
-    case 'file_upload':
-      return '첨부 파일 업로드';
+    // case 'file_upload':
+    //   return '첨부 파일 업로드';
     case 'range':
       return '범위 내 선택형 질문';
     case 'date':

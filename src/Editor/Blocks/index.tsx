@@ -119,7 +119,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           />
         </Row>
       )}
-      {block.type === BlockTypes.FILE_UPLOAD && (
+      {/* {block.type === BlockTypes.FILE_UPLOAD && (
         <Row>
           <FlexContainer>
             <FlexElement width={'flex'}>
@@ -133,7 +133,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             </FlexElement>
           </FlexContainer>
         </Row>
-      )}
+      )} */}
       {block.type === BlockTypes.RANGE && (
         <>
           <Row>

@@ -7,7 +7,7 @@ export enum BlockTypes {
   SINGLE_SELECT = 'single_select',
   MULTI_SELECT = 'multi_select',
   DROPDOWN = 'dropdown',
-  FILE_UPLOAD = 'file_upload',
+  // FILE_UPLOAD = 'file_upload',
   RANGE = 'range',
   DATE = 'date',
   TIME = 'time',
@@ -37,7 +37,7 @@ export type Blocks =
   | ISurveySingleSelectBlock
   | ISurveyMultiSelectBlock
   | ISurveyDropdownBlock
-  | ISurveyFileUploadBlock
+  // | ISurveyFileUploadBlock
   | ISurveyRangeBlock
   | ISurveyDateBlock
   | ISurveyTimeBlock;
@@ -94,11 +94,11 @@ export interface ISurveyDropdownBlock extends IBlock {
   answer: string | null;
 }
 
-export interface ISurveyFileUploadBlock extends IBlock {
-  type: BlockTypes.FILE_UPLOAD;
-  multiple: boolean;
-  answer: string[];
-}
+// export interface ISurveyFileUploadBlock extends IBlock {
+//   type: BlockTypes.FILE_UPLOAD;
+//   multiple: boolean;
+//   answer: string[];
+// }
 
 export interface ISurveyRangeBlock extends IBlock {
   type: BlockTypes.RANGE;

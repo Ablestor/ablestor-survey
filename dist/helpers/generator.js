@@ -37,11 +37,11 @@ export var createBlock = function (id, type, order) {
                 question: [],
                 answer: null,
             });
-        case BlockTypes.FILE_UPLOAD:
-            return Object.assign(blockShape, {
-                multiple: true,
-                answer: [],
-            });
+        // case BlockTypes.FILE_UPLOAD:
+        //   return Object.assign(blockShape, {
+        //     multiple: true,
+        //     answer: [],
+        //   }) as TypedBlock<BlockTypes.FILE_UPLOAD>;
         case BlockTypes.RANGE:
             return Object.assign(blockShape, {
                 min: 1,

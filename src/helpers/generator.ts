@@ -47,11 +47,11 @@ export const createBlock = <T extends BlockTypes>(id: string, type: T, order: nu
         answer: null,
       }) as TypedBlock<BlockTypes.DROPDOWN>;
 
-    case BlockTypes.FILE_UPLOAD:
-      return Object.assign(blockShape, {
-        multiple: true,
-        answer: [],
-      }) as TypedBlock<BlockTypes.FILE_UPLOAD>;
+    // case BlockTypes.FILE_UPLOAD:
+    //   return Object.assign(blockShape, {
+    //     multiple: true,
+    //     answer: [],
+    //   }) as TypedBlock<BlockTypes.FILE_UPLOAD>;
 
     case BlockTypes.RANGE:
       return Object.assign(blockShape, {

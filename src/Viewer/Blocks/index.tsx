@@ -123,7 +123,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           />
         </Row>
       )}
-      {block.type === BlockTypes.FILE_UPLOAD && (
+      {/* {block.type === BlockTypes.FILE_UPLOAD && (
         <Row>
           <FileUploader
             files={block.answer}
@@ -133,7 +133,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             onError={error => console.error(error)}
           />
         </Row>
-      )}
+      )} */}
       {block.type === BlockTypes.RANGE && (
         <>
           <Row>
@@ -162,40 +162,32 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       )}
       {block.type === BlockTypes.DATE && (
         <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>날짜를 입력해주세요.</Text>
-            </FlexElement>
-            <FlexElement width={200}>
-              <DatePickerComponent
-                format={DATETIME.DateDisplay}
-                value={new Date(block.answer)}
-                onChange={({ value }: { value: string }) => {
-                  const date = dayjs(value).format(DATETIME.DateValue);
-                  onUpdateBlock({ ...block, answer: date });
-                }}
-              />
-            </FlexElement>
-          </FlexContainer>
+          <Text>날짜를 선택해주세요.</Text>
+          <FlexElement width={200}>
+            <DatePickerComponent
+              format={DATETIME.DateDisplay}
+              value={new Date(block.answer)}
+              onChange={({ value }: { value: string }) => {
+                const date = dayjs(value).format(DATETIME.DateValue);
+                onUpdateBlock({ ...block, answer: date });
+              }}
+            />
+          </FlexElement>
         </Row>
       )}
       {block.type === BlockTypes.TIME && (
         <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>시간을 입력해주세요.</Text>
-            </FlexElement>
-            <FlexElement width={200}>
-              <TimePickerComponent
-                format={DATETIME.TimeDisplay}
-                value={new Date(block.answer)}
-                onChange={({ value }: { value: string }) => {
-                  const date = dayjs(value).format(DATETIME.TimeValue);
-                  onUpdateBlock({ ...block, answer: date });
-                }}
-              />
-            </FlexElement>
-          </FlexContainer>
+          <Text>시간을 선택해주세요.</Text>
+          <FlexElement width={200}>
+            <TimePickerComponent
+              format={DATETIME.TimeDisplay}
+              value={new Date(block.answer)}
+              onChange={({ value }: { value: string }) => {
+                const date = dayjs(value).format(DATETIME.TimeValue);
+                onUpdateBlock({ ...block, answer: date });
+              }}
+            />
+          </FlexElement>
         </Row>
       )}
     </BlockContainer>

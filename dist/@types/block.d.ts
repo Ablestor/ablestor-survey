@@ -7,7 +7,6 @@ export declare enum BlockTypes {
     SINGLE_SELECT = "single_select",
     MULTI_SELECT = "multi_select",
     DROPDOWN = "dropdown",
-    FILE_UPLOAD = "file_upload",
     RANGE = "range",
     DATE = "date",
     TIME = "time"
@@ -25,7 +24,7 @@ export interface IBlock {
     description?: string;
     required: boolean;
 }
-export declare type Blocks = ISurveyBlankBlock | ISurveyShortTextBlock | ISurveyLongTextBlock | ISurveySwitchBlock | ISurveyCheckBoxBlock | ISurveySingleSelectBlock | ISurveyMultiSelectBlock | ISurveyDropdownBlock | ISurveyFileUploadBlock | ISurveyRangeBlock | ISurveyDateBlock | ISurveyTimeBlock;
+export declare type Blocks = ISurveyBlankBlock | ISurveyShortTextBlock | ISurveyLongTextBlock | ISurveySwitchBlock | ISurveyCheckBoxBlock | ISurveySingleSelectBlock | ISurveyMultiSelectBlock | ISurveyDropdownBlock | ISurveyRangeBlock | ISurveyDateBlock | ISurveyTimeBlock;
 export declare type TypedBlock<T extends BlockTypes> = Extract<Blocks, {
     type: T;
 }>;
@@ -69,11 +68,6 @@ export interface ISurveyDropdownBlock extends IBlock {
     type: BlockTypes.DROPDOWN;
     question: SelectableOption[];
     answer: string | null;
-}
-export interface ISurveyFileUploadBlock extends IBlock {
-    type: BlockTypes.FILE_UPLOAD;
-    multiple: boolean;
-    answer: string[];
 }
 export interface ISurveyRangeBlock extends IBlock {
     type: BlockTypes.RANGE;

@@ -16,7 +16,7 @@ import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
 import { BlockTypes } from '../../@types/block';
 import { BlockButtonSection, BlockContainer } from './styled';
-import { Input, Select, OptionEditor, Switch } from '../../components/Inputs';
+import { Input, Select, OptionEditor } from '../../components/Inputs';
 import { IconButton } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
@@ -65,7 +65,7 @@ export var BlockPresenter = function (_a) {
                     } }, void 0) }, void 0)), block.type === BlockTypes.CHECK_BOX && (_jsx(Row, { children: _jsx(Input, { defaultValue: block.checkboxTitle, placeholder: '체크박스 타이틀', onChange: function (_a) {
                         var target = _a.target;
                         return onUpdateBlock(__assign(__assign({}, block), { checkboxTitle: target.value }));
-                    } }, void 0) }, void 0)), block.type === BlockTypes.FILE_UPLOAD && (_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: "\uC5EC\uB7EC \uD30C\uC77C \uC5C5\uB85C\uB4DC \uD5C8\uC6A9" }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(Switch, { value: block.multiple, onChange: function (multiple) { return onUpdateBlock(__assign(__assign({}, block), { multiple: multiple })); } }, void 0) }), void 0)] }, void 0) }, void 0)), block.type === BlockTypes.RANGE && (_jsxs(_Fragment, { children: [_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 60 }, { children: _jsx(Text, { children: "\uCD5C\uC18C \uAC12" }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Select, { items: minRange, selectedIndex: minRange.findIndex(function (r) { return r.value === block.min; }), onChange: function (_a) {
+                    } }, void 0) }, void 0)), block.type === BlockTypes.RANGE && (_jsxs(_Fragment, { children: [_jsx(Row, { children: _jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 60 }, { children: _jsx(Text, { children: "\uCD5C\uC18C \uAC12" }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Select, { items: minRange, selectedIndex: minRange.findIndex(function (r) { return r.value === block.min; }), onChange: function (_a) {
                                             var value = _a.value;
                                             return onUpdateBlock(__assign(__assign({}, block), { min: value }));
                                         } }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 60 }, { children: _jsx(Text, { children: "\uCD5C\uB300 \uAC12" }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Select, { items: maxRange, selectedIndex: maxRange.findIndex(function (r) { return r.value === block.max; }), onChange: function (_a) {
