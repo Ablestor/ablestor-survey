@@ -18,6 +18,7 @@ yarn add @ablestor/ablestor-survey
 ```
 
 ## How to use?
+
 ```javascript
 import { useState } from 'react';
 import { Editor, Viewer, EditorType } from '@ablestor/ablestor-survey';
@@ -43,21 +44,25 @@ const View = () => {
 export default View;
 ```
 
+```css
+@import url(https://cdn.syncfusion.com/ej2/material.css);
+```
+
 ## Feature
 
 ### Editor
 
-|property|required|value|
-|------|---|---|
-|submitButtonOptions|N|{ text: string; visible: boolean; }|
-|defaultValue|N|{}: EditorType.ISurveyResult|
-|onChange|N|(result: EditorType.ISurveyResult) => void|
-|onSubmit|N|(result: EditorType.ISurveyResult) => void|
+| property            | required | value                                      |
+| ------------------- | -------- | ------------------------------------------ |
+| submitButtonOptions | N        | { text: string; visible: boolean; }        |
+| defaultValue        | N        | {}: EditorType.ISurveyResult               |
+| onChange            | N        | (result: EditorType.ISurveyResult) => void |
+| onSubmit            | N        | (result: EditorType.ISurveyResult) => void |
 
 ### Viewer
 
-|property|required|value|
-|------|---|---|
-|survey|Y|EditorType.ISurveyResult|
-|submitButtonOptions|N|{ text: string; visible: boolean; }|
-|onSubmit|N|(result: EditorType.ISurveyResult) => void|
+| property            | required | value                                      |
+| ------------------- | -------- | ------------------------------------------ |
+| survey              | Y        | EditorType.ISurveyResult                   |
+| submitButtonOptions | N        | { text: string; visible: boolean; }        |
+| onSubmit            | N        | (result: EditorType.ISurveyResult) => void |
