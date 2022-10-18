@@ -100,7 +100,7 @@ const Editor = <T extends ISurveyEditor>({
   };
 
   return (
-    <SurveyContainer>
+    <SurveyContainer className='ablestor-survey'>
       <Row>
         <Input
           placeholder={'설문 제목'}

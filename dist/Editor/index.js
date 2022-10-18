@@ -82,7 +82,7 @@ var Editor = function (_a) {
         reorderSurveyContent.splice(nextIndex, 0, removed);
         setSurveyContent(reorderSurveyContent);
     };
-    return (_jsxs(SurveyContainer, { children: [_jsxs(Row, { children: [_jsx(Input, { placeholder: '설문 제목', value: surveyTitle, onChange: function (_a) {
+    return (_jsxs(SurveyContainer, __assign({ className: 'ablestor-survey' }, { children: [_jsxs(Row, { children: [_jsx(Input, { placeholder: '설문 제목', value: surveyTitle, onChange: function (_a) {
                             var target = _a.target;
                             return setSurveyTitle(target.value);
                         } }, void 0), _jsx(Input, { placeholder: '설문 설명', value: surveyDescription, onChange: function (_a) {
@@ -91,6 +91,6 @@ var Editor = function (_a) {
                         } }, void 0)] }, void 0), _jsx(Row, { children: _jsx(DragDropContext, __assign({ onDragEnd: onDragEnd }, { children: _jsx(Droppable, __assign({ droppableId: 'droppable' }, { children: function (provided) { return (_jsxs("div", __assign({}, provided.droppableProps, { ref: provided.innerRef }, { children: [surveyContent.map(function (block, i) { return (_jsx(Draggable, __assign({ draggableId: String(i), index: i }, { children: function (provided) { return (_jsx("div", __assign({ ref: provided.innerRef }, provided.draggableProps, provided.dragHandleProps, { children: _jsx(BlockPresenter, __assign({}, provided.draggableProps, provided.dragHandleProps, { block: block, onUpdateBlock: function (data) { return onUpdateBlock(i, data); }, onCopyBlock: function (data) { return onCopyBlock(i, data); }, onRemoveBlock: function () { return onRemoveBlock(i); } }), i) }), void 0)); } }), i)); }), provided.placeholder] }), void 0)); } }), void 0) }), void 0) }, void 0), _jsx(Row, { children: _jsxs(RoundDashedSection, __assign({ style: {
                         textAlign: 'center',
                         cursor: 'pointer',
-                    }, onClick: addBlock }, { children: [_jsx(TiPlus, {}, void 0), _jsx(Text, { children: "\uC0C8\uB85C\uC6B4 \uD56D\uBAA9 \uCD94\uAC00" }, void 0)] }), void 0) }, void 0), (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (_jsx(Row, { children: _jsx(Button, __assign({ onClick: function () { return onSubmit && onSubmit(extractSurveyResult()); } }, { children: (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '전송' }), void 0) }, void 0))] }, void 0));
+                    }, onClick: addBlock }, { children: [_jsx(TiPlus, {}, void 0), _jsx(Text, { children: "\uC0C8\uB85C\uC6B4 \uD56D\uBAA9 \uCD94\uAC00" }, void 0)] }), void 0) }, void 0), (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (_jsx(Row, { children: _jsx(Button, __assign({ onClick: function () { return onSubmit && onSubmit(extractSurveyResult()); } }, { children: (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '전송' }), void 0) }, void 0))] }), void 0));
 };
 export default Editor;
