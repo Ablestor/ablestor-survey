@@ -7,7 +7,7 @@ import { BlockTypes, SelectableOption } from '../../@types/block';
 
 import { IBlockPresenter } from './type';
 import { BlockButtonSection, BlockContainer } from './styled';
-import { Input, Select, OptionEditor, Switch } from '../../components/Inputs';
+import { Input, Select, OptionEditor } from '../../components/Inputs';
 import { IconButton } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
@@ -34,9 +34,10 @@ export const BlockPresenter = <T extends IBlockPresenter>({
   onUpdateBlock,
   onCopyBlock,
   onRemoveBlock,
+  listSub,
+  list,
 }: T): ReactElement<T> => {
   const isTypedBlock = block.type !== BlockTypes.BLANK;
-
   const [title, setTitle] = useState(block.title);
   const [description, setDescription] = useState(block.description);
 
@@ -55,6 +56,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         </FlexElement>
         <FlexElement width={220}>
           <Select
+            list={list}
+            listSub={listSub}
             items={blockList}
             selectedIndex={blockList.findIndex(b => b.value.toLowerCase() === block.type)}
             onChange={({ value }) => {

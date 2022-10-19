@@ -3,7 +3,6 @@ import { DatePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-
 import dayjs from 'dayjs';
 import classnames from 'classnames';
 
-import Colors from '../../constants/colors';
 import { DATETIME } from '../../constants/format';
 import { BlockTypes } from '../../@types/block';
 import { IBlockPresenter } from './type';
@@ -17,11 +16,11 @@ import {
   RangeSelector,
   OptionMultipleSelector,
   OptionSingleSelector,
-  FileUploader,
   CheckBox,
 } from '../../components/Inputs';
 import { Description, Text, Title } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row } from '../../components/Section';
+import { defaultTheme } from '../..';
 
 export const BlockPresenter = <T extends IBlockPresenter>({
   block,
@@ -38,7 +37,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         <FlexContainer>
           {block.required && (
             <FlexElement width={7}>
-              <Title style={{ color: Colors.main }}>*</Title>
+              <Title style={{ color: defaultTheme.main }}>*</Title>
             </FlexElement>
           )}
           <FlexElement width={'flex'}>{block.title}</FlexElement>
@@ -160,7 +159,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           </Row>
         </>
       )}
-      {block.type === BlockTypes.DATE && (
+      {/* {block.type === BlockTypes.DATE && (
         <Row>
           <Text>날짜를 선택해주세요.</Text>
           <FlexElement width={170}>
@@ -174,8 +173,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             />
           </FlexElement>
         </Row>
-      )}
-      {block.type === BlockTypes.TIME && (
+      )} */}
+      {/* {block.type === BlockTypes.TIME && (
         <Row>
           <Text>시간을 선택해주세요.</Text>
           <FlexElement width={170}>
@@ -189,7 +188,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             />
           </FlexElement>
         </Row>
-      )}
+      )} */}
     </BlockContainer>
   );
 };

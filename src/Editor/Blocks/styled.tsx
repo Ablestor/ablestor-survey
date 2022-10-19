@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components';
-import Colors from '../../constants/colors';
+import { defaultTheme } from '../../helpers/theme';
 
 const createAnimation = keyframes`
   from {
-    background-color: ${Colors.lightGray}
+    background-color: ${defaultTheme.lightGray}
   }
   to {
     background-color: #fff;
@@ -13,7 +13,7 @@ const createAnimation = keyframes`
 export const BlockContainer = styled.div`
   padding: 20px;
   margin-bottom: 20px;
-  border: 1px solid ${Colors.lightGray};
+  border: 1px solid ${props => props.theme.lightGray};
   border-radius: 5px;
   background-color: #fff;
   animation: ${createAnimation} 1s;
@@ -23,5 +23,5 @@ export const BlockButtonSection = styled.div`
   text-align: right;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid ${Colors.lightGray};
+  border-top: 1px solid ${props => props.theme.lightGray};
 `;

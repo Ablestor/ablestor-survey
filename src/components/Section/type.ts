@@ -11,3 +11,6 @@ export interface FlexConatinerProps extends BaseSectionProps {
 export interface FlexElementProps extends BaseSectionProps {
   width: 'flex' | number;
 }
+export interface ThemeProps {
+  color: string;
+}

@@ -1,10 +1,13 @@
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
 import { SelectableOption } from '../../@types/block';
+import { BlockType } from '../../@types/block';
 
 export interface SelectorProps<T = SelectableOption[]> {
   items: T;
   selectedIndex?: number;
   onChange?: (value: SelectableOption, index: number) => void;
+  listSub?: boolean;
+  list?: BlockType[];
 }
 
 export interface OptionProps {

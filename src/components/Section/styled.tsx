@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Colors from '../../constants/colors';
 import { FlexConatinerProps, FlexElementProps } from './type';
 
 export const StyledRoundSection = styled.div`
@@ -11,7 +10,7 @@ export const StyledRoundSection = styled.div`
 export const StyledDashedSection = styled.div`
   padding: 20px;
   border-radius: 5px;
-  border: 1px dashed ${Colors.lightGray};
+  border: 1px dashed ${props => props.theme.lightGray};
 `;
 
 export const StyledSurveyContainer = styled.div`
@@ -33,7 +32,7 @@ export const StyledVerticalDivider = styled.div`
   margin: 0 12px;
   line-height: 100%;
   vertical-align: middle;
-  background-color: ${Colors.lightGray};
+  background-color: ${props => props.theme.lightGray};
 `;
 
 export const StyledFlexContainer = styled.div<FlexConatinerProps>`

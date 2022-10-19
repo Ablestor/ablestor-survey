@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Colors from '../../constants/colors';
 
 export const StyledButton = styled.button`
   width: 100%;
@@ -13,11 +12,11 @@ export const StyledButton = styled.button`
   cursor: pointer;
   &:hover {
     color: #fff;
-    background-color: ${Colors.main};
+    background-color: ${props => props.theme.main};
   }
   &.active {
     color: #fff;
-    background-color: ${Colors.main};
+    background-color: ${props => props.theme.main};
   }
 `;
 

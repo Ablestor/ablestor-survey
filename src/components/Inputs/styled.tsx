@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Colors from '../../constants/colors';
 import { CheckBoxProps, SwitchProps } from './type';
 
 export const StyledInput = styled.input`
@@ -7,14 +6,14 @@ export const StyledInput = styled.input`
   height: 36px;
   padding: 0 10px;
   margin: 5px 0;
-  border: 1px solid ${Colors.gray};
+  border: 1px solid ${props => props.theme.gray};
   border-radius: 5px;
   font-size: 0.9em;
   outline: none;
   transition: all 0.3s;
   &:focus,
   &:active {
-    border-color: ${Colors.main};
+    border-color: ${props => props.theme.main};
   }
 `;
 
@@ -23,7 +22,7 @@ export const StyledTextarea = styled.textarea`
   height: 100px;
   padding: 10px;
   margin: 5px 0;
-  border: 1px solid ${Colors.gray};
+  border: 1px solid ${props => props.theme.gray};
   border-radius: 5px;
   font-size: 0.9em;
   outline: none;
@@ -32,7 +31,7 @@ export const StyledTextarea = styled.textarea`
   resize: vertical;
   &:focus,
   &:active {
-    border-color: ${Colors.main};
+    border-color: ${props => props.theme.main};
   }
 `;
 
@@ -43,7 +42,7 @@ export const StyledSelect = styled.div`
   height: 36px;
   padding: 0 10px;
   text-align: left;
-  border: 1px solid ${Colors.gray};
+  border: 1px solid ${props => props.theme.gray};
   border-radius: 5px;
   font-size: 0.9em;
   outline: none;
@@ -51,7 +50,7 @@ export const StyledSelect = styled.div`
   cursor: default;
   &:focus,
   &:active {
-    border-color: ${Colors.main};
+    ${props => props.theme.main};
   }
   .select-current-value {
     height: 36px;
@@ -83,12 +82,12 @@ export const StyledSelect = styled.div`
       line-height: 36px;
       vertical-align: middle;
       &.selected {
-        color: ${Colors.black};
-        background-color: ${Colors.lightGray};
+        color: ${props => props.theme.black};
+        background-color: ${props => props.theme.lightGray};
       }
       &:hover {
         color: #fff;
-        background-color: ${Colors.main};
+        background-color: ${props => props.theme.main};
       }
     }
   }
@@ -101,11 +100,11 @@ export const StyledCheckBox = styled.div<CheckBoxProps>`
   height: 24px;
   margin: 5px 0;
   border-radius: ${props => (props.shape === 'circle' ? '50%' : '5px')};
-  border: 1px solid ${Colors.gray};
+  border: 1px solid ${props => props.theme.gray};
   transition: all 0.3s;
   cursor: pointer;
   &:hover {
-    background-color: ${Colors.lightGray};
+    background-color: ${props => props.theme.lightGray};
   }
   &.active::after {
     position: absolute;
@@ -116,7 +115,7 @@ export const StyledCheckBox = styled.div<CheckBoxProps>`
     top: 4px;
     left: 4px;
     border-radius: ${props => (props.shape === 'circle' ? '50%' : '3px')};
-    background-color: ${Colors.main};
+    background-color: ${props => props.theme.main};
   }
 `;
 
@@ -125,7 +124,7 @@ export const StyledSwitch = styled.div<SwitchProps>`
   display: inline-block;
   width: ${props => props.width}px;
   height: 20px;
-  background-color: ${props => (props.value ? Colors.main : Colors.lightGray)};
+  background-color: ${props => (props.value ? props.theme.main : props.theme.lightGray)};
   border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -146,7 +145,7 @@ export const StyledSelectorThumb = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: ${Colors.main};
+  background-color: ${props => props.theme.main};
   cursor: grab;
 `;
 
