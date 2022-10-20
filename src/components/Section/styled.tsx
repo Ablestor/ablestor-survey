@@ -10,7 +10,7 @@ export const StyledRoundSection = styled.div`
 export const StyledDashedSection = styled.div`
   padding: 20px;
   border-radius: 5px;
-  border: 1px dashed ${props => props.theme.lightGray};
+  border: 1px dashed ${({ theme }) => theme.lightGray};
 `;
 
 export const StyledSurveyContainer = styled.div`
@@ -32,7 +32,7 @@ export const StyledVerticalDivider = styled.div`
   margin: 0 12px;
   line-height: 100%;
   vertical-align: middle;
-  background-color: ${props => props.theme.lightGray};
+  background-color: ${({ theme }) => theme.lightGray};
 `;
 
 export const StyledFlexContainer = styled.div<FlexConatinerProps>`

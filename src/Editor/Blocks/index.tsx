@@ -14,7 +14,6 @@ import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../componen
 
 import { createBlock, getRange } from '../../helpers/generator';
 import { getNameFromBlockType } from '../../helpers/converter';
-import { blockList } from '../../constants/blocks';
 
 const startAt = 2;
 const minRange: SelectableOption[] = getRange(startAt).map(i => ({
@@ -34,7 +33,6 @@ export const BlockPresenter = <T extends IBlockPresenter>({
   onUpdateBlock,
   onCopyBlock,
   onRemoveBlock,
-  listSub,
   list,
 }: T): ReactElement<T> => {
   const isTypedBlock = block.type !== BlockTypes.BLANK;
@@ -56,10 +54,10 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         </FlexElement>
         <FlexElement width={220}>
           <Select
-            list={list}
-            listSub={listSub}
-            items={blockList}
-            selectedIndex={blockList.findIndex(b => b.value.toLowerCase() === block.type)}
+            items={list}
+            selectedIndex={list.findIndex(
+              b => typeof b.value === 'string' && b.value.toLowerCase() === block.type,
+            )}
             onChange={({ value }) => {
               const newBlock = createBlock(
                 uniqid(),

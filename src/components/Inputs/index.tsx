@@ -1,11 +1,4 @@
-import {
-  ReactElement,
-  useState,
-  useRef,
-  InputHTMLAttributes,
-  KeyboardEvent,
-  useEffect,
-} from 'react';
+import { ReactElement, useState, useRef, InputHTMLAttributes, KeyboardEvent } from 'react';
 import update from 'immutability-helper';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -37,7 +30,6 @@ import {
   StyledSelectorThumb,
 } from './styled';
 import { defaultTheme } from '../..';
-import { BlockType, SelectableOption } from '../../@types/block';
 
 export const Input = <T extends InputHTMLAttributes<HTMLInputElement>>(
   props: T,
@@ -51,41 +43,12 @@ export const Select = <T extends SelectorProps>({
   items,
   selectedIndex,
   onChange,
-  listSub,
-  list,
 }: T): ReactElement<T> => {
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number>(selectedIndex || 0);
   const selectedItem = items[selectIndex];
 
-  const [filterItem, setFilterItem] = useState<SelectableOption[]>([
-    {
-      key: '',
-      label: '',
-      value: '',
-    },
-  ]);
-
-  useEffect(() => {
-    const filterItems: () => SelectableOption[] = () => {
-      return items.filter(({ value }) => {
-        const lowerValue = String(value).toLowerCase();
-        const isBlank = lowerValue === 'BLANK';
-        const isValueTypeNumber = typeof lowerValue === 'number';
-
-        if (isValueTypeNumber) return false;
-
-        return listSub
-          ? !list?.includes(lowerValue as BlockType) || isBlank
-          : list?.includes(lowerValue as BlockType) || isBlank;
-      });
-    };
-
-    setFilterItem(typeof listSub !== 'undefined' ? filterItems() : items);
-  }, []);
-
-  console.log(filterItem);
   useClickAway(selectRef, () => setListVisible(false));
 
   return (
@@ -98,7 +61,7 @@ export const Select = <T extends SelectorProps>({
       </div>
       {listVisible && (
         <div className={'select-options-container'}>
-          {filterItem.map((item, index) => (
+          {items.map((item, index) => (
             <div
               className={classnames({
                 'select-options': true,

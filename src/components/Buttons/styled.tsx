@@ -12,11 +12,11 @@ export const StyledButton = styled.button`
   cursor: pointer;
   &:hover {
     color: #fff;
-    background-color: ${props => props.theme.main};
+    background-color: ${({ theme }) => theme.main};
   }
   &.active {
     color: #fff;
-    background-color: ${props => props.theme.main};
+    background-color: ${({ theme }) => theme.main};
   }
 `;
 

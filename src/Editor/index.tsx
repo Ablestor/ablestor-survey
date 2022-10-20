@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useState, useEffect, useContext } from 'react';
+import React, { ReactElement, useCallback, useState, useEffect, useMemo } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
 import { v4 as uniqid } from 'uuid';
 
-import { Blocks, BlockTypes } from '../@types/block';
+import { Blocks, BlockType, BlockTypes, SelectableOption } from '../@types/block';
 import { ISurveyContent, ISurveyResult, AOrBISurveyEditor } from '../@types/editor';
 
 import { RoundDashedSection, Row, SurveyContainer } from '../components/Section';
@@ -14,6 +14,7 @@ import { Text } from '../components/Texts';
 import { BlockPresenter } from './Blocks';
 import { ThemeProvider } from 'styled-components';
 import { themeRef } from '../helpers/theme';
+import { blockList } from '../constants/blocks';
 
 const Editor = <T extends AOrBISurveyEditor>({
   submitButtonOptions,
@@ -29,11 +30,11 @@ const Editor = <T extends AOrBISurveyEditor>({
     defaultValue?.description || '',
   );
   const [surveyContent, setSurveyContent] = useState<ISurveyContent>(defaultValue?.content || []);
-  let isListSub: boolean | undefined;
 
-  if (blackList || whiteList) {
-    isListSub = blackList ? true : false;
-  }
+  const [isListSub, list] = useMemo(() => {
+    const isSub = blackList || whiteList ? (blackList ? true : false) : undefined;
+    return [isSub, isSub !== undefined ? (isSub ? blackList : whiteList) : undefined];
+  }, [blackList, whiteList]);
 
   const extractSurveyResult = useCallback(
     (): ISurveyResult => ({
@@ -44,11 +45,37 @@ const Editor = <T extends AOrBISurveyEditor>({
     [surveyTitle, surveyDescription, surveyContent],
   );
 
+  const [filterItem, setFilterItem] = useState<SelectableOption[]>([
+    {
+      key: '',
+      label: '',
+      value: '',
+    },
+  ]);
+
+  useEffect(() => {
+    const filterItems: () => SelectableOption[] = () => {
+      return blockList.filter(({ value }) => {
+        const lowerValue = String(value).toLowerCase();
+        const isBlank = lowerValue === 'blank';
+        const isValueTypeNumber = typeof lowerValue === 'number';
+
+        if (isValueTypeNumber) return false;
+        console.log(lowerValue);
+        return isListSub
+          ? !list?.includes(lowerValue as BlockType) || isBlank
+          : list?.includes(lowerValue as BlockType) || isBlank;
+      });
+    };
+
+    setFilterItem(typeof isListSub !== 'undefined' ? filterItems() : blockList);
+  }, []);
+
   useEffect(() => {
     if (onChange) {
       onChange(extractSurveyResult());
     }
-  }, [surveyTitle, surveyDescription, surveyContent]);
+  }, [onChange, extractSurveyResult]);
 
   const addBlock = useCallback(() => {
     const order = surveyContent.length + 1;
@@ -117,12 +144,12 @@ const Editor = <T extends AOrBISurveyEditor>({
             <Input
               placeholder={'설문 제목'}
               value={surveyTitle}
-              onChange={({ target }) => setSurveyTitle(target.value)}
+              onChange={({ target: { value } }) => setSurveyTitle(value)}
             />
             <Input
               placeholder={'설문 설명'}
               value={surveyDescription}
-              onChange={({ target }) => setSurveyDescription(target.value)}
+              onChange={({ target: { value } }) => setSurveyDescription(value)}
             />
           </Row>
         )}
@@ -140,14 +167,7 @@ const Editor = <T extends AOrBISurveyEditor>({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}>
                           <BlockPresenter
-                            listSub={isListSub}
-                            list={
-                              isListSub === undefined
-                                ? undefined
-                                : isListSub
-                                ? blackList
-                                : whiteList
-                            }
+                            list={filterItem}
                             key={i}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
