@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { TiTrash, TiTabsOutline, TiTick, TiTickOutline } from 'react-icons/ti';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -7,7 +7,7 @@ import { BlockTypes, SelectableOption } from '../../@types/block';
 
 import { IBlockPresenter } from './type';
 import { BlockButtonSection, BlockContainer } from './styled';
-import { Input, Select, OptionEditor, Switch } from '../../components/Inputs';
+import { Input, Select, OptionEditor } from '../../components/Inputs';
 import { IconButton } from '../../components/Buttons';
 import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
