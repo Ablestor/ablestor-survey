@@ -136,26 +136,26 @@ export const BlockPresenter = <T extends IBlockPresenter>({
       {block.type === BlockTypes.RANGE && (
         <>
           <Row>
-            <FlexContainer>
-              <FlexElement width={140}>
-                <Text>{block.minTitle}</Text>
-              </FlexElement>
-              <FlexElement width={'flex'}>
-                <RangeSelector
-                  min={block.min}
-                  max={block.max}
-                  value={block.answer || 1}
-                  onChange={answer => onUpdateBlock({ ...block, answer })}
-                />
-              </FlexElement>
-              <FlexElement
-                width={140}
-                style={{
-                  textAlign: 'right',
-                }}>
-                <Text>{block.maxTitle}</Text>
-              </FlexElement>
-            </FlexContainer>
+            {/* <FlexContainer> */}
+            <FlexElement width={140}>
+              <Text>{block.minTitle}</Text>
+            </FlexElement>
+            <FlexElement width={'flex'}>
+              <RangeSelector
+                min={block.min}
+                max={block.max}
+                value={block.answer || 1}
+                onChange={answer => onUpdateBlock({ ...block, answer })}
+              />
+            </FlexElement>
+            <FlexElement
+              width={140}
+              style={{
+                textAlign: 'right',
+              }}>
+              <Text>{block.maxTitle}</Text>
+            </FlexElement>
+            {/* </FlexContainer> */}
           </Row>
         </>
       )}

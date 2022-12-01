@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { TiTrash, TiTabsOutline, TiTick, TiTickOutline } from 'react-icons/ti';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
