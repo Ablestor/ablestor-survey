@@ -26,9 +26,9 @@ const App = () => {
           <Viewer
             submitButtonOptions={{ text: '테스트 버튼', visible: true }}
             survey={surveyContent}
-            onSubmit={result => {
-              console.log(result);
-            }}
+            // onSubmit={result => {
+            //   console.log(result);
+            // }}
           />
         )}
       </div>

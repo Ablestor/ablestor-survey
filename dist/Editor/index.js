@@ -10,7 +10,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
@@ -29,14 +29,8 @@ var Editor = function (_a) {
     var _c = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.title) || ''), surveyTitle = _c[0], setSurveyTitle = _c[1];
     var _d = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.description) || ''), surveyDescription = _d[0], setSurveyDescription = _d[1];
     var _e = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.questions) || []), surveyQuestions = _e[0], setSurveyQuestions = _e[1];
-    var extractSurveyResult = useCallback(function () { return ({
-        title: surveyTitle,
-        description: surveyDescription,
-        questions: surveyQuestions.filter(function (_a) {
-            var type = _a.type;
-            return type !== BlockTypes.BLANK;
-        }),
-    }); }, [surveyTitle, surveyDescription, surveyQuestions]);
+    onChange &&
+        onChange({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions });
     var filterItem = useMemo(function () {
         var whiteBlockList = whiteList ? blockList.filter(function (b) { return whiteList.includes(b); }) : blockList;
         var blackBlockList = blackList
@@ -47,15 +41,11 @@ var Editor = function (_a) {
             value: blackBlockList,
         }); });
     }, [whiteList, blackList]);
-    useEffect(function () {
-        if (onChange) {
-            onChange(extractSurveyResult());
-        }
-    }, [onChange, extractSurveyResult]);
     var addBlock = useCallback(function () {
         var order = surveyQuestions.length + 1;
+        surveyQuestions;
         setSurveyQuestions(update(surveyQuestions, {
-            $push: [{ format: {}, order: order, required: false, type: BlockTypes.BLANK }],
+            $push: [{ title: '', format: {}, order: order, required: false, type: BlockTypes.BLANK }],
         }));
     }, [surveyQuestions]);
     var onUpdateBlock = function (index, data) {
@@ -93,6 +83,13 @@ var Editor = function (_a) {
                             } }, void 0)] }, void 0)), _jsx(Row, { children: _jsx(DragDropContext, __assign({ onDragEnd: onDragEnd }, { children: _jsx(Droppable, __assign({ droppableId: 'droppable' }, { children: function (provided) { return (_jsxs("div", __assign({}, provided.droppableProps, { ref: provided.innerRef }, { children: [surveyQuestions.map(function (block, i) { return (_jsx(Draggable, __assign({ draggableId: String(i), index: i }, { children: function (provided) { return (_jsx("div", __assign({ ref: provided.innerRef }, provided.draggableProps, provided.dragHandleProps, { children: _jsx(BlockPresenter, __assign({ list: filterItem }, provided.draggableProps, provided.dragHandleProps, { block: block, onUpdateBlock: function (data) { return onUpdateBlock(i, data); }, onCopyBlock: function (data) { return onCopyBlock(i, data); }, onRemoveBlock: function () { return onRemoveBlock(i); } }), i) }), void 0)); } }), i)); }), provided.placeholder] }), void 0)); } }), void 0) }), void 0) }, void 0), _jsx(Row, { children: _jsxs(RoundDashedSection, __assign({ style: {
                             textAlign: 'center',
                             cursor: 'pointer',
-                        }, onClick: addBlock }, { children: [_jsx(TiPlus, {}, void 0), _jsx(Text, { children: "\uC0C8\uB85C\uC6B4 \uD56D\uBAA9 \uCD94\uAC00" }, void 0)] }), void 0) }, void 0), (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (_jsx(Row, { children: _jsx(Button, __assign({ onClick: function () { return onSubmit && onSubmit(extractSurveyResult()); } }, { children: (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '전송' }), void 0) }, void 0))] }), void 0) }), void 0));
+                        }, onClick: addBlock }, { children: [_jsx(TiPlus, {}, void 0), _jsx(Text, { children: "\uC0C8\uB85C\uC6B4 \uD56D\uBAA9 \uCD94\uAC00" }, void 0)] }), void 0) }, void 0), (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.visible) && (_jsx(Row, { children: _jsx(Button, __assign({ onClick: function () {
+                            return onSubmit &&
+                                onSubmit({
+                                    title: surveyTitle,
+                                    description: surveyDescription,
+                                    questions: surveyQuestions,
+                                });
+                        } }, { children: (submitButtonOptions === null || submitButtonOptions === void 0 ? void 0 : submitButtonOptions.text) || '전송' }), void 0) }, void 0))] }), void 0) }), void 0));
 };
 export default Editor;

@@ -141,19 +141,26 @@ export const OptionEditor = <T extends OptionEditorProps>({
 
 export const CheckBox = <T extends CheckBoxProps>({
   shape,
-  value,
+  value: _value,
   onChange,
-}: T): ReactElement<T> => (
-  <StyledCheckBox
-    className={classnames({
-      active: value,
-      [shape]: true,
-    })}
-    value={value}
-    shape={shape}
-    onClick={() => onChange && onChange(!value)}
-  />
-);
+}: T): ReactElement<T> => {
+  const [value, setValue] = useState(_value);
+
+  return (
+    <StyledCheckBox
+      className={classnames({
+        active: value,
+        [shape]: true,
+      })}
+      value={value}
+      shape={shape}
+      onClick={() => {
+        setValue(prev => !prev);
+        return onChange && onChange(!value);
+      }}
+    />
+  );
+};
 
 export const OptionMultipleSelector = ({
   options,
@@ -162,16 +169,24 @@ export const OptionMultipleSelector = ({
 }): ReactElement<{
   options: string[];
 }> => {
+  const [checkedOptions, setCheckedOptions] = useState<number[]>([]);
+
   return (
     <div>
       {options.map((option, index) => {
         return (
-          <FlexContainer key={index}>
+          <FlexContainer
+            key={index}
+            onClick={() => {
+              setCheckedOptions(prev =>
+                prev.includes(index) ? prev.filter(p => p !== index) : [...prev, index],
+              );
+            }}>
             <FlexElement width={40}>
               <StyledCheckBox
-                className={classnames({ active: false })}
+                className={classnames({ active: checkedOptions.includes(index) })}
                 shape={'square'}
-                value={false}
+                value={checkedOptions.includes(index)}
               />
             </FlexElement>
             <FlexElement width={'flex'}>
@@ -189,16 +204,22 @@ export const OptionSingleSelector = ({
 }: {
   options: string[];
 }): ReactElement<{ options: string[] }> => {
+  const [checkedOption, setCheckedOption] = useState<number | null>(null);
+
   return (
     <div>
       {options.map((option, index) => {
         return (
-          <FlexContainer key={index}>
+          <FlexContainer
+            key={index}
+            onClick={() => {
+              setCheckedOption(index);
+            }}>
             <FlexElement width={40}>
               <StyledCheckBox
-                className={classnames({ active: false })}
+                className={classnames({ active: checkedOption === index })}
                 shape={'circle'}
-                value={false}
+                value={checkedOption === index}
               />
             </FlexElement>
             <FlexElement width={'flex'}>

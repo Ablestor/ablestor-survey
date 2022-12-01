@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useState, useEffect, useMemo } from 'react';
+import React, { ReactElement, useCallback, useState, useMemo } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
 
 import { Blocks, BlockTypes } from '../@types/block';
-import { ISurveyContent, ISurveyResult, AOrBISurveyEditor } from '../@types/editor';
+import { ISurveyContent, AOrBISurveyEditor } from '../@types/editor';
 
 import { RoundDashedSection, Row, SurveyContainer } from '../components/Section';
 import { Input } from '../components/Inputs';
@@ -31,14 +31,8 @@ const Editor = <T extends AOrBISurveyEditor>({
     defaultValue?.questions || [],
   );
 
-  const extractSurveyResult = useCallback(
-    (): ISurveyResult => ({
-      title: surveyTitle,
-      description: surveyDescription,
-      questions: surveyQuestions.filter(({ type }) => type !== BlockTypes.BLANK),
-    }),
-    [surveyTitle, surveyDescription, surveyQuestions],
-  );
+  onChange &&
+    onChange({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions });
 
   const filterItem = useMemo(() => {
     const whiteBlockList = whiteList ? blockList.filter(b => whiteList.includes(b)) : blockList;
@@ -52,18 +46,13 @@ const Editor = <T extends AOrBISurveyEditor>({
     }));
   }, [whiteList, blackList]);
 
-  useEffect(() => {
-    if (onChange) {
-      onChange(extractSurveyResult());
-    }
-  }, [onChange, extractSurveyResult]);
-
   const addBlock = useCallback(() => {
     const order = surveyQuestions.length + 1;
 
+    surveyQuestions;
     setSurveyQuestions(
       update(surveyQuestions, {
-        $push: [{ format: {}, order, required: false, type: BlockTypes.BLANK }],
+        $push: [{ title: '', format: {}, order, required: false, type: BlockTypes.BLANK }],
       }),
     );
   }, [surveyQuestions]);
@@ -167,7 +156,15 @@ const Editor = <T extends AOrBISurveyEditor>({
         </Row>
         {submitButtonOptions?.visible && (
           <Row>
-            <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>
+            <Button
+              onClick={() =>
+                onSubmit &&
+                onSubmit({
+                  title: surveyTitle,
+                  description: surveyDescription,
+                  questions: surveyQuestions,
+                })
+              }>
               {submitButtonOptions?.text || '전송'}
             </Button>
           </Row>

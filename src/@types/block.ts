@@ -33,7 +33,7 @@ export enum BlockAlign {
 }
 
 export interface IBlock {
-  title?: string;
+  title: string;
   description?: string;
   required: boolean;
   type: BlockTypes;

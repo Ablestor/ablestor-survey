@@ -76,23 +76,35 @@ export var OptionEditor = function (_a) {
 };
 export var CheckBox = function (_a) {
     var _b;
-    var shape = _a.shape, value = _a.value, onChange = _a.onChange;
+    var shape = _a.shape, _value = _a.value, onChange = _a.onChange;
+    var _c = useState(_value), value = _c[0], setValue = _c[1];
     return (_jsx(StyledCheckBox, { className: classnames((_b = {
                 active: value
             },
             _b[shape] = true,
-            _b)), value: value, shape: shape, onClick: function () { return onChange && onChange(!value); } }, void 0));
+            _b)), value: value, shape: shape, onClick: function () {
+            setValue(function (prev) { return !prev; });
+            return onChange && onChange(!value);
+        } }, void 0));
 };
 export var OptionMultipleSelector = function (_a) {
     var options = _a.options;
+    var _b = useState([]), checkedOptions = _b[0], setCheckedOptions = _b[1];
     return (_jsx("div", { children: options.map(function (option, index) {
-            return (_jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: false }), shape: 'square', value: false }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }, index));
+            return (_jsxs(FlexContainer, __assign({ onClick: function () {
+                    setCheckedOptions(function (prev) {
+                        return prev.includes(index) ? prev.filter(function (p) { return p !== index; }) : __spreadArray(__spreadArray([], prev, true), [index], false);
+                    });
+                } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: checkedOptions.includes(index) }), shape: 'square', value: checkedOptions.includes(index) }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }), index));
         }) }, void 0));
 };
 export var OptionSingleSelector = function (_a) {
     var options = _a.options;
+    var _b = useState(null), checkedOption = _b[0], setCheckedOption = _b[1];
     return (_jsx("div", { children: options.map(function (option, index) {
-            return (_jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: false }), shape: 'circle', value: false }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }, index));
+            return (_jsxs(FlexContainer, __assign({ onClick: function () {
+                    setCheckedOption(index);
+                } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: checkedOption === index }), shape: 'circle', value: checkedOption === index }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }), index));
         }) }, void 0));
 };
 export var Switch = function (_a) {

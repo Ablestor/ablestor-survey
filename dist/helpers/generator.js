@@ -4,35 +4,43 @@ export var createBlock = function (type, order) {
     switch (type) {
         case BlockTypes.BLANK:
             return Object.assign(blockShape, {
+                title: '',
                 format: {},
             });
         case BlockTypes.SHORT_TEXT:
             return Object.assign(blockShape, {
+                title: '',
                 format: { regex: '', message: '' },
             });
         case BlockTypes.LONG_TEXT:
             return Object.assign(blockShape, {
+                title: '',
                 format: { regex: '', message: '' },
             });
         case BlockTypes.SWITCH:
             return Object.assign(blockShape, {
+                title: '',
                 format: { options: [''] },
             });
         case BlockTypes.CHECK_BOX:
             return Object.assign(blockShape, {
+                title: '',
                 format: { options: [''] },
             });
         case BlockTypes.SINGLE_SELECT:
             return Object.assign(blockShape, {
-                format: { options: [''] },
+                title: '',
+                format: { options: [] },
             });
         case BlockTypes.MULTI_SELECT:
             return Object.assign(blockShape, {
-                format: { options: [''] },
+                title: '',
+                format: { options: [] },
             });
         case BlockTypes.DROPDOWN:
             return Object.assign(blockShape, {
-                format: { options: [''] },
+                title: '',
+                format: { options: [] },
             });
         // case BlockTypes.FILE_UPLOAD:
         //   return Object.assign(blockShape, {
@@ -41,14 +49,17 @@ export var createBlock = function (type, order) {
         //   }) as TypedBlock<BlockTypes.FILE_UPLOAD>;
         case BlockTypes.RANGE:
             return Object.assign(blockShape, {
+                title: '',
                 format: { options: ['1', '2', '3', '4', '5'], min: 1, minTitle: '', max: 5, maxTitle: '' },
             });
         case BlockTypes.DATE:
             return Object.assign(blockShape, {
+                title: '',
                 format: { regex: '', message: '' },
             });
         case BlockTypes.TIME:
             return Object.assign(blockShape, {
+                title: '',
                 format: { regex: '', message: '' },
             });
         default:

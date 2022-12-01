@@ -18,7 +18,7 @@ export declare enum BlockAlign {
     CENTER = "center"
 }
 export interface IBlock {
-    title?: string;
+    title: string;
     description?: string;
     required: boolean;
     type: BlockTypes;
