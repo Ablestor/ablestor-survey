@@ -9,8 +9,8 @@ export enum BlockTypes {
   DROPDOWN = 'dropdown',
   // FILE_UPLOAD = 'file_upload',
   RANGE = 'range',
-  // DATE = 'date',
-  // TIME = 'time',
+  DATE = 'date',
+  TIME = 'time',
 }
 
 export type BlockType =
@@ -22,9 +22,9 @@ export type BlockType =
   | 'single_select'
   | 'multi_select'
   | 'dropdown'
-  | 'range';
-// | 'date'
-// | 'time'
+  | 'range'
+  | 'date'
+  | 'time';
 
 export enum BlockAlign {
   LEFT = 'left',
@@ -51,9 +51,9 @@ export type Blocks =
   | ISurveyMultiSelectBlock
   | ISurveyDropdownBlock
   // | ISurveyFileUploadBlock
-  | ISurveyRangeBlock;
-// | ISurveyDateBlock
-// | ISurveyTimeBlock;
+  | ISurveyRangeBlock
+  | ISurveyDateBlock
+  | ISurveyTimeBlock;
 
 export type TypedBlock<T extends BlockTypes> = Extract<Blocks, { type: T }>;
 
@@ -122,12 +122,12 @@ export interface ISurveyRangeBlock extends IBlock {
   answer: number | null;
 }
 
-// export interface ISurveyDateBlock extends IBlock {
-//   type: BlockTypes.DATE;
-//   answer: string;
-// }
+export interface ISurveyDateBlock extends IBlock {
+  type: BlockTypes.DATE;
+  answer: string;
+}
 
-// export interface ISurveyTimeBlock extends IBlock {
-//   type: BlockTypes.TIME;
-//   answer: string;
-// }
+export interface ISurveyTimeBlock extends IBlock {
+  type: BlockTypes.TIME;
+  answer: string;
+}

@@ -62,17 +62,17 @@ export const createBlock = <T extends BlockTypes>(id: string, type: T, order: nu
         answer: null,
       }) as TypedBlock<BlockTypes.RANGE>;
 
-    // case BlockTypes.DATE:
-    //   return Object.assign(blockShape, {
-    //     value: '',
-    //     answer: '',
-    //   }) as TypedBlock<BlockTypes.DATE>;
+    case BlockTypes.DATE:
+      return Object.assign(blockShape, {
+        value: '',
+        answer: '',
+      }) as TypedBlock<BlockTypes.DATE>;
 
-    // case BlockTypes.TIME:
-    //   return Object.assign(blockShape, {
-    //     value: '',
-    //     answer: '',
-    //   }) as TypedBlock<BlockTypes.TIME>;
+    case BlockTypes.TIME:
+      return Object.assign(blockShape, {
+        value: '',
+        answer: '',
+      }) as TypedBlock<BlockTypes.TIME>;
 
     default:
       throw new Error('return untyped block.');

@@ -159,7 +159,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           </Row>
         </>
       )}
-      {/* {block.type === BlockTypes.DATE && (
+      {block.type === BlockTypes.DATE && (
         <Row>
           <Text>날짜를 선택해주세요.</Text>
           <FlexElement width={170}>
@@ -173,8 +173,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             />
           </FlexElement>
         </Row>
-      )} */}
-      {/* {block.type === BlockTypes.TIME && (
+      )}
+      {block.type === BlockTypes.TIME && (
         <Row>
           <Text>시간을 선택해주세요.</Text>
           <FlexElement width={170}>
@@ -188,7 +188,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             />
           </FlexElement>
         </Row>
-      )} */}
+      )}
     </BlockContainer>
   );
 };
