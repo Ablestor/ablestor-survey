@@ -22,7 +22,6 @@ import { Text } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row, VerticalDivider } from '../../components/Section';
 import { createBlock, getRange } from '../../helpers/generator';
 import { getNameFromBlockType } from '../../helpers/converter';
-import { blockList } from '../../constants/blocks';
 var startAt = 2;
 var minRange = getRange(startAt).map(function (i) { return ({
     key: uniqid(),
@@ -35,7 +34,7 @@ var maxRange = getRange(9).map(function (i) { return ({
     value: startAt + i,
 }); });
 export var BlockPresenter = function (_a) {
-    var block = _a.block, onUpdateBlock = _a.onUpdateBlock, onCopyBlock = _a.onCopyBlock, onRemoveBlock = _a.onRemoveBlock;
+    var block = _a.block, onUpdateBlock = _a.onUpdateBlock, onCopyBlock = _a.onCopyBlock, onRemoveBlock = _a.onRemoveBlock, list = _a.list;
     var isTypedBlock = block.type !== BlockTypes.BLANK;
     var _b = useState(block.title), title = _b[0], setTitle = _b[1];
     var _c = useState(block.description), description = _c[0], setDescription = _c[1];
@@ -43,7 +42,7 @@ export var BlockPresenter = function (_a) {
             required: block.required,
         }) }, { children: [_jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, __assign({ style: { fontWeight: 'bold' } }, { children: isTypedBlock
                                 ? getNameFromBlockType(block.type.toLowerCase())
-                                : '설문 유형을 선택해주세요.' }), void 0) }), void 0), _jsx(FlexElement, __assign({ width: 220 }, { children: _jsx(Select, { items: blockList, selectedIndex: blockList.findIndex(function (b) { return b.value.toLowerCase() === block.type; }), onChange: function (_a) {
+                                : '설문 유형을 선택해주세요.' }), void 0) }), void 0), _jsx(FlexElement, __assign({ width: 220 }, { children: _jsx(Select, { items: list, selectedIndex: list.findIndex(function (b) { return typeof b.value === 'string' && b.value.toLowerCase() === block.type; }), onChange: function (_a) {
                                 var value = _a.value;
                                 var newBlock = createBlock(uniqid(), value.toLowerCase(), block.order);
                                 onUpdateBlock(__assign(__assign({}, newBlock), { title: title, description: description }));

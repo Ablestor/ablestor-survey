@@ -7,10 +7,9 @@ export declare enum BlockTypes {
     SINGLE_SELECT = "single_select",
     MULTI_SELECT = "multi_select",
     DROPDOWN = "dropdown",
-    RANGE = "range",
-    DATE = "date",
-    TIME = "time"
+    RANGE = "range"
 }
+export declare type BlockType = 'blank' | 'short_text' | 'long_text' | 'switch' | 'check_box' | 'single_select' | 'multi_select' | 'dropdown' | 'range';
 export declare enum BlockAlign {
     LEFT = "left",
     RIGHT = "right",
@@ -24,14 +23,14 @@ export interface IBlock {
     description?: string;
     required: boolean;
 }
-export declare type Blocks = ISurveyBlankBlock | ISurveyShortTextBlock | ISurveyLongTextBlock | ISurveySwitchBlock | ISurveyCheckBoxBlock | ISurveySingleSelectBlock | ISurveyMultiSelectBlock | ISurveyDropdownBlock | ISurveyRangeBlock | ISurveyDateBlock | ISurveyTimeBlock;
+export declare type Blocks = ISurveyBlankBlock | ISurveyShortTextBlock | ISurveyLongTextBlock | ISurveySwitchBlock | ISurveyCheckBoxBlock | ISurveySingleSelectBlock | ISurveyMultiSelectBlock | ISurveyDropdownBlock | ISurveyRangeBlock;
 export declare type TypedBlock<T extends BlockTypes> = Extract<Blocks, {
     type: T;
 }>;
 export interface SelectableOption {
     key: string;
-    label?: string;
-    value: string | number;
+    label: string;
+    value: string | number | BlockType;
 }
 export interface ISurveyBlankBlock extends IBlock {
     type: BlockTypes.BLANK;
@@ -76,12 +75,4 @@ export interface ISurveyRangeBlock extends IBlock {
     max: number;
     maxTitle: string;
     answer: number | null;
-}
-export interface ISurveyDateBlock extends IBlock {
-    type: BlockTypes.DATE;
-    answer: string;
-}
-export interface ISurveyTimeBlock extends IBlock {
-    type: BlockTypes.TIME;
-    answer: string;
 }

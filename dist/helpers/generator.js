@@ -50,16 +50,16 @@ export var createBlock = function (id, type, order) {
                 maxTitle: '',
                 answer: null,
             });
-        case BlockTypes.DATE:
-            return Object.assign(blockShape, {
-                value: '',
-                answer: '',
-            });
-        case BlockTypes.TIME:
-            return Object.assign(blockShape, {
-                value: '',
-                answer: '',
-            });
+        // case BlockTypes.DATE:
+        //   return Object.assign(blockShape, {
+        //     value: '',
+        //     answer: '',
+        //   }) as TypedBlock<BlockTypes.DATE>;
+        // case BlockTypes.TIME:
+        //   return Object.assign(blockShape, {
+        //     value: '',
+        //     answer: '',
+        //   }) as TypedBlock<BlockTypes.TIME>;
         default:
             throw new Error('return untyped block.');
     }
