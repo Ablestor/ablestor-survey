@@ -54,10 +54,17 @@ export const Select = <T extends SelectorProps>({
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number>(selectedIndex || 0);
-
-  const selectedItem = items[selectIndex];
+  const [selectedItem, setSelectedItem] = useState<any>(items[selectedIndex || 0]);
 
   useClickAway(selectRef, () => setListVisible(false));
+
+  useEffect(() => {
+    setSelectIndex(selectedIndex || 0);
+  }, [selectedIndex]);
+
+  useEffect(() => {
+    setSelectedItem(items[selectIndex]);
+  }, [selectIndex]);
 
   return (
     <StyledSelect ref={selectRef} onClick={() => setListVisible(true)}>
