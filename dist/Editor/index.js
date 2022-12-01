@@ -29,8 +29,13 @@ var Editor = function (_a) {
     var _c = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.title) || ''), surveyTitle = _c[0], setSurveyTitle = _c[1];
     var _d = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.description) || ''), surveyDescription = _d[0], setSurveyDescription = _d[1];
     var _e = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.questions) || []), surveyQuestions = _e[0], setSurveyQuestions = _e[1];
-    onChange &&
-        onChange({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions });
+    var setSurvey = useCallback(function (v) {
+        setSurveyTitle(function (prev) { return v.title || prev; });
+        setSurveyDescription(function (prev) { return v.description || prev; });
+        setSurveyQuestions(function (prev) { return v.questions || prev; });
+        onChange &&
+            onChange(__assign({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions }, v));
+    }, [surveyTitle, surveyDescription, surveyQuestions]);
     var filterItem = useMemo(function () {
         var whiteBlockList = whiteList ? blockList.filter(function (b) { return whiteList.includes(b); }) : blockList;
         var blackBlockList = blackList
@@ -44,23 +49,29 @@ var Editor = function (_a) {
     var addBlock = useCallback(function () {
         var order = surveyQuestions.length + 1;
         surveyQuestions;
-        setSurveyQuestions(update(surveyQuestions, {
-            $push: [{ title: '', format: {}, order: order, required: false, type: BlockTypes.BLANK }],
-        }));
+        setSurvey({
+            questions: update(surveyQuestions, {
+                $push: [{ title: '', format: {}, order: order, required: false, type: BlockTypes.BLANK }],
+            }),
+        });
     }, [surveyQuestions]);
     var onUpdateBlock = function (index, data) {
         var _a;
-        setSurveyQuestions(update(surveyQuestions, (_a = {}, _a[index] = { $set: data }, _a)));
+        setSurvey({ questions: update(surveyQuestions, (_a = {}, _a[index] = { $set: data }, _a)) });
     };
     var onCopyBlock = function (index, data) {
-        setSurveyQuestions(update(surveyQuestions, {
-            $splice: [[index, 0, data]],
-        }));
+        setSurvey({
+            questions: update(surveyQuestions, {
+                $splice: [[index, 0, data]],
+            }),
+        });
     };
     var onRemoveBlock = function (index) {
-        setSurveyQuestions(update(surveyQuestions, {
-            $splice: [[index, 1]],
-        }));
+        setSurvey({
+            questions: update(surveyQuestions, {
+                $splice: [[index, 1]],
+            }),
+        });
     };
     var onDragEnd = function (result) {
         if (!result.destination) {
@@ -72,14 +83,14 @@ var Editor = function (_a) {
         var reorderSurveyContent = Array.from(surveyQuestions);
         var removed = reorderSurveyContent.splice(index, 1)[0];
         reorderSurveyContent.splice(nextIndex, 0, removed);
-        setSurveyQuestions(reorderSurveyContent);
+        setSurvey({ questions: reorderSurveyContent });
     };
     return (_jsx(ThemeProvider, __assign({ theme: __assign({}, themeRef.current) }, { children: _jsxs(SurveyContainer, __assign({ className: 'ablestor-survey' }, { children: [inputShow && (_jsxs(Row, { children: [_jsx(Input, { placeholder: '설문 제목', value: surveyTitle, onChange: function (_a) {
                                 var value = _a.target.value;
-                                return setSurveyTitle(value);
+                                return setSurvey({ title: value });
                             } }, void 0), _jsx(Input, { placeholder: '설문 설명', value: surveyDescription, onChange: function (_a) {
                                 var value = _a.target.value;
-                                return setSurveyDescription(value);
+                                return setSurvey({ description: value });
                             } }, void 0)] }, void 0)), _jsx(Row, { children: _jsx(DragDropContext, __assign({ onDragEnd: onDragEnd }, { children: _jsx(Droppable, __assign({ droppableId: 'droppable' }, { children: function (provided) { return (_jsxs("div", __assign({}, provided.droppableProps, { ref: provided.innerRef }, { children: [surveyQuestions.map(function (block, i) { return (_jsx(Draggable, __assign({ draggableId: String(i), index: i }, { children: function (provided) { return (_jsx("div", __assign({ ref: provided.innerRef }, provided.draggableProps, provided.dragHandleProps, { children: _jsx(BlockPresenter, __assign({ list: filterItem }, provided.draggableProps, provided.dragHandleProps, { block: block, onUpdateBlock: function (data) { return onUpdateBlock(i, data); }, onCopyBlock: function (data) { return onCopyBlock(i, data); }, onRemoveBlock: function () { return onRemoveBlock(i); } }), i) }), void 0)); } }), i)); }), provided.placeholder] }), void 0)); } }), void 0) }), void 0) }, void 0), _jsx(Row, { children: _jsxs(RoundDashedSection, __assign({ style: {
                             textAlign: 'center',
                             cursor: 'pointer',

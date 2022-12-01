@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useState, useMemo } from 'react';
+import React, { ReactElement, useCallback, useState, useMemo, useEffect } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
 
 import { Blocks, BlockTypes } from '../@types/block';
-import { ISurveyContent, AOrBISurveyEditor } from '../@types/editor';
+import { ISurveyContent, AOrBISurveyEditor, ISurveyResult } from '../@types/editor';
 
 import { RoundDashedSection, Row, SurveyContainer } from '../components/Section';
 import { Input } from '../components/Inputs';
@@ -31,8 +31,22 @@ const Editor = <T extends AOrBISurveyEditor>({
     defaultValue?.questions || [],
   );
 
-  onChange &&
-    onChange({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions });
+  const setSurvey = useCallback(
+    (v: Partial<ISurveyResult>) => {
+      setSurveyTitle(prev => v.title || prev);
+      setSurveyDescription(prev => v.description || prev);
+      setSurveyQuestions(prev => v.questions || prev);
+
+      onChange &&
+        onChange({
+          title: surveyTitle,
+          description: surveyDescription,
+          questions: surveyQuestions,
+          ...v,
+        });
+    },
+    [surveyTitle, surveyDescription, surveyQuestions],
+  );
 
   const filterItem = useMemo(() => {
     const whiteBlockList = whiteList ? blockList.filter(b => whiteList.includes(b)) : blockList;
@@ -50,31 +64,31 @@ const Editor = <T extends AOrBISurveyEditor>({
     const order = surveyQuestions.length + 1;
 
     surveyQuestions;
-    setSurveyQuestions(
-      update(surveyQuestions, {
+    setSurvey({
+      questions: update(surveyQuestions, {
         $push: [{ title: '', format: {}, order, required: false, type: BlockTypes.BLANK }],
       }),
-    );
+    });
   }, [surveyQuestions]);
 
   const onUpdateBlock = (index: number, data: Blocks) => {
-    setSurveyQuestions(update(surveyQuestions, { [index]: { $set: data } }));
+    setSurvey({ questions: update(surveyQuestions, { [index]: { $set: data } }) });
   };
 
   const onCopyBlock = (index: number, data: Blocks) => {
-    setSurveyQuestions(
-      update(surveyQuestions, {
+    setSurvey({
+      questions: update(surveyQuestions, {
         $splice: [[index, 0, data]],
       }),
-    );
+    });
   };
 
   const onRemoveBlock = (index: number) => {
-    setSurveyQuestions(
-      update(surveyQuestions, {
+    setSurvey({
+      questions: update(surveyQuestions, {
         $splice: [[index, 1]],
       }),
-    );
+    });
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -90,7 +104,7 @@ const Editor = <T extends AOrBISurveyEditor>({
     const [removed] = reorderSurveyContent.splice(index, 1);
     reorderSurveyContent.splice(nextIndex, 0, removed);
 
-    setSurveyQuestions(reorderSurveyContent);
+    setSurvey({ questions: reorderSurveyContent });
   };
 
   return (
@@ -101,12 +115,12 @@ const Editor = <T extends AOrBISurveyEditor>({
             <Input
               placeholder={'설문 제목'}
               value={surveyTitle}
-              onChange={({ target: { value } }) => setSurveyTitle(value)}
+              onChange={({ target: { value } }) => setSurvey({ title: value })}
             />
             <Input
               placeholder={'설문 설명'}
               value={surveyDescription}
-              onChange={({ target: { value } }) => setSurveyDescription(value)}
+              onChange={({ target: { value } }) => setSurvey({ description: value })}
             />
           </Row>
         )}

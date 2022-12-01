@@ -104,23 +104,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({ block }: T): ReactEl
       {block.type === BlockTypes.RANGE && (
         <>
           <Row>
-            <FlexElement width={140}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
               <Text>{block.format.minTitle}</Text>
-            </FlexElement>
-            <FlexElement width={'flex'}>
-              <RangeSelector
-                min={block.format.min}
-                max={block.format.max}
-                value={block.format.min}
-              />
-            </FlexElement>
-            <FlexElement
-              width={140}
-              style={{
-                textAlign: 'right',
-              }}>
               <Text>{block.format.maxTitle}</Text>
-            </FlexElement>
+            </div>
+            <RangeSelector min={block.format.min} max={block.format.max} value={block.format.min} />
           </Row>
         </>
       )}
@@ -128,7 +116,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({ block }: T): ReactEl
         <Row>
           <Text>날짜를 선택해주세요.</Text>
           <FlexElement width={170}>
-            <Text>{JSON.stringify(block.format)}</Text>
+            <Text>준비중입니다.</Text>
             {/* <DatePickerComponent
               format={DATETIME.DateDisplay}
               value={new Date(block.answer)}
@@ -144,7 +132,7 @@ export const BlockPresenter = <T extends IBlockPresenter>({ block }: T): ReactEl
         <Row>
           <Text>시간을 선택해주세요.</Text>
           <FlexElement width={170}>
-            <Text>{JSON.stringify(block.format)}</Text>
+            <Text>준비중입니다.</Text>
             {/* <TimePickerComponent
               format={DATETIME.TimeDisplay}
               value={new Date(block.answer)}
