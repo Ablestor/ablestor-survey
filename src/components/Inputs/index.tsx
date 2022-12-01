@@ -13,7 +13,6 @@ import { TiArrowSortedDown, TiTimes } from 'react-icons/ti';
 import { FilePond } from 'react-filepond';
 import { Range } from 'react-range';
 
-import Colors from '../../constants/colors';
 import { useClickAway } from '../../hooks';
 import { IconButton } from '../Buttons';
 import { RoundSection, FlexContainer, FlexElement } from '../Section';
@@ -37,6 +36,7 @@ import {
   StyledSelectorValueLabel,
   StyledSelectorThumb,
 } from './styled';
+import { defaultTheme } from '../..';
 
 export const Input = <T extends InputHTMLAttributes<HTMLInputElement>>(
   props: T,
@@ -54,7 +54,9 @@ export const Select = <T extends SelectorProps>({
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number>(selectedIndex || 0);
-  const [selectedItem, setSelectedItem] = useState<any>(items[selectedIndex || 0]);
+
+  const selectedItem = items[selectIndex];
+
 
   useClickAway(selectRef, () => setListVisible(false));
 
@@ -298,7 +300,7 @@ export const RangeSelector = <T extends RangeSelectorProps>({
             width: '100%',
             height: '6px',
             borderRadius: '3px',
-            backgroundColor: Colors.lightGray,
+            backgroundColor: defaultTheme.lightGray,
           }}>
           {children}
         </div>

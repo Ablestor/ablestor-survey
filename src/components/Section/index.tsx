@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { BaseSectionProps, FlexConatinerProps, FlexElementProps } from './type';
+import { BaseSectionProps, FlexConatinerProps, FlexElementProps, ThemeProps } from './type';
 import {
   StyledRoundSection,
   StyledDashedSection,

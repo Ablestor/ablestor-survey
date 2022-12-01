@@ -3,8 +3,8 @@ import { ISurveyResult } from './@types/editor';
 
 import Editor from './Editor';
 import Viewer from './Viewer';
-
 import './styles/common.css';
+import React from 'react';
 
 const App = () => {
   const [surveyContent, setSurveyContent] = useState<ISurveyResult>();
@@ -24,8 +24,8 @@ const App = () => {
       <div style={{ flex: 1 }}>
         {surveyContent && (
           <Viewer
-            survey={surveyContent}
             submitButtonOptions={{ text: '테스트 버튼', visible: true }}
+            survey={surveyContent}
             onSubmit={result => {
               console.log(result);
             }}

@@ -22,10 +22,10 @@ export const getNameFromBlockType = (type: BlockTypes) => {
     //   return '첨부 파일 업로드';
     case 'range':
       return '범위 내 선택형 질문';
-    case 'date':
-      return '날짜 선택형 질문';
-    case 'time':
-      return '시간 선택형 질문';
+    // case 'date':
+    //   return '날짜 선택형 질문';
+    // case 'time':
+    //   return '시간 선택형 질문';
     default:
       return '알 수 없음';
   }

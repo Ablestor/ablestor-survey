@@ -1,29 +1,40 @@
-import React, { ReactElement, useCallback, useState, useEffect } from 'react';
+import React, { ReactElement, useCallback, useState, useEffect, useMemo } from 'react';
 import { DropResult, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TiPlus } from 'react-icons/ti';
 import update from 'immutability-helper';
 import { v4 as uniqid } from 'uuid';
 
-import { Blocks, BlockTypes } from '../@types/block';
-import { ISurveyEditor, ISurveyContent, ISurveyResult } from '../@types/editor';
+import { Blocks, BlockType, BlockTypes, SelectableOption } from '../@types/block';
+import { ISurveyContent, ISurveyResult, AOrBISurveyEditor } from '../@types/editor';
 
 import { RoundDashedSection, Row, SurveyContainer } from '../components/Section';
 import { Input } from '../components/Inputs';
 import { Button } from '../components/Buttons';
 import { Text } from '../components/Texts';
 import { BlockPresenter } from './Blocks';
+import { ThemeProvider } from 'styled-components';
+import { themeRef } from '../helpers/theme';
+import { blockList } from '../constants/blocks';
 
-const Editor = <T extends ISurveyEditor>({
+const Editor = <T extends AOrBISurveyEditor>({
   submitButtonOptions,
   defaultValue,
   onChange,
   onSubmit,
+  inputShow = true,
+  whiteList,
+  blackList,
 }: T): ReactElement<T> => {
   const [surveyTitle, setSurveyTitle] = useState<string>(defaultValue?.title || '');
   const [surveyDescription, setSurveyDescription] = useState<string>(
     defaultValue?.description || '',
   );
   const [surveyContent, setSurveyContent] = useState<ISurveyContent>(defaultValue?.content || []);
+
+  const [isListSub, list] = useMemo(() => {
+    const isSub = blackList || whiteList ? (blackList ? true : false) : undefined;
+    return [isSub, isSub !== undefined ? (isSub ? blackList : whiteList) : undefined];
+  }, [blackList, whiteList]);
 
   const extractSurveyResult = useCallback(
     (): ISurveyResult => ({
@@ -34,11 +45,37 @@ const Editor = <T extends ISurveyEditor>({
     [surveyTitle, surveyDescription, surveyContent],
   );
 
+  const [filterItem, setFilterItem] = useState<SelectableOption[]>([
+    {
+      key: '',
+      label: '',
+      value: '',
+    },
+  ]);
+
+  useEffect(() => {
+    const filterItems: () => SelectableOption[] = () => {
+      return blockList.filter(({ value }) => {
+        const lowerValue = String(value).toLowerCase();
+        const isBlank = lowerValue === 'blank';
+        const isValueTypeNumber = typeof lowerValue === 'number';
+
+        if (isValueTypeNumber) return false;
+        console.log(lowerValue);
+        return isListSub
+          ? !list?.includes(lowerValue as BlockType) || isBlank
+          : list?.includes(lowerValue as BlockType) || isBlank;
+      });
+    };
+
+    setFilterItem(typeof isListSub !== 'undefined' ? filterItems() : blockList);
+  }, []);
+
   useEffect(() => {
     if (onChange) {
       onChange(extractSurveyResult());
     }
-  }, [surveyTitle, surveyDescription, surveyContent]);
+  }, [onChange, extractSurveyResult]);
 
   const addBlock = useCallback(() => {
     const order = surveyContent.length + 1;
@@ -100,69 +137,75 @@ const Editor = <T extends ISurveyEditor>({
   };
 
   return (
-    <SurveyContainer className='ablestor-survey'>
-      <Row>
-        <Input
-          placeholder={'설문 제목'}
-          value={surveyTitle}
-          onChange={({ target }) => setSurveyTitle(target.value)}
-        />
-        <Input
-          placeholder={'설문 설명'}
-          value={surveyDescription}
-          onChange={({ target }) => setSurveyDescription(target.value)}
-        />
-      </Row>
-      <Row>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId='droppable'>
-            {provided => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {surveyContent.map((block, i) => (
-                  <Draggable key={i} draggableId={String(i)} index={i}>
-                    {provided => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}>
-                        <BlockPresenter
-                          key={i}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          block={block}
-                          onUpdateBlock={data => onUpdateBlock(i, data)}
-                          onCopyBlock={data => onCopyBlock(i, data)}
-                          onRemoveBlock={() => onRemoveBlock(i)}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </Row>
-      <Row>
-        <RoundDashedSection
-          style={{
-            textAlign: 'center',
-            cursor: 'pointer',
-          }}
-          onClick={addBlock}>
-          <TiPlus />
-          <Text>새로운 항목 추가</Text>
-        </RoundDashedSection>
-      </Row>
-      {submitButtonOptions?.visible && (
+    <ThemeProvider theme={{ ...themeRef.current }}>
+      <SurveyContainer className='ablestor-survey'>
+        {inputShow && (
+          <Row>
+            <Input
+              placeholder={'설문 제목'}
+              value={surveyTitle}
+              onChange={({ target: { value } }) => setSurveyTitle(value)}
+            />
+            <Input
+              placeholder={'설문 설명'}
+              value={surveyDescription}
+              onChange={({ target: { value } }) => setSurveyDescription(value)}
+            />
+          </Row>
+        )}
+
         <Row>
-          <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>
-            {submitButtonOptions?.text || '전송'}
-          </Button>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId='droppable'>
+              {provided => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {surveyContent.map((block, i) => (
+                    <Draggable key={i} draggableId={String(i)} index={i}>
+                      {provided => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}>
+                          <BlockPresenter
+                            list={filterItem}
+                            key={i}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            block={block}
+                            onUpdateBlock={data => onUpdateBlock(i, data)}
+                            onCopyBlock={data => onCopyBlock(i, data)}
+                            onRemoveBlock={() => onRemoveBlock(i)}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Row>
-      )}
-    </SurveyContainer>
+        <Row>
+          <RoundDashedSection
+            style={{
+              textAlign: 'center',
+              cursor: 'pointer',
+            }}
+            onClick={addBlock}>
+            <TiPlus />
+            <Text>새로운 항목 추가</Text>
+          </RoundDashedSection>
+        </Row>
+        {submitButtonOptions?.visible && (
+          <Row>
+            <Button onClick={() => onSubmit && onSubmit(extractSurveyResult())}>
+              {submitButtonOptions?.text || '전송'}
+            </Button>
+          </Row>
+        )}
+      </SurveyContainer>
+    </ThemeProvider>
   );
 };
 
