@@ -33,12 +33,11 @@ export enum BlockAlign {
 }
 
 export interface IBlock {
-  id: string;
-  type: BlockTypes;
-  order: number;
   title?: string;
   description?: string;
   required: boolean;
+  type: BlockTypes;
+  order: number;
 }
 
 export type Blocks =
@@ -57,54 +56,44 @@ export type Blocks =
 
 export type TypedBlock<T extends BlockTypes> = Extract<Blocks, { type: T }>;
 
-export interface SelectableOption {
-  key: string;
-  label: string;
-  value: string | number | BlockType;
-}
-
 export interface ISurveyBlankBlock extends IBlock {
   type: BlockTypes.BLANK;
+  format: Record<string, never>;
 }
 
 export interface ISurveyShortTextBlock extends IBlock {
   type: BlockTypes.SHORT_TEXT;
-  answer: string;
+  format: { regex: string; message: string };
 }
 
 export interface ISurveyLongTextBlock extends IBlock {
   type: BlockTypes.LONG_TEXT;
-  answer: string;
+  format: { regex: string; message: string };
 }
 
 export interface ISurveySwitchBlock extends IBlock {
   type: BlockTypes.SWITCH;
-  switchTitle: string;
-  answer: boolean;
+  format: { options: string[] };
 }
 
 export interface ISurveyCheckBoxBlock extends IBlock {
   type: BlockTypes.CHECK_BOX;
-  checkboxTitle: string;
-  answer: boolean;
+  format: { options: string[] };
 }
 
 export interface ISurveySingleSelectBlock extends IBlock {
   type: BlockTypes.SINGLE_SELECT;
-  question: SelectableOption[];
-  answer: string | null;
+  format: { options: string[] };
 }
 
 export interface ISurveyMultiSelectBlock extends IBlock {
   type: BlockTypes.MULTI_SELECT;
-  question: SelectableOption[];
-  answer: string[];
+  format: { options: string[]; min?: number; max?: number };
 }
 
 export interface ISurveyDropdownBlock extends IBlock {
   type: BlockTypes.DROPDOWN;
-  question: SelectableOption[];
-  answer: string | null;
+  format: { options: string[] };
 }
 
 // export interface ISurveyFileUploadBlock extends IBlock {
@@ -115,19 +104,15 @@ export interface ISurveyDropdownBlock extends IBlock {
 
 export interface ISurveyRangeBlock extends IBlock {
   type: BlockTypes.RANGE;
-  min: number;
-  minTitle: string;
-  max: number;
-  maxTitle: string;
-  answer: number | null;
+  format: { options: string[]; min: number; minTitle?: string; max: number; maxTitle?: string };
 }
 
 export interface ISurveyDateBlock extends IBlock {
   type: BlockTypes.DATE;
-  answer: string;
+  format: { regex: string; message: string };
 }
 
 export interface ISurveyTimeBlock extends IBlock {
   type: BlockTypes.TIME;
-  answer: string;
+  format: { regex: string; message: string };
 }

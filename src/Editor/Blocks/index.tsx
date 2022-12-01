@@ -3,7 +3,7 @@ import { TiTrash, TiTabsOutline, TiTick, TiTickOutline } from 'react-icons/ti';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
 
-import { BlockTypes, SelectableOption } from '../../@types/block';
+import { BlockTypes } from '../../@types/block';
 
 import { IBlockPresenter } from './type';
 import { BlockButtonSection, BlockContainer } from './styled';
@@ -16,14 +16,11 @@ import { createBlock, getRange } from '../../helpers/generator';
 import { getNameFromBlockType } from '../../helpers/converter';
 
 const startAt = 2;
-const minRange: SelectableOption[] = getRange(startAt).map(i => ({
-  key: uniqid(),
+const minRange = getRange(startAt).map(i => ({
   label: String(i),
   value: i,
 }));
-
-const maxRange: SelectableOption[] = getRange(9).map(i => ({
-  key: uniqid(),
+const maxRange = getRange(9).map(i => ({
   label: String(startAt + i),
   value: startAt + i,
 }));
@@ -58,9 +55,8 @@ export const BlockPresenter = <T extends IBlockPresenter>({
             selectedIndex={list.findIndex(
               b => typeof b.value === 'string' && b.value.toLowerCase() === block.type,
             )}
-            onChange={({ value }) => {
+            onChange={value => {
               const newBlock = createBlock(
-                uniqid(),
                 (value as string).toLowerCase() as BlockTypes,
                 block.order,
               );
@@ -97,26 +93,30 @@ export const BlockPresenter = <T extends IBlockPresenter>({
         block.type === BlockTypes.DROPDOWN) && (
         <Row>
           <OptionEditor
-            items={block.question}
-            onChange={question => onUpdateBlock({ ...block, question })}
+            options={block.format.options}
+            onChange={options => onUpdateBlock({ ...block, format: { ...block.format, options } })}
           />
         </Row>
       )}
       {block.type === BlockTypes.SWITCH && (
         <Row>
           <Input
-            defaultValue={block.switchTitle}
+            defaultValue={block.format.options[0]}
             placeholder={'스위치 타이틀'}
-            onChange={({ target }) => onUpdateBlock({ ...block, switchTitle: target.value })}
+            onChange={({ target }) =>
+              onUpdateBlock({ ...block, format: { options: [target.value] } })
+            }
           />
         </Row>
       )}
       {block.type === BlockTypes.CHECK_BOX && (
         <Row>
           <Input
-            defaultValue={block.checkboxTitle}
+            defaultValue={block.format.options[0]}
             placeholder={'체크박스 타이틀'}
-            onChange={({ target }) => onUpdateBlock({ ...block, checkboxTitle: target.value })}
+            onChange={({ target }) =>
+              onUpdateBlock({ ...block, format: { options: [target.value] } })
+            }
           />
         </Row>
       )}
@@ -145,8 +145,10 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={minRange}
-                  selectedIndex={minRange.findIndex(r => r.value === block.min)}
-                  onChange={({ value }) => onUpdateBlock({ ...block, min: value as number })}
+                  selectedIndex={minRange.findIndex(r => r.value === block.format.min)}
+                  onChange={value =>
+                    onUpdateBlock({ ...block, format: { ...block.format, min: value } })
+                  }
                 />
               </FlexElement>
               <FlexElement width={60}>
@@ -155,8 +157,10 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={maxRange}
-                  selectedIndex={maxRange.findIndex(r => r.value === block.max)}
-                  onChange={({ value }) => onUpdateBlock({ ...block, max: value as number })}
+                  selectedIndex={maxRange.findIndex(r => r.value === block.format.max)}
+                  onChange={value =>
+                    onUpdateBlock({ ...block, format: { ...block.format, max: value } })
+                  }
                 />
               </FlexElement>
             </FlexContainer>
@@ -168,9 +172,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
-                  defaultValue={block.minTitle}
+                  defaultValue={block.format.minTitle}
                   placeholder={'ex) 부족함'}
-                  onChange={({ target }) => onUpdateBlock({ ...block, minTitle: target.value })}
+                  onChange={({ target }) =>
+                    onUpdateBlock({ ...block, format: { ...block.format, minTitle: target.value } })
+                  }
                 />
               </FlexElement>
             </FlexContainer>
@@ -180,9 +186,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               </FlexElement>
               <FlexElement width={'flex'}>
                 <Input
-                  defaultValue={block.maxTitle}
+                  defaultValue={block.format.maxTitle}
                   placeholder={'ex) 만족함'}
-                  onChange={({ target }) => onUpdateBlock({ ...block, maxTitle: target.value })}
+                  onChange={({ target }) =>
+                    onUpdateBlock({ ...block, format: { ...block.format, maxTitle: target.value } })
+                  }
                 />
               </FlexElement>
             </FlexContainer>

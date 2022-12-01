@@ -1,27 +1,23 @@
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
-import { SelectableOption } from '../../@types/block';
-export interface SelectorProps<T = SelectableOption[]> {
-    items: T;
+export interface SelectorProps<V extends number | string> {
+    items: {
+        label: string;
+        value: V;
+    }[];
     selectedIndex?: number;
-    onChange?: (value: SelectableOption, index: number) => void;
+    onChange?: (value: V, index: number) => void;
 }
 export interface OptionProps {
     isChecked: boolean;
 }
-export interface OptionEditorProps<T = SelectableOption[]> {
-    items: T;
-    onChange?: (update: T) => void;
+export interface OptionEditorProps {
+    options: string[];
+    onChange?: (options: string[]) => void;
 }
 export interface CheckBoxProps {
     shape: 'square' | 'circle';
     value: boolean;
     onChange?: (value: boolean) => void;
-}
-declare type SelectMode = 'multiple' | 'single';
-export interface OptionSelectorProps<M extends SelectMode, I = SelectableOption, S = M extends 'multiple' ? string[] : string | null> {
-    items: I[];
-    value: S;
-    onChange?: (select: S) => void;
 }
 export interface SwitchProps {
     width?: number;
@@ -42,4 +38,3 @@ export interface FileUploaderProps {
     onRemoveFile?: (file: FilePondFile) => void;
     onError?: (error: FilePondErrorDescription, file: FilePondFile | undefined) => void;
 }
-export {};

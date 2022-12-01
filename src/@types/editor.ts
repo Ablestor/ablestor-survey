@@ -11,16 +11,15 @@ export interface ISurveyEditor {
   inputShow?: boolean;
 }
 
-export type AOrBISurveyEditor = ISurveyEditor &
-  (
-    | { whiteList?: BlockType[]; blackList?: undefined }
-    | { blackList?: BlockType[]; whiteList?: undefined }
-  );
+export type AOrBISurveyEditor = ISurveyEditor & {
+  whiteList?: BlockType[];
+  blackList?: BlockType[];
+};
 
 export type ISurveyContent = Blocks[];
 
 export interface ISurveyResult {
+  questions: ISurveyContent;
   title: string;
   description?: string;
-  content: ISurveyContent;
 }

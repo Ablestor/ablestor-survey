@@ -9,16 +9,13 @@ export interface ISurveyEditor {
     onChange?: (result: ISurveyResult) => void;
     inputShow?: boolean;
 }
-export declare type AOrBISurveyEditor = ISurveyEditor & ({
+export declare type AOrBISurveyEditor = ISurveyEditor & {
     whiteList?: BlockType[];
-    blackList?: undefined;
-} | {
     blackList?: BlockType[];
-    whiteList?: undefined;
-});
+};
 export declare type ISurveyContent = Blocks[];
 export interface ISurveyResult {
+    questions: ISurveyContent;
     title: string;
     description?: string;
-    content: ISurveyContent;
 }

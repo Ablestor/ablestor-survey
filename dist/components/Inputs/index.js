@@ -23,7 +23,6 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useRef, useEffect, } from 'react';
 import update from 'immutability-helper';
 import classnames from 'classnames';
-import { v4 as uniqid } from 'uuid';
 import { TiArrowSortedDown, TiTimes } from 'react-icons/ti';
 import { FilePond } from 'react-filepond';
 import { Range } from 'react-range';
@@ -55,27 +54,17 @@ export var Select = function (_a) {
                     }), onClick: function (e) {
                         e.stopPropagation();
                         setSelectIndex(index);
-                        onChange && onChange(item, index);
+                        onChange && onChange(item.value, index);
                         setListVisible(false);
-                    } }, { children: item.label }), item.key)); }) }), void 0))] }), void 0));
+                    } }, { children: item.label }), index)); }) }), void 0))] }), void 0));
 };
 export var OptionEditor = function (_a) {
-    var items = _a.items, onChange = _a.onChange;
-    var appendItem = function (value) {
-        return onChange && onChange(__spreadArray(__spreadArray([], items, true), [{ key: uniqid(), label: value, value: value }], false));
-    };
+    var options = _a.options, onChange = _a.onChange;
+    var appendItem = function (value) { return onChange && onChange(__spreadArray(__spreadArray([], options, true), [value], false)); };
     var removeItem = function (index) {
-        return onChange && onChange(update(items, { $splice: [[index, 1]] }));
+        return onChange && onChange(update(options, { $splice: [[index, 1]] }));
     };
-    return (_jsxs(RoundSection, { children: [_jsx(Text, __assign({ style: { fontWeight: 'bold' } }, { children: "\uC120\uD0DD \uC635\uC158" }), void 0), items.map(function (_a, index) {
-                var key = _a.key, value = _a.value;
-                return (_jsxs("div", __assign({ style: {
-                        display: 'flex',
-                        alignItems: 'center',
-                    } }, { children: [_jsx("div", __assign({ style: { width: 20 } }, { children: _jsxs(Text, { children: [index + 1, "."] }, void 0) }), void 0), _jsx("div", __assign({ style: { flex: 1, margin: '0 10px' } }, { children: _jsx(Input, { placeholder: "\uC635\uC158 " + index, value: value, readOnly: true }, void 0) }), void 0), _jsx("div", { children: _jsx(IconButton, { icon: _jsx(TiTimes, {}, void 0), onClick: function () {
-                                    removeItem(index);
-                                } }, void 0) }, void 0)] }), key));
-            }), _jsx(Input, { placeholder: '새로운 옵션 추가', onKeyUp: function (e) {
+    return (_jsxs(RoundSection, { children: [_jsx(Text, __assign({ style: { fontWeight: 'bold' } }, { children: "\uC120\uD0DD \uC635\uC158" }), void 0), options.map(function (option, index) { return (_jsxs("div", __assign({ style: { display: 'flex', alignItems: 'center' } }, { children: [_jsx("div", __assign({ style: { width: 20 } }, { children: _jsxs(Text, { children: [index + 1, "."] }, void 0) }), void 0), _jsx("div", __assign({ style: { flex: 1, margin: '0 10px' } }, { children: _jsx(Input, { placeholder: "\uC635\uC158 " + index, value: option, readOnly: true }, void 0) }), void 0), _jsx("div", { children: _jsx(IconButton, { icon: _jsx(TiTimes, {}, void 0), onClick: function () { return removeItem(index); } }, void 0) }, void 0)] }), index)); }), _jsx(Input, { placeholder: '새로운 옵션 추가', onKeyUp: function (e) {
                     var target = e.target;
                     var value = target.value;
                     if (e.key === 'Enter' && value) {
@@ -95,37 +84,15 @@ export var CheckBox = function (_a) {
             _b)), value: value, shape: shape, onClick: function () { return onChange && onChange(!value); } }, void 0));
 };
 export var OptionMultipleSelector = function (_a) {
-    var items = _a.items, value = _a.value, onChange = _a.onChange;
-    var _b = useState(value), checked = _b[0], setChecked = _b[1];
-    return (_jsx("div", { children: items.map(function (item, index) {
-            var hasChecked = checked.includes(item.key);
-            return (_jsxs(FlexContainer, __assign({ onClick: function () {
-                    if (hasChecked) {
-                        var update_1 = checked.filter(function (v) { return v !== item.key; });
-                        setChecked(update_1);
-                        onChange && onChange(update_1);
-                    }
-                    else {
-                        var update_2 = __spreadArray(__spreadArray([], checked, true), [item.key], false);
-                        setChecked(update_2);
-                        onChange && onChange(update_2);
-                    }
-                } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({
-                                active: hasChecked,
-                            }), shape: 'square', value: hasChecked }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: item.value }, void 0) }), void 0)] }), index));
+    var options = _a.options;
+    return (_jsx("div", { children: options.map(function (option, index) {
+            return (_jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: false }), shape: 'square', value: false }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }, index));
         }) }, void 0));
 };
 export var OptionSingleSelector = function (_a) {
-    var items = _a.items, value = _a.value, onChange = _a.onChange;
-    var _b = useState(value), checked = _b[0], setChecked = _b[1];
-    return (_jsx("div", { children: items.map(function (item, index) {
-            var hasChecked = checked === item.key;
-            return (_jsxs(FlexContainer, __assign({ onClick: function () {
-                    setChecked(item.key);
-                    onChange && onChange(item.key);
-                } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({
-                                active: hasChecked,
-                            }), shape: 'circle', value: hasChecked }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: item.value }, void 0) }), void 0)] }), index));
+    var options = _a.options;
+    return (_jsx("div", { children: options.map(function (option, index) {
+            return (_jsxs(FlexContainer, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: false }), shape: 'circle', value: false }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }, index));
         }) }, void 0));
 };
 export var Switch = function (_a) {

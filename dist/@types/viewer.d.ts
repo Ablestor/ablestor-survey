@@ -5,5 +5,4 @@ export interface ISurveyViewer {
         text: string;
         visible: boolean;
     };
-    onSubmit?: (data: ISurveyResult) => void;
 }

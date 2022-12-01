@@ -21,7 +21,6 @@ import { Text } from '../Texts';
 import {
   SelectorProps,
   OptionEditorProps,
-  OptionSelectorProps,
   RangeSelectorProps,
   SwitchProps,
   FileUploaderProps,
@@ -46,11 +45,11 @@ export const Textarea = <T extends InputHTMLAttributes<HTMLTextAreaElement>>(
   props: T,
 ): ReactElement<T> => <StyledTextarea {...props} />;
 
-export const Select = <T extends SelectorProps>({
+export const Select = <V extends string | number>({
   items,
   selectedIndex,
   onChange,
-}: T): ReactElement<T> => {
+}: SelectorProps<V>): ReactElement<SelectorProps<V>> => {
   const selectRef = useRef<HTMLDivElement>(null);
   const [listVisible, setListVisible] = useState(false);
   const [selectIndex, setSelectIndex] = useState<number>(selectedIndex || 0);
@@ -79,15 +78,15 @@ export const Select = <T extends SelectorProps>({
         <div className={'select-options-container'}>
           {items.map((item, index) => (
             <div
+              key={index}
               className={classnames({
                 'select-options': true,
                 selected: index === selectIndex,
               })}
-              key={item.key}
               onClick={e => {
                 e.stopPropagation();
                 setSelectIndex(index);
-                onChange && onChange(item, index);
+                onChange && onChange(item.value, index);
                 setListVisible(false);
               }}>
               {item.label}
@@ -100,37 +99,26 @@ export const Select = <T extends SelectorProps>({
 };
 
 export const OptionEditor = <T extends OptionEditorProps>({
-  items,
+  options,
   onChange,
 }: T): ReactElement<T> => {
-  const appendItem = (value: string) =>
-    onChange && onChange([...items, { key: uniqid(), label: value, value }]);
+  const appendItem = (value: string) => onChange && onChange([...options, value]);
   const removeItem = (index: number) =>
-    onChange && onChange(update(items, { $splice: [[index, 1]] }));
+    onChange && onChange(update(options, { $splice: [[index, 1]] }));
 
   return (
     <RoundSection>
       <Text style={{ fontWeight: 'bold' }}>선택 옵션</Text>
-      {items.map(({ key, value }, index) => (
-        <div
-          key={key}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}>
+      {options.map((option, index) => (
+        <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ width: 20 }}>
             <Text>{index + 1}.</Text>
           </div>
           <div style={{ flex: 1, margin: '0 10px' }}>
-            <Input placeholder={`옵션 ${index}`} value={value} readOnly />
+            <Input placeholder={`옵션 ${index}`} value={option} readOnly />
           </div>
           <div>
-            <IconButton
-              icon={<TiTimes />}
-              onClick={() => {
-                removeItem(index);
-              }}
-            />
+            <IconButton icon={<TiTimes />} onClick={() => removeItem(index)} />
           </div>
         </div>
       ))}
@@ -167,42 +155,27 @@ export const CheckBox = <T extends CheckBoxProps>({
   />
 );
 
-export const OptionMultipleSelector = <T extends OptionSelectorProps<'multiple'>>({
-  items,
-  value,
-  onChange,
-}: T): ReactElement<T> => {
-  const [checked, setChecked] = useState<string[]>(value);
-
+export const OptionMultipleSelector = ({
+  options,
+}: {
+  options: string[];
+}): ReactElement<{
+  options: string[];
+}> => {
   return (
     <div>
-      {items.map((item, index) => {
-        const hasChecked = checked.includes(item.key as string);
+      {options.map((option, index) => {
         return (
-          <FlexContainer
-            key={index}
-            onClick={() => {
-              if (hasChecked) {
-                const update = checked.filter(v => v !== (item.key as string));
-                setChecked(update);
-                onChange && onChange(update);
-              } else {
-                const update = [...checked, item.key as string];
-                setChecked(update);
-                onChange && onChange(update);
-              }
-            }}>
+          <FlexContainer key={index}>
             <FlexElement width={40}>
               <StyledCheckBox
-                className={classnames({
-                  active: hasChecked,
-                })}
+                className={classnames({ active: false })}
                 shape={'square'}
-                value={hasChecked}
+                value={false}
               />
             </FlexElement>
             <FlexElement width={'flex'}>
-              <Text>{item.value}</Text>
+              <Text>{option}</Text>
             </FlexElement>
           </FlexContainer>
         );
@@ -211,35 +184,25 @@ export const OptionMultipleSelector = <T extends OptionSelectorProps<'multiple'>
   );
 };
 
-export const OptionSingleSelector = <T extends OptionSelectorProps<'single'>>({
-  items,
-  value,
-  onChange,
-}: T): ReactElement<T> => {
-  const [checked, setChecked] = useState<string | null>(value);
-
+export const OptionSingleSelector = ({
+  options,
+}: {
+  options: string[];
+}): ReactElement<{ options: string[] }> => {
   return (
     <div>
-      {items.map((item, index) => {
-        const hasChecked = checked === item.key;
+      {options.map((option, index) => {
         return (
-          <FlexContainer
-            key={index}
-            onClick={() => {
-              setChecked(item.key);
-              onChange && onChange(item.key);
-            }}>
+          <FlexContainer key={index}>
             <FlexElement width={40}>
               <StyledCheckBox
-                className={classnames({
-                  active: hasChecked,
-                })}
+                className={classnames({ active: false })}
                 shape={'circle'}
-                value={hasChecked}
+                value={false}
               />
             </FlexElement>
             <FlexElement width={'flex'}>
-              <Text>{item.value}</Text>
+              <Text>{option}</Text>
             </FlexElement>
           </FlexContainer>
         );
