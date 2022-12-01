@@ -20,7 +20,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 import { createElement as _createElement } from "react";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useRef, useEffect, } from 'react';
+import { useState, useRef, } from 'react';
 import update from 'immutability-helper';
 import classnames from 'classnames';
 import { v4 as uniqid } from 'uuid';
@@ -43,12 +43,6 @@ export var Select = function (_a) {
     var _d = useState(selectedIndex || 0), selectIndex = _d[0], setSelectIndex = _d[1];
     var selectedItem = items[selectIndex];
     useClickAway(selectRef, function () { return setListVisible(false); });
-    useEffect(function () {
-        setSelectIndex(selectedIndex || 0);
-    }, [selectedIndex]);
-    // useEffect(() => {
-    //   setSelectedItem(items[selectIndex]);
-    // }, [selectIndex]);
     return (_jsxs(StyledSelect, __assign({ ref: selectRef, onClick: function () { return setListVisible(true); } }, { children: [_jsxs("div", __assign({ className: 'select-current-value' }, { children: [_jsx(Text, { children: (_b = selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.label) !== null && _b !== void 0 ? _b : '목록에서 선택해주세요.' }, void 0), _jsx("div", __assign({ className: 'select-icon' }, { children: _jsx(TiArrowSortedDown, {}, void 0) }), void 0)] }), void 0), listVisible && (_jsx("div", __assign({ className: 'select-options-container' }, { children: items.map(function (item, index) { return (_jsx("div", __assign({ className: classnames({
                         'select-options': true,
                         selected: index === selectIndex,
