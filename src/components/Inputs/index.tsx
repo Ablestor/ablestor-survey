@@ -59,14 +59,6 @@ export const Select = <T extends SelectorProps>({
 
   useClickAway(selectRef, () => setListVisible(false));
 
-  useEffect(() => {
-    setSelectIndex(selectedIndex || 0);
-  }, [selectedIndex]);
-
-  // useEffect(() => {
-  //   setSelectedItem(items[selectIndex]);
-  // }, [selectIndex]);
-
   return (
     <StyledSelect ref={selectRef} onClick={() => setListVisible(true)}>
       <div className={'select-current-value'}>
