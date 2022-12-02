@@ -19,16 +19,6 @@ export const createBlock = <T extends BlockTypes>(type: T, order: number): Block
         title: '',
         format: { regex: '', message: '' },
       }) as TypedBlock<BlockTypes.LONG_TEXT>;
-    case BlockTypes.SWITCH:
-      return Object.assign(blockShape, {
-        title: '',
-        format: { options: [''] },
-      }) as TypedBlock<BlockTypes.SWITCH>;
-    case BlockTypes.CHECK_BOX:
-      return Object.assign(blockShape, {
-        title: '',
-        format: { options: [''] },
-      }) as TypedBlock<BlockTypes.CHECK_BOX>;
     case BlockTypes.SINGLE_SELECT:
       return Object.assign(blockShape, {
         title: '',

@@ -30,7 +30,7 @@ import { useClickAway } from '../../hooks';
 import { IconButton } from '../Buttons';
 import { RoundSection, FlexContainer, FlexElement } from '../Section';
 import { Text } from '../Texts';
-import { StyledInput, StyledTextarea, StyledSelect, StyledSwitch, StyledCheckBox, StyledSelectorValueLabel, StyledSelectorThumb, } from './styled';
+import { StyledInput, StyledTextarea, StyledSelect, StyledCheckBox, StyledSelectorValueLabel, StyledSelectorThumb, } from './styled';
 import { defaultTheme } from '../..';
 export var Input = function (props) { return _jsx(StyledInput, __assign({}, props), void 0); };
 export var Textarea = function (props) { return _jsx(StyledTextarea, __assign({}, props), void 0); };
@@ -74,19 +74,6 @@ export var OptionEditor = function (_a) {
                     }
                 } }, void 0)] }, void 0));
 };
-export var CheckBox = function (_a) {
-    var _b;
-    var shape = _a.shape, _value = _a.value, onChange = _a.onChange;
-    var _c = useState(_value), value = _c[0], setValue = _c[1];
-    return (_jsx(StyledCheckBox, { className: classnames((_b = {
-                active: value
-            },
-            _b[shape] = true,
-            _b)), value: value, shape: shape, onClick: function () {
-            setValue(function (prev) { return !prev; });
-            return onChange && onChange(!value);
-        } }, void 0));
-};
 export var OptionMultipleSelector = function (_a) {
     var options = _a.options;
     var _b = useState([]), checkedOptions = _b[0], setCheckedOptions = _b[1];
@@ -107,16 +94,26 @@ export var OptionSingleSelector = function (_a) {
                 } }, { children: [_jsx(FlexElement, __assign({ width: 40 }, { children: _jsx(StyledCheckBox, { className: classnames({ active: checkedOption === index }), shape: 'circle', value: checkedOption === index }, void 0) }), void 0), _jsx(FlexElement, __assign({ width: 'flex' }, { children: _jsx(Text, { children: option }, void 0) }), void 0)] }), index));
         }) }, void 0));
 };
-export var Switch = function (_a) {
-    var _b = _a.width, width = _b === void 0 ? 40 : _b, disabled = _a.disabled, defaultValue = _a.value, onChange = _a.onChange;
-    var _c = useState(defaultValue), value = _c[0], setValue = _c[1];
-    return (_jsx(StyledSwitch, __assign({ width: width, value: value, onClick: function () {
-            if (disabled)
-                return;
-            setValue(!value);
-            onChange && onChange(!value);
-        } }, { children: _jsx("div", { className: 'switch-button' }, void 0) }), void 0));
-};
+// export const Switch = <T extends SwitchProps>({
+//   width = 40,
+//   disabled,
+//   value: defaultValue,
+//   onChange,
+// }: T): ReactElement<T> => {
+//   const [value, setValue] = useState(defaultValue);
+//   return (
+//     <StyledSwitch
+//       width={width}
+//       value={value}
+//       onClick={() => {
+//         if (disabled) return;
+//         setValue(!value);
+//         onChange && onChange(!value);
+//       }}>
+//       <div className={'switch-button'} />
+//     </StyledSwitch>
+//   );
+// };
 export var RangeSelector = function (_a) {
     var min = _a.min, max = _a.max, value = _a.value, onChange = _a.onChange;
     var labelRef = useRef(null);

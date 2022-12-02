@@ -8,10 +8,6 @@ export const getNameFromBlockType = (type: BlockTypes) => {
       return '단답형 질문';
     case 'long_text':
       return '장문형 질문';
-    case 'switch':
-      return '스위치형 질문';
-    case 'check_box':
-      return '체크박스형 질문';
     case 'single_select':
       return '단일 선택형 질문';
     case 'multi_select':

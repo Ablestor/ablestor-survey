@@ -2,8 +2,6 @@ export enum BlockTypes {
   BLANK = 'blank',
   SHORT_TEXT = 'short_text',
   LONG_TEXT = 'long_text',
-  SWITCH = 'switch',
-  CHECK_BOX = 'check_box',
   SINGLE_SELECT = 'single_select',
   MULTI_SELECT = 'multi_select',
   DROPDOWN = 'dropdown',
@@ -17,8 +15,6 @@ export type BlockType =
   | 'blank'
   | 'short_text'
   | 'long_text'
-  | 'switch'
-  | 'check_box'
   | 'single_select'
   | 'multi_select'
   | 'dropdown'
@@ -44,8 +40,6 @@ export type Blocks =
   | ISurveyBlankBlock
   | ISurveyShortTextBlock
   | ISurveyLongTextBlock
-  | ISurveySwitchBlock
-  | ISurveyCheckBoxBlock
   | ISurveySingleSelectBlock
   | ISurveyMultiSelectBlock
   | ISurveyDropdownBlock
@@ -69,16 +63,6 @@ export interface ISurveyShortTextBlock extends IBlock {
 export interface ISurveyLongTextBlock extends IBlock {
   type: BlockTypes.LONG_TEXT;
   format: { regex: string; message: string };
-}
-
-export interface ISurveySwitchBlock extends IBlock {
-  type: BlockTypes.SWITCH;
-  format: { options: string[] };
-}
-
-export interface ISurveyCheckBoxBlock extends IBlock {
-  type: BlockTypes.CHECK_BOX;
-  format: { options: string[] };
 }
 
 export interface ISurveySingleSelectBlock extends IBlock {

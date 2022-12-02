@@ -21,13 +21,6 @@ export interface CheckBoxProps {
   onChange?: (value: boolean) => void;
 }
 
-export interface SwitchProps {
-  width?: number;
-  disabled?: boolean;
-  value?: boolean;
-  onChange?: (value: boolean) => void;
-}
-
 export interface RangeSelectorProps {
   min: number;
   max: number;

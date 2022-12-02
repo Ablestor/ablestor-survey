@@ -18,19 +18,11 @@ import { IconButton } from '../Buttons';
 import { RoundSection, FlexContainer, FlexElement } from '../Section';
 import { Text } from '../Texts';
 
-import {
-  SelectorProps,
-  OptionEditorProps,
-  RangeSelectorProps,
-  SwitchProps,
-  FileUploaderProps,
-  CheckBoxProps,
-} from './type';
+import { SelectorProps, OptionEditorProps, RangeSelectorProps, FileUploaderProps } from './type';
 import {
   StyledInput,
   StyledTextarea,
   StyledSelect,
-  StyledSwitch,
   StyledCheckBox,
   StyledSelectorValueLabel,
   StyledSelectorThumb,
@@ -139,29 +131,6 @@ export const OptionEditor = <T extends OptionEditorProps>({
   );
 };
 
-export const CheckBox = <T extends CheckBoxProps>({
-  shape,
-  value: _value,
-  onChange,
-}: T): ReactElement<T> => {
-  const [value, setValue] = useState(_value);
-
-  return (
-    <StyledCheckBox
-      className={classnames({
-        active: value,
-        [shape]: true,
-      })}
-      value={value}
-      shape={shape}
-      onClick={() => {
-        setValue(prev => !prev);
-        return onChange && onChange(!value);
-      }}
-    />
-  );
-};
-
 export const OptionMultipleSelector = ({
   options,
 }: {
@@ -232,28 +201,28 @@ export const OptionSingleSelector = ({
   );
 };
 
-export const Switch = <T extends SwitchProps>({
-  width = 40,
-  disabled,
-  value: defaultValue,
-  onChange,
-}: T): ReactElement<T> => {
-  const [value, setValue] = useState(defaultValue);
+// export const Switch = <T extends SwitchProps>({
+//   width = 40,
+//   disabled,
+//   value: defaultValue,
+//   onChange,
+// }: T): ReactElement<T> => {
+//   const [value, setValue] = useState(defaultValue);
 
-  return (
-    <StyledSwitch
-      width={width}
-      value={value}
-      onClick={() => {
-        if (disabled) return;
+//   return (
+//     <StyledSwitch
+//       width={width}
+//       value={value}
+//       onClick={() => {
+//         if (disabled) return;
 
-        setValue(!value);
-        onChange && onChange(!value);
-      }}>
-      <div className={'switch-button'} />
-    </StyledSwitch>
-  );
-};
+//         setValue(!value);
+//         onChange && onChange(!value);
+//       }}>
+//       <div className={'switch-button'} />
+//     </StyledSwitch>
+//   );
+// };
 
 export const RangeSelector = <T extends RangeSelectorProps>({
   min,

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CheckBoxProps, SwitchProps } from './type';
+import { CheckBoxProps } from './type';
 
 export const StyledInput = styled.input`
   width: 100%;
@@ -116,27 +116,6 @@ export const StyledCheckBox = styled.div<CheckBoxProps>`
     left: 4px;
     border-radius: ${props => (props.shape === 'circle' ? '50%' : '3px')};
     background-color: ${({ theme }) => theme.main};
-  }
-`;
-
-export const StyledSwitch = styled.div<SwitchProps>`
-  position: relative;
-  display: inline-block;
-  width: ${props => props.width}px;
-  height: 20px;
-  background-color: ${props => (props.value ? props.theme.main : props.theme.lightGray)};
-  border-radius: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  .switch-button {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #fff;
-    left: ${props => (props.value ? (props.width || 40) - 20 : 0)}px;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-    transition: all 0.3s;
   }
 `;
 

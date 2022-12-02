@@ -12,11 +12,9 @@ import {
   Input,
   Textarea,
   Select,
-  Switch,
   RangeSelector,
   OptionMultipleSelector,
   OptionSingleSelector,
-  CheckBox,
 } from '../../components/Inputs';
 import { Description, Text, Title } from '../../components/Texts';
 import { FlexContainer, FlexElement, Row } from '../../components/Section';
@@ -49,30 +47,6 @@ export const BlockPresenter = <T extends IBlockPresenter>({ block }: T): ReactEl
       {block.type === BlockTypes.LONG_TEXT && (
         <Row>
           <Textarea placeholder={'이 곳에 입력해주세요.'} />
-        </Row>
-      )}
-      {block.type === BlockTypes.SWITCH && (
-        <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>{block.format.options[0]}</Text>
-            </FlexElement>
-            <FlexElement width={40}>
-              <Switch />
-            </FlexElement>
-          </FlexContainer>
-        </Row>
-      )}
-      {block.type === BlockTypes.CHECK_BOX && (
-        <Row>
-          <FlexContainer>
-            <FlexElement width={'flex'}>
-              <Text>{block.format.options[0]}</Text>
-            </FlexElement>
-            <FlexElement width={40}>
-              <CheckBox shape={'square'} value={false} />
-            </FlexElement>
-          </FlexContainer>
         </Row>
       )}
       {block.type === BlockTypes.SINGLE_SELECT && (

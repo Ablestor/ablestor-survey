@@ -98,28 +98,6 @@ export const BlockPresenter = <T extends IBlockPresenter>({
           />
         </Row>
       )}
-      {block.type === BlockTypes.SWITCH && (
-        <Row>
-          <Input
-            defaultValue={block.format.options[0]}
-            placeholder={'스위치 타이틀'}
-            onChange={({ target }) =>
-              onUpdateBlock({ ...block, format: { options: [target.value] } })
-            }
-          />
-        </Row>
-      )}
-      {block.type === BlockTypes.CHECK_BOX && (
-        <Row>
-          <Input
-            defaultValue={block.format.options[0]}
-            placeholder={'체크박스 타이틀'}
-            onChange={({ target }) =>
-              onUpdateBlock({ ...block, format: { options: [target.value] } })
-            }
-          />
-        </Row>
-      )}
       {/* {block.type === BlockTypes.FILE_UPLOAD && (
         <Row>
           <FlexContainer>

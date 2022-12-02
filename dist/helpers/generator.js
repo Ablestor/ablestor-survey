@@ -17,16 +17,6 @@ export var createBlock = function (type, order) {
                 title: '',
                 format: { regex: '', message: '' },
             });
-        case BlockTypes.SWITCH:
-            return Object.assign(blockShape, {
-                title: '',
-                format: { options: [''] },
-            });
-        case BlockTypes.CHECK_BOX:
-            return Object.assign(blockShape, {
-                title: '',
-                format: { options: [''] },
-            });
         case BlockTypes.SINGLE_SELECT:
             return Object.assign(blockShape, {
                 title: '',
