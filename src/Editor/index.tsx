@@ -33,9 +33,9 @@ const Editor = <T extends AOrBISurveyEditor>({
 
   const setSurvey = useCallback(
     (v: Partial<ISurveyResult>) => {
-      setSurveyTitle(prev => v.title || prev);
-      setSurveyDescription(prev => v.description || prev);
-      setSurveyQuestions(prev => v.questions || prev);
+      setSurveyTitle(prev => v.title ?? prev);
+      setSurveyDescription(prev => v.description ?? prev);
+      setSurveyQuestions(prev => v.questions ?? prev);
 
       onChange &&
         onChange({

@@ -30,9 +30,9 @@ var Editor = function (_a) {
     var _d = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.description) || ''), surveyDescription = _d[0], setSurveyDescription = _d[1];
     var _e = useState((defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.questions) || []), surveyQuestions = _e[0], setSurveyQuestions = _e[1];
     var setSurvey = useCallback(function (v) {
-        setSurveyTitle(function (prev) { return v.title || prev; });
-        setSurveyDescription(function (prev) { return v.description || prev; });
-        setSurveyQuestions(function (prev) { return v.questions || prev; });
+        setSurveyTitle(function (prev) { var _a; return (_a = v.title) !== null && _a !== void 0 ? _a : prev; });
+        setSurveyDescription(function (prev) { var _a; return (_a = v.description) !== null && _a !== void 0 ? _a : prev; });
+        setSurveyQuestions(function (prev) { var _a; return (_a = v.questions) !== null && _a !== void 0 ? _a : prev; });
         onChange &&
             onChange(__assign({ title: surveyTitle, description: surveyDescription, questions: surveyQuestions }, v));
     }, [surveyTitle, surveyDescription, surveyQuestions]);

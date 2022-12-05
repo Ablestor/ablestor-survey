@@ -40,7 +40,7 @@ export var createBlock = function (type, order) {
         case BlockTypes.RANGE:
             return Object.assign(blockShape, {
                 title: '',
-                format: { options: ['1', '2', '3', '4', '5'], min: 1, minTitle: '', max: 5, maxTitle: '' },
+                format: { options: ['1', '2', '3', '4', '5'], min: 1, minTitle: '', max: 1, maxTitle: '' },
             });
         case BlockTypes.DATE:
             return Object.assign(blockShape, {

@@ -123,10 +123,16 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={minRange}
-                  selectedIndex={minRange.findIndex(r => r.value === block.format.min)}
-                  onChange={value =>
-                    onUpdateBlock({ ...block, format: { ...block.format, min: value } })
-                  }
+                  selectedIndex={minRange.findIndex(
+                    r => r.value === Number(block.format.options[0]),
+                  )}
+                  onChange={value => {
+                    const options = Array.from(
+                      { length: Number(block.format.options[block.format.options.length - 1]) },
+                      (_, i) => String(i + value),
+                    );
+                    onUpdateBlock({ ...block, format: { ...block.format, options } });
+                  }}
                 />
               </FlexElement>
               <FlexElement width={60}>
@@ -135,10 +141,15 @@ export const BlockPresenter = <T extends IBlockPresenter>({
               <FlexElement width={'flex'}>
                 <Select
                   items={maxRange}
-                  selectedIndex={maxRange.findIndex(r => r.value === block.format.max)}
-                  onChange={value =>
-                    onUpdateBlock({ ...block, format: { ...block.format, max: value } })
-                  }
+                  selectedIndex={maxRange.findIndex(
+                    r => r.value === Number(block.format.options[block.format.options.length - 1]),
+                  )}
+                  onChange={value => {
+                    const options = Array.from({ length: value }, (_, i) =>
+                      String(i + Number(block.format.options[0])),
+                    );
+                    onUpdateBlock({ ...block, format: { ...block.format, options } });
+                  }}
                 />
               </FlexElement>
             </FlexContainer>

@@ -82,7 +82,11 @@ export const BlockPresenter = <T extends IBlockPresenter>({ block }: T): ReactEl
               <Text>{block.format.minTitle}</Text>
               <Text>{block.format.maxTitle}</Text>
             </div>
-            <RangeSelector min={block.format.min} max={block.format.max} value={block.format.min} />
+            <RangeSelector
+              min={Number(block.format.options[0])}
+              max={Number(block.format.options[block.format.options.length - 1])}
+              value={Number(block.format.options[0])}
+            />
           </Row>
         </>
       )}
